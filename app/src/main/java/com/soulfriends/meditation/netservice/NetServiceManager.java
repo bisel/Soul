@@ -34,7 +34,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -664,35 +663,60 @@ public class NetServiceManager {
                             return Transaction.success(currentData);
                         }
 
-                        Integer curstate = infoData.states.get(uid);
+                        /// sync local contents list
+                        int itemsize= mContentsList.size();
+                        MeditationContents findContents = null;
+                        for(int i = 0; i < itemsize;i++) {
+                            MeditationContents contents = mContentsList.get(i);
+                            if(contents.uid.equals(contentid)){
+                                findContents =  contents;
+                            }
+                        }
 
-                        if(infoData.states.containsKey(uid)){
-                            // 기존의 값을 입력값을 기준으로 해서 상태 업데이트
-                            int prevReaction = curstate.intValue();
-
-                            // remove는 될수가 없다. Add만 있다. 따라서 비교해서 수정만 하면 된다.
-                            // 우선 이전것을 - 한다. 그리고  현재 것을 +한다.
-                            if(prevReaction == 1){
-                                infoData.favoritecnt -= 1;
-                            }else if(prevReaction == 2){
-                                infoData.hatecnt -= 1;
+                        for(int i = 0 ; i < 2; i++){
+                            if(i == 1){
+                                if(findContents != null){
+                                    infoData = findContents;
+                                }else{
+                                    continue;
+                                }
                             }
 
-                            if(reactionCode == 1){
-                                infoData.favoritecnt += 1;
-                            }else if(reactionCode == 2){
-                                infoData.hatecnt += 1;
-                            }
-                        }else {
-                            if(reactionCode == 1){
-                                infoData.favoritecnt += 1;
-                                infoData.states.put(uid,reactionCode);
-                            }else if(reactionCode == 2){
-                                infoData.hatecnt += 1;
-                                infoData.states.put(uid,reactionCode);
-                            }else{
-                                // error
-                                return null;
+                            Integer curstate = infoData.states.get(uid);
+
+                            if(infoData.states.containsKey(uid)){
+                                // 기존의 값을 입력값을 기준으로 해서 상태 업데이트
+                                int prevReaction = curstate.intValue();
+
+                                // remove는 될수가 없다. Add만 있다. 따라서 비교해서 수정만 하면 된다.
+                                // 우선 이전것을 - 한다. 그리고  현재 것을 +한다.
+                                if(prevReaction == 1){
+                                    infoData.favoritecnt -= 1;
+                                }else if(prevReaction == 2){
+                                    infoData.hatecnt -= 1;
+                                }
+
+                                if(reactionCode == 1){
+                                    infoData.favoritecnt += 1;
+                                }else if(reactionCode == 2){
+                                    infoData.hatecnt += 1;
+                                }
+
+                                if(infoData.favoritecnt < 0 ) infoData.favoritecnt = 0;
+                                if(infoData.hatecnt < 0 ) infoData.hatecnt = 0;
+
+
+                            }else {
+                                if(reactionCode == 1){
+                                    infoData.favoritecnt += 1;
+                                    infoData.states.put(uid,reactionCode);
+                                }else if(reactionCode == 2){
+                                    infoData.hatecnt += 1;
+                                    infoData.states.put(uid,reactionCode);
+                                }else{
+                                    // error
+                                    return null;
+                                }
                             }
                         }
 
