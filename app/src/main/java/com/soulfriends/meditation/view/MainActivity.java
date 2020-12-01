@@ -21,6 +21,7 @@ import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.databinding.MainBinding;
 import com.soulfriends.meditation.dlg.PsychologyDlg;
 import com.soulfriends.meditation.model.MeditationContents;
+import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.parser.ResultData;
 import com.soulfriends.meditation.util.PreferenceManager;
@@ -62,10 +63,13 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
     private boolean bShowMiniPlayer;
 
+    private int player_track_count;
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        player_track_count = 0;
 
         EventBus.getDefault().register(this);
 
@@ -227,10 +231,9 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             case R.id.iv_close: {
                 // 미니 플레이 닫기
 
-
-                UtilAPI.player_play_duration = (int)(meditationAudioManager.getDuration() / 1000);
-                UtilAPI.player_play_time = (int)(meditationAudioManager.getContentPosition() / 1000);
-                UtilAPI.Calc_PlayerCheck();
+//                UtilAPI.player_play_duration = (int)(meditationAudioManager.getDuration() / 1000);
+//                UtilAPI.player_play_time = (int)(meditationAudioManager.getContentPosition() / 1000);
+//                UtilAPI.Calc_PlayerCheck();
 
                 // 프레임 레이어 조절
                 UtilAPI.setMarginBottom(this, binding.container,0);
@@ -285,7 +288,14 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
             case PlaybackStatus.TRACK_CHANGE:
             {
-                UtilAPI.player_track_count++;
+                if (player_track_count > 0) {
+                    UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                    userProfile.playtime += (int) (MeditationAudioManager.with(null).getDuration() / 1000);
+                    userProfile.sessionnum += 1;
+
+                    NetServiceManager.getinstance().sendValProfile(userProfile);
+                }
+                player_track_count++;
 
 
                 //Toast.makeText(getApplicationContext(),"[메인] 리플레이", Toast.LENGTH_SHORT).show();
@@ -313,7 +323,13 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             break;
             case PlaybackStatus.STOPPED_EX:
             {
-                UtilAPI.player_stop_count++;
+                //UtilAPI.player_stop_count++;
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                userProfile.playtime += (int)(MeditationAudioManager.with(null).getDuration() / 1000);
+                userProfile.sessionnum += 1;
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
 
                 // 플레이 완료가 되어 stop가 되면 play 버튼 상태로 변경
                 // 플레이 -> 정지

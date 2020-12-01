@@ -111,7 +111,7 @@ public class MusicFragment extends Fragment implements ItemClickListener {
 
             MeditationContents meditationContents = (MeditationContents) obj;
 
-            UtilAPI.Start_PlayerCheck(meditationContents.uid);
+            //UtilAPI.Start_PlayerCheck(meditationContents.uid);
 
             // 다른 경우
             if(NetServiceManager.getinstance().getCur_contents() != null ) {

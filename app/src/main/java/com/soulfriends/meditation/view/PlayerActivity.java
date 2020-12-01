@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.databinding.PlayerBinding;
 import com.soulfriends.meditation.model.MeditationContents;
+import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.RecvEventListener;
@@ -65,7 +66,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
     private boolean bOneEntry_Stopped;
 
-
+    private int player_track_count;
 
     private long mLastClickTime = 0;
 
@@ -117,10 +118,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             }
             mLastClickTime = SystemClock.elapsedRealtime();
 
-            // 음악이 플레이중이면 정지하고 나가기
-            UtilAPI.player_play_duration = (int)(meditationAudioManager.getDuration() / 1000);
-            UtilAPI.player_play_time = (int)(meditationAudioManager.getContentPosition() / 1000);
-            UtilAPI.Calc_PlayerCheck();
+//            // 음악이 플레이중이면 정지하고 나가기
+//            UtilAPI.player_play_duration = (int)(meditationAudioManager.getDuration() / 1000);
+//            UtilAPI.player_play_time = (int)(meditationAudioManager.getContentPosition() / 1000);
+//            UtilAPI.Calc_PlayerCheck();
 
             meditationAudioManager.stop();
             meditationAudioManager.unbind();
@@ -301,6 +302,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
         mLastClickTime = 0;
 
+        player_track_count = 0;
+
+        //UtilAPI.player_track_count = 0;
+
         EventBus.getDefault().register(this);
 
         //즐겨찾기 여부 : false - 즐겨찾기 안되어 있음. true - 즐겨찾기 되어있음
@@ -370,8 +375,6 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             break;
             case PlaybackStatus.STOP_NOTI: {
 
-
-
                 meditationAudioManager.stop();
                 meditationAudioManager.unbind();
                 finish();
@@ -382,7 +385,14 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             case PlaybackStatus.TRACK_CHANGE: {
                // Toast.makeText(getApplicationContext(), "[메인] 리플레이", Toast.LENGTH_SHORT).show();
 
-                UtilAPI.player_track_count++;
+                if (player_track_count > 0) {
+                    UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                    userProfile.playtime += (int) (MeditationAudioManager.with(null).getDuration() / 1000);
+                    userProfile.sessionnum += 1;
+
+                    NetServiceManager.getinstance().sendValProfile(userProfile);
+                }
+                player_track_count++;
             }
             break;
 
@@ -390,7 +400,12 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             case PlaybackStatus.STOPPED_EX: {
                 // 두번 오는 걸 한번만 들어오게 처리
 
-                UtilAPI.player_stop_count++;
+                //UtilAPI.player_stop_count++;
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                userProfile.playtime += (int)(MeditationAudioManager.with(null).getDuration() / 1000);
+                userProfile.sessionnum += 1;
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
 
                 //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 

@@ -35,19 +35,57 @@ public class LoadingActivity extends AppCompatActivity {
 
         //  자동로그인 일 경우 정보 요청
         // uid 와 닉네임 저장
+
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
         userProfile.uid = PreferenceManager.getString(this,"uid");
-        userProfile.nickname = PreferenceManager.getString(this,"nickname");
 
-        NetServiceManager.getinstance().recvContentsExt();
+        NetServiceManager.getinstance().recvUserProfile(userProfile.uid);
 
-        NetServiceManager.getinstance().setOnRecvContentsListener(new NetServiceManager.OnRecvContentsListener() {
+        NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
             @Override
-            public void onRecvContents(boolean validate) {
+            public void onRecvProfile(boolean validate, int errorcode) {
 
-                DoRecvContents(validate);
+                DoRecvProfile(validate, errorcode);
             }
         });
+
+
+//
+
+//        userProfile.nickname = PreferenceManager.getString(this,"nickname");
+//
+//        NetServiceManager.getinstance().recvContentsExt();
+//
+//        NetServiceManager.getinstance().setOnRecvContentsListener(new NetServiceManager.OnRecvContentsListener() {
+//            @Override
+//            public void onRecvContents(boolean validate) {
+//
+//                DoRecvContents(validate);
+//            }
+//        });
+    }
+
+    private void DoRecvProfile(boolean validate, int errorcode)
+    {
+        if(errorcode == 0) {
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            userProfile.uid = PreferenceManager.getString(this,"uid");
+            userProfile.nickname = PreferenceManager.getString(this,"nickname");
+
+            NetServiceManager.getinstance().recvContentsExt();
+
+            NetServiceManager.getinstance().setOnRecvContentsListener(new NetServiceManager.OnRecvContentsListener() {
+                @Override
+                public void onRecvContents(boolean validate) {
+
+                    DoRecvContents(validate);
+                }
+            });
+        }
+        else
+        {
+
+        }
     }
 
     private void DoRecvContents(boolean validate)

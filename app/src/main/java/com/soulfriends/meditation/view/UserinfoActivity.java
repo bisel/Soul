@@ -124,8 +124,23 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         if(validate)
         {
             // 성공을 하면
-            NetServiceManager.getinstance().recvContentsExt();
 
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            userProfile.uid = PreferenceManager.getString(this,"uid");
+
+            NetServiceManager.getinstance().recvUserProfile(userProfile.uid);
+
+            NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
+                @Override
+                public void onRecvProfile(boolean validate, int errorcode) {
+
+                    if(errorcode == 0) {
+                        NetServiceManager.getinstance().recvContentsExt();
+                    }
+                }
+            });
+
+            //NetServiceManager.getinstance().recvContentsExt();
         }
         else
         {
