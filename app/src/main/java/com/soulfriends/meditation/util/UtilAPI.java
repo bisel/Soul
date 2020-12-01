@@ -25,12 +25,13 @@ import com.google.firebase.storage.StorageReference;
 import com.soulfriends.meditation.model.MeditationContents;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
-import com.soulfriends.meditation.view.nested.ChildItemViewModel;
 import com.soulfriends.meditation.view.player.MeditationAudioManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UtilAPI {
 
@@ -99,11 +100,11 @@ public class UtilAPI {
         });
     }
 
+    static Map<String, Boolean> statesList = new HashMap<>();
+
     public static void showImage(Context context, Uri uri, ImageView view)
     {
-        Glide.with(context).load(uri).skipMemoryCache(false).into(view);
-        //Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
-        //Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(view);
+       Glide.with(view.getContext()).load(uri).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(view);
     }
 
     public static void setImage(Context context, ImageView view, int res_id)

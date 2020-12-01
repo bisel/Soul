@@ -69,7 +69,6 @@ public class ChildItemAdapter extends RecyclerView.Adapter {
         //String str = childItemViewModel.entity.getValue().thumbnail;
 
         //if(childItemViewModel.meditationContents.thumbnail_uri == null)
-
         if(childItemViewModel.meditationContents.thumbnail_uri == null)
         {
             UtilAPI.load_imageEX(this.context, childItemViewModel.entity.getValue().thumbnail, childViewHolder.getChildItemBinding().imgChildItem, childItemViewModel.meditationContents);
