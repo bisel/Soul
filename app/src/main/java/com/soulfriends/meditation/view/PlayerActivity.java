@@ -62,6 +62,9 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     private boolean bOneEntry_Stopped;
 
 
+    private boolean bBookmark_update;
+
+
     private long mLastClickTime = 0;
 
     @Override
@@ -70,6 +73,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_player);
         binding.setLifecycleOwner(this);
+
+        bBookmark_update = false;
 
         meditationContents = NetServiceManager.getinstance().getCur_contents();
 
@@ -430,6 +435,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             break;
             case R.id.bt_bookmark: {
                 // 북마크
+
+                bBookmark_update = true;
 
                 if (bBookmark_state) {
                     NetServiceManager.getinstance().sendFavoriteContents(meditationContents.uid, false);
