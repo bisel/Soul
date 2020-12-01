@@ -1,7 +1,7 @@
 <resources>
 
     <!--app -->
-    <string name="app_name">Meditation</string>
+    <string name="app_name">SoulFriends</string>
 
     <!--common -->
     <string name="ok">확인</string>

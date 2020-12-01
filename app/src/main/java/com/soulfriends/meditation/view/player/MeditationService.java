@@ -49,6 +49,12 @@ public class MeditationService extends Service implements Player.EventListener, 
 
     private final IBinder iBinder = new LocalBinder();
 
+    private Context context;
+    public Context getContext()
+    {
+        return context;
+    }
+
     private Handler handler;
     private final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private SimpleExoPlayer exoPlayer;
@@ -69,6 +75,19 @@ public class MeditationService extends Service implements Player.EventListener, 
     private String strAppName;
     private String strLiveBroadcast;
     private String streamUrl;
+
+    private String thumbnail_url;
+    private String title;
+
+    public void SetThumbnail_Url(String url)
+    {
+        this.thumbnail_url = url;
+    }
+
+    public void SetTitle_Url(String title)
+    {
+        this.title = title;
+    }
 
     public class LocalBinder extends Binder {
         public MeditationService getService() {
@@ -149,6 +168,8 @@ public class MeditationService extends Service implements Player.EventListener, 
         strAppName = getResources().getString(R.string.app_name);
         strLiveBroadcast = getResources().getString(R.string.live_broadcast);
 
+        context = getApplicationContext();
+
         onGoingCall = false;
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -195,7 +216,8 @@ public class MeditationService extends Service implements Player.EventListener, 
                     pause();
                     break;
                 case AudioManager.AUDIOFOCUS_GAIN :           //오디오 포커스를 얻은 경우
-                    play_ex();
+                    //play_ex();
+                   // setAudioFocus();
                     break;
             }
         }
@@ -203,12 +225,13 @@ public class MeditationService extends Service implements Player.EventListener, 
 
     //오디오 포커스 관련
     private void setAudioFocus() {
-        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
         int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);  //0이면 실패, 1이면 성공
 
         if (result == AudioManager.AUDIOFOCUS_GAIN) {  //성공시
-            play_ex();
+            //play_ex();
+            //setAudioFocus();
         }else{  //실패시
 
             pause();
@@ -348,7 +371,7 @@ public class MeditationService extends Service implements Player.EventListener, 
         }
 
         if (!status.equals(PlaybackStatus.IDLE))
-            notificationManager.startNotify(status);
+            notificationManager.startNotify(status, thumbnail_url, title);
 
         if(playWhenReady == true && playbackState == Player.STATE_ENDED)
         {
@@ -429,6 +452,8 @@ public class MeditationService extends Service implements Player.EventListener, 
 
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(true);
+
+        setAudioFocus();
     }
 
     public SimpleExoPlayer getplayerInstance() {
@@ -443,6 +468,7 @@ public class MeditationService extends Service implements Player.EventListener, 
 
     public void play_ex() {
         exoPlayer.setPlayWhenReady(true);
+
     }
 
 

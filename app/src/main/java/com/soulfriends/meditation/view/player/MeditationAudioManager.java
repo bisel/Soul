@@ -51,6 +51,18 @@ public class MeditationAudioManager {
         service = null;
     }
 
+    public void SetThumbnail_Url(String url)
+    {
+        if (service == null) return;
+        service.SetThumbnail_Url(url);
+    }
+
+    public void SetTitle_Url(String title)
+    {
+        if (service == null) return;
+        service.SetTitle_Url(title);
+    }
+
 
     public static MeditationService getService() {
         return service;

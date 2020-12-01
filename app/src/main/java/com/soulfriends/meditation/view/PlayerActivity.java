@@ -4,6 +4,7 @@ package com.soulfriends.meditation.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -194,6 +198,20 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
     private void play(boolean bPlay)
     {
+
+        meditationAudioManager.SetTitle_Url(meditationContents.title);
+        meditationAudioManager.SetThumbnail_Url(meditationContents.thumbnail_uri);
+
+//        Glide.with(this)
+//                .asBitmap()
+//                .load(meditationContents.thumbnail_uri)
+//                .into(new SimpleTarget<Bitmap>() {
+//                    @Override
+//                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+//                        int xx = 0;
+//                    }
+//                });
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         //StorageReference storageRef = storage.getReferenceFromUrl("gs://meditation-m.appspot.com/test/play_bgm5.mp3");
@@ -212,7 +230,11 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                     playerView.setPlayer(player);
 
                     if(bPlay) {
+
+
                         meditationAudioManager.playOrPause(url);
+
+
                     }
                     else
                     {

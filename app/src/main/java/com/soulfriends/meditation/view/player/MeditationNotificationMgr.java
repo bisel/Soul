@@ -9,11 +9,18 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BaseTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.transition.Transition;
 import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.view.MainActivity;
 
@@ -25,35 +32,43 @@ public class MeditationNotificationMgr {
 
     private MeditationService service;
 
-    private String strAppName, strLiveBroadcast;
+    private String strAppName;
+    //strLiveBroadcast;
 
     private Resources resources;
 
     private NotificationManagerCompat notificationManager;
+
+    private Context context;
+
 
     public MeditationNotificationMgr(MeditationService service) {
 
         this.service = service;
         this.resources = service.getResources();
 
+        this.context = service.getContext();
+
         strAppName = resources.getString(R.string.app_name);
-        strLiveBroadcast = resources.getString(R.string.live_broadcast);
+        //strLiveBroadcast = resources.getString(R.string.live_broadcast);
 
         notificationManager = NotificationManagerCompat.from(service);
     }
 
-    public void startNotify(String playbackStatus) {
+    public void startNotify(String playbackStatus, String thumbnail_url, String title) {
 
         Bitmap largeIcon = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher);
 
-        int icon = R.drawable.pause_btn; // pause_btn  ic_player_pause
+       // Bitmap largeIcon = BitmapFactory.decodeResource(resources, R.drawable.main_video);
+        //emotion_1
+        int icon = R.drawable.pause_noti_btn; // pause_btn  ic_player_pause
         Intent playbackAction = new Intent(service, MeditationService.class);
         playbackAction.setAction(MeditationService.ACTION_PAUSE);
         PendingIntent action = PendingIntent.getService(service, 1, playbackAction, 0);
 
         if(playbackStatus.equals(PlaybackStatus.PAUSED)){
 
-            icon = R.drawable.play_btn; // ic_player_play
+            icon = R.drawable.play_noti_btn; // ic_player_play
             playbackAction.setAction(MeditationService.ACTION_PLAY);
             action = PendingIntent.getService(service, 2, playbackAction, 0);
 
@@ -81,15 +96,15 @@ public class MeditationNotificationMgr {
 
 
                 .setAutoCancel(false)
-                .setContentTitle(strLiveBroadcast)
-                .setContentText(strAppName)
-                .setLargeIcon(largeIcon)
+                .setContentTitle(title)
+               // .setContentText(strAppName)
+                //.setLargeIcon(largeIcon)
                 .setContentIntent(pendingIntent)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setSmallIcon(R.drawable.statusbaricon)
 //                //.addAction(R.drawable.ic_player_rew,"skip prev", action)
                 .addAction(icon, "pause", action)
-                .addAction(R.drawable.rectangle_14, "stop", stopAction) // rectangle_14 ic_player_stop
+                .addAction(R.drawable.stop_noti_btn, "stop", stopAction) // rectangle_14 ic_player_stop
 //                //.addAction(R.drawable.ic_player_forward,"skip next", action) // ic_player_forward
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setWhen(System.currentTimeMillis())
@@ -101,7 +116,18 @@ public class MeditationNotificationMgr {
 
 //         .setShowActionsInCompactView(0, 1)
 
-        service.startForeground(NOTIFICATION_ID, builder.build());
+
+
+        Glide.with(context)
+                .asBitmap()
+                .load(thumbnail_url)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        builder.setLargeIcon(resource);
+                        service.startForeground(NOTIFICATION_ID, builder.build());
+                    }
+                });
 
         int xx= 0;
     }
