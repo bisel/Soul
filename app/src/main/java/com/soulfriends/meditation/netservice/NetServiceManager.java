@@ -526,7 +526,8 @@ public class NetServiceManager {
                     }
                 }
 
-                return favoriteCategory;
+                if(favoriteCategory.contests.size() > 0)
+                    return favoriteCategory;
             }
         }
         return null;

@@ -100,10 +100,11 @@ public class UtilAPI {
         });
     }
 
-    static Map<String, Boolean> statesList = new HashMap<>();
+    static Map<String, String> statesList = new HashMap<>();
 
     public static void showImage(Context context, Uri uri, ImageView view)
     {
+       statesList.put(uri.toString(),uri.toString());
        Glide.with(view.getContext()).load(uri).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(view);
     }
 
