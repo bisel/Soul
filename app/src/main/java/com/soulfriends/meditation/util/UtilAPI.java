@@ -42,6 +42,8 @@ public class UtilAPI {
 
     public static boolean s_one_mini = false;
 
+    public static boolean s_bBookmark_update = false;
+
 
     public static void SetFullScreen(android.view.Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -99,7 +101,8 @@ public class UtilAPI {
 
     public static void showImage(Context context, Uri uri, ImageView view)
     {
-        Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+        Glide.with(context).load(uri).skipMemoryCache(false).into(view);
+        //Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
         //Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(view);
     }
 
@@ -207,5 +210,7 @@ public class UtilAPI {
         player_stop_count = 0;
         player_play_time = 0;
         player_play_duration = 0;
+
+        s_bBookmark_update = false;
     }
 }

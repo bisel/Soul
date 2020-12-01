@@ -62,8 +62,6 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     private boolean bOneEntry_Stopped;
 
 
-    private boolean bBookmark_update;
-
 
     private long mLastClickTime = 0;
 
@@ -74,7 +72,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_player);
         binding.setLifecycleOwner(this);
 
-        bBookmark_update = false;
+        UtilAPI.s_bBookmark_update = false;
+
 
         meditationContents = NetServiceManager.getinstance().getCur_contents();
 
@@ -121,7 +120,14 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
             meditationAudioManager.stop();
             meditationAudioManager.unbind();
+
             finish();
+            if(UtilAPI.s_bBookmark_update)
+            {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+
 
             //Toast myToast = Toast.makeText(this,"hhhhhhh stop success", Toast.LENGTH_SHORT);
             //myToast.show();
@@ -397,8 +403,16 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     public void onSuccess(Integer id, String message) {
         switch (id) {
             case R.id.bt_close: {
+
                 // 나가기 버튼
                 finish();
+
+                if(UtilAPI.s_bBookmark_update)
+                {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                }
+
 
                 //Toast.makeText(getApplicationContext(),"나가기 선택",Toast.LENGTH_SHORT).show();
 
@@ -436,7 +450,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             case R.id.bt_bookmark: {
                 // 북마크
 
-                bBookmark_update = true;
+                UtilAPI.s_bBookmark_update = true;
 
                 if (bBookmark_state) {
                     NetServiceManager.getinstance().sendFavoriteContents(meditationContents.uid, false);

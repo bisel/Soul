@@ -1,6 +1,7 @@
 package com.soulfriends.meditation.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
     private MeditationContents meditationContents;
 
     private int reactiionCode = 0;
+    private int reactiionCode_orig = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,9 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
 
         String uid = PreferenceManager.getString(this,"uid");
         reactiionCode = NetServiceManager.getinstance().reqContentsFavoriteEvent(uid, meditationContents.uid);
+
+        reactiionCode_orig = reactiionCode;
+
         if(reactiionCode == 1)
         {
             // 좋아요
@@ -115,11 +120,20 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
             case R.id.iv_close: {
 
                 // func 2. 해당 콘텐츠의 좋아요, 싫어요 결정. reactiionCode 0: Default, 1 : 좋아요, 2: 싫어요
-                String uid = PreferenceManager.getString(this,"uid");
-                NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
+
+                if(reactiionCode_orig != reactiionCode) {
+                    String uid = PreferenceManager.getString(this, "uid");
+                    NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
+                }
 
                 // 나가기 버튼
                 finish();
+
+                if(UtilAPI.s_bBookmark_update)
+                {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                }
                 
             }
             break;
