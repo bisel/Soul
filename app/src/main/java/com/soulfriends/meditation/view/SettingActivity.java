@@ -20,6 +20,7 @@ import com.soulfriends.meditation.databinding.SettingBinding;
 import com.soulfriends.meditation.util.AuthManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
+import com.soulfriends.meditation.view.player.AudioPlayer;
 import com.soulfriends.meditation.viewmodel.SettingViewModel;
 import com.soulfriends.meditation.viewmodel.SettingViewModelFactory;
 
@@ -158,9 +159,13 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(isChecked) {
                 PreferenceManager.setBoolean(buttonView.getContext(),"sound_off", false);
+
+                AudioPlayer.with(getApplicationContext()).playSound(R.raw.bgm, 1.0f);
+                //AudioPlayer.instance().play();
             }
             else {
                 PreferenceManager.setBoolean(buttonView.getContext(),"sound_off", true);
+                AudioPlayer.instance().stop();
             }
         }
     }

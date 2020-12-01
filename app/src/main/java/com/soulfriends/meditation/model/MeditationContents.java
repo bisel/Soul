@@ -31,4 +31,6 @@ public class MeditationContents {
     public int favoritecnt = 0;
     public int hatecnt = 0;      // 2020.11.25 처리  싫어요 cnt
     public Map<String, Integer> states = new HashMap<>(); // 2020.11.25 처리
+
+    public String thumbnail_uri;      // thumnail http 용 url
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.soulfriends.meditation.model.MeditationContents;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.view.nested.ChildItemViewModel;
@@ -59,26 +61,25 @@ public class UtilAPI {
         }
     }
 
-    public static void load_imageEX(Context context, String str_uri, ImageView view, ChildItemViewModel viewModel)
+    public static void load_imageEX(Context context, String str_uri, ImageView view, MeditationContents meditationContents)
     {
         StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(str_uri);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
             @Override
             public void onSuccess(Uri uri) {
-                showImageEX(context, uri, view, viewModel);
+
+                meditationContents.thumbnail_uri = uri.toString();
+                showImage(context, uri, view);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+
+                Log.d("Meditation","load_imageEX onFailure : " + str_uri);
+                int xx = 0;
             }
         });
-    }
-
-    private static void showImageEX(Context context, Uri uri, ImageView view, ChildItemViewModel viewModel)
-    {
-        viewModel.setThumbUri(uri.toString());
-        Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
-        //Glide.with(context).load(uri).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(view);
     }
 
     public static void load_image(Context context, String str_uri, ImageView view)

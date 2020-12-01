@@ -11,18 +11,13 @@ public class ChildItemViewModel extends ViewModel {
     public MutableLiveData<String> playtime = new MutableLiveData<>();
     public MutableLiveData<String> title = new MutableLiveData<>();
 
-    public String thumb_url = "";
-
-    public String getThumbUri() {
-        return thumb_url;
-    }
-
-    public void setThumbUri(String thumb_url) {
-        this.thumb_url = thumb_url;
-    }
+    public MeditationContents meditationContents;
 
     public ChildItemViewModel(MeditationContents entity_data) {
 
+        meditationContents = entity_data;
+
+        //thumb_url.setValue("");
         entity.setValue(entity_data);
         title.setValue(entity_data.title);
 

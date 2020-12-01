@@ -68,18 +68,15 @@ public class ChildItemAdapter extends RecyclerView.Adapter {
 
         //String str = childItemViewModel.entity.getValue().thumbnail;
 
-        if(childItemViewModel.getThumbUri().isEmpty())
-        {
-            int xx = 0;
-        }
+        //if(childItemViewModel.meditationContents.thumbnail_uri == null)
 
-        if(childItemViewModel.getThumbUri().length() == 0)
+        if(childItemViewModel.meditationContents.thumbnail_uri == null)
         {
-            UtilAPI.load_imageEX(this.context, childItemViewModel.entity.getValue().thumbnail, childViewHolder.getChildItemBinding().imgChildItem, childItemViewModel);
+            UtilAPI.load_imageEX(this.context, childItemViewModel.entity.getValue().thumbnail, childViewHolder.getChildItemBinding().imgChildItem, childItemViewModel.meditationContents);
         }
         else
         {
-            Uri uri = Uri.parse(childItemViewModel.getThumbUri());
+            Uri uri = Uri.parse(childItemViewModel.meditationContents.thumbnail_uri);
             UtilAPI.showImage(this.context, uri, childViewHolder.getChildItemBinding().imgChildItem);
         }
 

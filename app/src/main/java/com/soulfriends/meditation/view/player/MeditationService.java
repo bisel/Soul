@@ -179,10 +179,43 @@ public class MeditationService extends Service implements Player.EventListener, 
         exoPlayer = ExoPlayerFactory.newSimpleInstance(getApplicationContext(), trackSelector);
         exoPlayer.addListener(this);
 
+        setAudioFocus();
+
         registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
 
         status = PlaybackStatus.IDLE;
     }
+
+    AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            switch (focusChange) {
+                case AudioManager.AUDIOFOCUS_LOSS:            //알수없는 기간동안 오디오 포커스 잃은 경우
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:  //일시적으로 오디오 포커스 빼앗긴 경우
+                    pause();
+                    break;
+                case AudioManager.AUDIOFOCUS_GAIN :           //오디오 포커스를 얻은 경우
+                    play_ex();
+                    break;
+            }
+        }
+    };
+
+    //오디오 포커스 관련
+    private void setAudioFocus() {
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);  //0이면 실패, 1이면 성공
+
+        if (result == AudioManager.AUDIOFOCUS_GAIN) {  //성공시
+            play_ex();
+        }else{  //실패시
+
+            pause();
+        }
+    }
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

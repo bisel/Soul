@@ -1,6 +1,7 @@
 package com.soulfriends.meditation.view.player;
 
 import android.content.Context;
+import android.media.AudioManager;
 
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -16,7 +17,7 @@ public class AudioPlayer {
 
     private Context context;
 
-    public static AudioPlayer instance(){
+    public static AudioPlayer instance() {
         return instance;
     }
 
@@ -37,8 +38,7 @@ public class AudioPlayer {
         return instance;
     }
 
-    public void update()
-    {
+    public void update() {
         boolean bSound_off = PreferenceManager.getBoolean(context, "sound_off");
 
         if (bSound_off) {
@@ -61,8 +61,8 @@ public class AudioPlayer {
         simpleExoPlayer.getPlaybackState();
     }
 
-    public void pause()
-    {
+
+    public void pause() {
         if (simpleExoPlayer == null) {
             return;
         }
@@ -71,8 +71,7 @@ public class AudioPlayer {
         simpleExoPlayer.getPlaybackState();
     }
 
-    public void release()
-    {
+    public void release() {
         if (simpleExoPlayer == null) {
             return;
         }
@@ -80,8 +79,7 @@ public class AudioPlayer {
         simpleExoPlayer.release();
     }
 
-    public void play()
-    {
+    public void play() {
         if (simpleExoPlayer == null) {
             return;
         }
@@ -90,10 +88,11 @@ public class AudioPlayer {
         simpleExoPlayer.setPlayWhenReady(true);
 
         simpleExoPlayer.getPlaybackState();
+
+        setAudioFocus();
     }
 
-    public void stop()
-    {
+    public void stop() {
         if (simpleExoPlayer == null) {
             return;
         }
@@ -106,23 +105,19 @@ public class AudioPlayer {
         return this.audio_state.equals(PlaybackStatus.PLAYING);
     }
 
-    public boolean isPlayingAndPause()
-    {
+    public boolean isPlayingAndPause() {
         boolean res = false;
 
-        if(this.audio_state.equals(PlaybackStatus.PLAYING))
-        {
+        if (this.audio_state.equals(PlaybackStatus.PLAYING)) {
             res = true;
         }
-        if(this.audio_state.equals(PlaybackStatus.PAUSED))
-        {
+        if (this.audio_state.equals(PlaybackStatus.PAUSED)) {
             res = true;
         }
         return res;
     }
 
-    public void playSound(int sounRes, float volume)
-    {
+    public void playSound(int sounRes, float volume) {
 
         if (simpleExoPlayer == null) {
 
@@ -170,6 +165,42 @@ public class AudioPlayer {
 
             }
         });
+
+        setAudioFocus();
+    }
+
+    AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            switch (focusChange) {
+                case AudioManager.AUDIOFOCUS_LOSS:            //알수없는 기간동안 오디오 포커스 잃은 경우
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:  //일시적으로 오디오 포커스 빼앗긴 경우
+                    pause();
+
+                    break;
+                case AudioManager.AUDIOFOCUS_GAIN:           //오디오 포커스를 얻은 경우
+                {
+                    int xx = 0;
+                }
+                break;
+            }
+        }
+    };
+
+    //오디오 포커스 관련
+    private void setAudioFocus() {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);  //0이면 실패, 1이면 성공
+
+        if (result == AudioManager.AUDIOFOCUS_GAIN) {  //성공시
+            //play();
+
+            int xx = 0;
+        } else {  //실패시
+
+            pause();
+        }
     }
 }
 
