@@ -23,9 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.soulfriends.meditation.model.MeditationContents;
-import com.soulfriends.meditation.model.UserProfile;
-import com.soulfriends.meditation.netservice.NetServiceManager;
-import com.soulfriends.meditation.view.player.MeditationAudioManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
