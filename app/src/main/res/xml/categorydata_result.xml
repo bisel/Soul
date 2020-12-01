@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<categorydatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<categorydata>
+		<id>1</id>
+		<name>심리 상태 표시</name>
+		<priority>1</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>0</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>2</id>
+		<name>기쁠 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>1</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>3</id>
+		<name>의욕적일 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>2</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>4</id>
+		<name>에너지 넘칠 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>3</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>5</id>
+		<name>차분할 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>4</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>6</id>
+		<name>극도의 스트레스일 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>5</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>7</id>
+		<name>스트레스일 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>6</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>8</id>
+		<name>불만족스러울 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>7</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>9</id>
+		<name>우울할 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>8</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>10</id>
+		<name>불안할 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>9</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>11</id>
+		<name>초조할 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>10</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>12</id>
+		<name>불쾌할 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>11</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>13</id>
+		<name>짜증날 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>12</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>14</id>
+		<name>두려울 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>13</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>15</id>
+		<name>화날 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>14</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>16</id>
+		<name>공격적일 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>15</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>17</id>
+		<name>분노가 끓어오를 때 추천 명상</name>
+		<priority>5</priority>
+		<maxnum>30</maxnum>
+		<emotionid>16</emotionid>
+		<genre>명상</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>18</id>
+		<name>기쁠 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>1</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>19</id>
+		<name>의욕적일 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>2</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>20</id>
+		<name>에너지 넘칠 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>3</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>21</id>
+		<name>차분할 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>4</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>22</id>
+		<name>극도의 스트레스일 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>5</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>23</id>
+		<name>스트레스일 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>6</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>24</id>
+		<name>불만족스러울 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>7</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>25</id>
+		<name>우울할 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>8</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>26</id>
+		<name>불안할 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>9</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>27</id>
+		<name>초조할 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>10</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>28</id>
+		<name>불쾌할 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>11</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>29</id>
+		<name>짜증날 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>12</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>30</id>
+		<name>두려울 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>13</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>31</id>
+		<name>화날 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>14</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>32</id>
+		<name>공격적일 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>15</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>33</id>
+		<name>분노가 끓어오를 때 추천 수면</name>
+		<priority>10</priority>
+		<maxnum>30</maxnum>
+		<emotionid>16</emotionid>
+		<genre>수면</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>34</id>
+		<name>기쁠 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>1</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>35</id>
+		<name>의욕적일 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>2</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>36</id>
+		<name>에너지 넘칠 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>3</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>37</id>
+		<name>차분할 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>4</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>38</id>
+		<name>극도의 스트레스일 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>5</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>39</id>
+		<name>스트레스일 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>6</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>40</id>
+		<name>불만족스러울 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>7</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>41</id>
+		<name>우울할 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>8</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>42</id>
+		<name>불안할 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>9</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>43</id>
+		<name>초조할 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>10</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>44</id>
+		<name>불쾌할 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>11</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>45</id>
+		<name>짜증날 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>12</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>46</id>
+		<name>두려울 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>13</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>47</id>
+		<name>화날 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>14</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>48</id>
+		<name>공격적일 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>15</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>49</id>
+		<name>분노가 끓어오를 때 추천 음악</name>
+		<priority>15</priority>
+		<maxnum>30</maxnum>
+		<emotionid>16</emotionid>
+		<genre>음악</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>50</id>
+		<name>즐겨찾기한 콘텐츠</name>
+		<priority>20</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>0</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>51</id>
+		<name>깊은 산속 옹달샘 명상</name>
+		<priority>30</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>52</id>
+		<name>깊은 산속 옹달샘 향기 명상</name>
+		<priority>35</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>53</id>
+		<name>깊은 산속 옹달샘 소리</name>
+		<priority>40</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>음악</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>54</id>
+		<name>깊은 산속 옹달샘 굿나잇 스토리</name>
+		<priority>45</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>수면</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>55</id>
+		<name>1분 명상</name>
+		<priority>50</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>56</id>
+		<name>3분 명상</name>
+		<priority>55</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>57</id>
+		<name>5분 명상</name>
+		<priority>60</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>58</id>
+		<name>소울 프렌즈 명상</name>
+		<priority>65</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>59</id>
+		<name>소울 프렌즈 명상 음악</name>
+		<priority>70</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>음악</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>60</id>
+		<name>케렌시아 명상</name>
+		<priority>75</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>명상</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>61</id>
+		<name>케렌시아 명상 음악</name>
+		<priority>80</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>음악</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>62</id>
+		<name>케렌시아 어른이를 위한 자장가</name>
+		<priority>82</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>수면</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>63</id>
+		<name>굿 나잇 스토리</name>
+		<priority>47</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>수면</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>64</id>
+		<name>소울 프렌즈 수면 음악</name>
+		<priority>90</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>수면</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>65</id>
+		<name>자연의 소리</name>
+		<priority>95</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>음악</genre>
+		<fix>1</fix>
+	</categorydata>
+	<categorydata>
+		<id>66</id>
+		<name>인기 리스트</name>
+		<priority>25</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>0</genre>
+		<fix>0</fix>
+	</categorydata>
+	<categorydata>
+		<id>67</id>
+		<name>수면 명상</name>
+		<priority>48</priority>
+		<maxnum>30</maxnum>
+		<emotionid>0</emotionid>
+		<genre>수면</genre>
+		<fix>1</fix>
+	</categorydata>
+</categorydatas>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="PsychologyResultBinding">
+
+        <variable
+            name="viewModel"
+            type="com.soulfriends.meditation.viewmodel.PsychologyResultViewModel">
+
+        </variable>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_introduction"
+        app:layout_constraintTop_toTopOf="@+id/tv_introduction"
+        tools:context=".view.PsychologyResultActivity">
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mask_group_8" />
+
+        <ImageView
+            android:id="@+id/rectangle_28"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rectangle_28" />
+
+        <ImageView
+            android:id="@+id/title_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="86dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/title_bg" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.01"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/font_notosanskr_regular"
+            android:lineSpacingExtra="9sp"
+            android:text="@={viewModel.strTitle}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/font_notosanskr_medium"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0dp"
+            android:text="@string/psychology_nickname"
+            android:textColor="#9fffe5"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_bg" />
+<!--        android:text="@={viewModel.strNick}"-->
+<!--        android:text="@string/psychology_nickname"-->
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_close"-->
+<!--            android:layout_width="11.4dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="46dp"-->
+<!--            android:onClick="@{(v)-> viewModel.OnClicked_Close(v)}"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/back_btn" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="194dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_tile"
+                android:layout_width="300dp"
+                android:layout_height="160dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/test_reult_img" />
+
+            <ImageView
+                android:id="@+id/iv_text_bar"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/test_result_text_bg" />
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="6sp"
+                android:text="@={viewModel.strTitle}"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/font_notosanskr_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_text_bar" />
+<!--            android:text="@string/psychology_state"-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/font_notosanskr_regular"
+            android:text="@={viewModel.strResult}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+<!--        android:text="@string/psychology_state_contents"-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5">
+
+            <Button
+                android:id="@+id/button_retry"
+                android:layout_width="165dp"
+                android:layout_height="54dp"
+                android:layout_marginRight="10dp"
+
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/result_test_btn"
+                android:backgroundTint="@null"
+                android:onClick="@{(v)-> viewModel.OnClicked_Select(v)}"
+                android:text="@string/retry"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/font_notosanskr_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/button_recommand"
+                android:layout_width="165dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/result_content_btn"
+                android:backgroundTint="@null"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/font_notosanskr_regular"
+                android:onClick="@{(v)-> viewModel.OnClicked_Select(v)}"
+                android:text="@string/contents_recommand"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintWidth_percent="0.5" />
+
+
+        <!--        android:text="@={viewModel.strgender}"-->
+        <!--            android:text="@{viewModel.gender ? @string/gender_man : @@string/gender_woman}"-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

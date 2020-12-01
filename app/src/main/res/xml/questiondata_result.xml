@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<colorquestiondatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<colorquestiondata>
+		<id>1</id>
+		<page>1</page>
+		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>1</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_01</answer1_file>
+		<answer2_id>2</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_07</answer2_file>
+		<answer3_id>3</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>4</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+	<colorquestiondata>
+		<id>2</id>
+		<page>2</page>
+		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>5</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_02</answer1_file>
+		<answer2_id>6</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_08</answer2_file>
+		<answer3_id>7</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>8</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+	<colorquestiondata>
+		<id>3</id>
+		<page>3</page>
+		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>9</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_03</answer1_file>
+		<answer2_id>10</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_09</answer2_file>
+		<answer3_id>11</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>12</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+	<colorquestiondata>
+		<id>4</id>
+		<page>4</page>
+		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>13</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_04</answer1_file>
+		<answer2_id>14</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_10</answer2_file>
+		<answer3_id>15</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>16</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+	<colorquestiondata>
+		<id>5</id>
+		<page>5</page>
+		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>17</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_05</answer1_file>
+		<answer2_id>18</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_11</answer2_file>
+		<answer3_id>19</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>20</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+	<colorquestiondata>
+		<id>6</id>
+		<page>6</page>
+		<question>마지막으로 지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<answer1_id>21</answer1_id>
+		<answer1_text>칼라 구슬</answer1_text>
+		<answer1_file>color_06</answer1_file>
+		<answer2_id>22</answer2_id>
+		<answer2_text>칼라 구슬</answer2_text>
+		<answer2_file>color_12</answer2_file>
+		<answer3_id>23</answer3_id>
+		<answer3_text>칼라 구슬</answer3_text>
+		<answer3_file>color_13</answer3_file>
+		<answer4_id>24</answer4_id>
+		<answer4_text>칼라 구슬</answer4_text>
+		<answer4_file>color_19</answer4_file>
+	</colorquestiondata>
+</colorquestiondatas>
