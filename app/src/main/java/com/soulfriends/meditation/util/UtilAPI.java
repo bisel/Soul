@@ -30,8 +30,6 @@ import com.soulfriends.meditation.view.player.MeditationAudioManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UtilAPI {
 
@@ -100,11 +98,11 @@ public class UtilAPI {
         });
     }
 
-    static Map<String, String> statesList = new HashMap<>();
+    //static Map<String, String> statesList = new HashMap<>();
 
     public static void showImage(Context context, Uri uri, ImageView view)
     {
-       statesList.put(uri.toString(),uri.toString());
+       //statesList.put(uri.toString(),uri.toString());
        Glide.with(view.getContext()).load(uri).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(view);
     }
 
