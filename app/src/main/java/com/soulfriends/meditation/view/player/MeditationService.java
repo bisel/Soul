@@ -216,7 +216,7 @@ public class MeditationService extends Service implements Player.EventListener, 
                     pause();
                     break;
                 case AudioManager.AUDIOFOCUS_GAIN :           //오디오 포커스를 얻은 경우
-                    //play_ex();
+                    //play();
                    // setAudioFocus();
                     break;
             }
@@ -230,7 +230,7 @@ public class MeditationService extends Service implements Player.EventListener, 
         int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);  //0이면 실패, 1이면 성공
 
         if (result == AudioManager.AUDIOFOCUS_GAIN) {  //성공시
-            //play_ex();
+            //play();
             //setAudioFocus();
         }else{  //실패시
 
@@ -375,7 +375,7 @@ public class MeditationService extends Service implements Player.EventListener, 
 
         if(playWhenReady == true && playbackState == Player.STATE_ENDED)
         {
-            status = PlaybackStatus.STOPPED_EX;
+            status = PlaybackStatus.STOPPED_END;
         }
 
         EventBus.getDefault().post(status);
@@ -389,8 +389,11 @@ public class MeditationService extends Service implements Player.EventListener, 
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
 
-        EventBus.getDefault().post(PlaybackStatus.TRACK_CHANGE);
         // 반복
+        if(exoPlayer.getCurrentPosition() > 10) {
+            EventBus.getDefault().post(PlaybackStatus.TRACK_CHANGE);
+        }
+
     }
 
     @Override
@@ -466,7 +469,7 @@ public class MeditationService extends Service implements Player.EventListener, 
             play(streamUrl);
     }
 
-    public void play_ex() {
+    public void play() {
         exoPlayer.setPlayWhenReady(true);
 
     }

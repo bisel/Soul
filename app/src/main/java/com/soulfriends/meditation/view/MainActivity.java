@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,13 +64,13 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
     private boolean bShowMiniPlayer;
 
-    private int player_track_count;
+    private String strPlaybackStatus;
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        player_track_count = 0;
+        strPlaybackStatus = PlaybackStatus.IDLE;
 
         EventBus.getDefault().register(this);
 
@@ -263,14 +264,41 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                     //Toast.makeText(getApplicationContext(),"정지 -> 플레이",Toast.LENGTH_SHORT).show();
                     UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
 
-                    MeditationAudioManager.play_ex();
+                    if(strPlaybackStatus == PlaybackStatus.STOPPED_END) {
+                        MeditationAudioManager.resume();
+                    }
+                    else
+                    {
+                        MeditationAudioManager.play();
+                    }
                 }
             }
             break;
             case R.id.iv_Minibg:
             {
                 // 미니 bg 선택시
-                this.startActivity(new Intent(this, PlayerActivity.class));
+                if(strPlaybackStatus == PlaybackStatus.STOPPED_END) {
+
+                    // 플레이 위치 초기화
+                    MeditationAudioManager.idle_start();
+
+                    // 프레임 레이어 조절
+                    UtilAPI.setMarginBottom(this, binding.container,0);
+
+                    MeditationAudioManager.stop();
+                    binding.miniLayout.setVisibility(View.GONE);
+                    meditationAudioManager.unbind();
+
+                    //  배경음악 플레이
+                    //AudioPlayer.instance().update();
+
+                    // 세션으로 이동
+                    startActivity(new Intent(this, SessioinActivity.class));
+                }
+                else
+                {
+                    this.startActivity(new Intent(this, PlayerActivity.class));
+                }
             }
             break;
             case R.id.meun_btn:
@@ -284,18 +312,21 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
     @Subscribe
     public void onEvent(String status) {
 
+        if(strPlaybackStatus == status) return;
+
+        strPlaybackStatus = status;
+
         switch (status) {
 
             case PlaybackStatus.TRACK_CHANGE:
             {
-                if (player_track_count > 0) {
-                    UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-                    userProfile.playtime += (int) (MeditationAudioManager.with(null).getDuration() / 1000);
-                    userProfile.sessionnum += 1;
+              //  if (player_track_count > 0) {
 
-                    NetServiceManager.getinstance().sendValProfile(userProfile);
-                }
-                player_track_count++;
+                    NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+
+                    Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
+               // }
+                //player_track_count++;
 
 
                 //Toast.makeText(getApplicationContext(),"[메인] 리플레이", Toast.LENGTH_SHORT).show();
@@ -317,19 +348,18 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                // Toast.makeText(getApplicationContext(),"[메인]정지 -> 플레이", Toast.LENGTH_SHORT).show();
                 UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
 
-                //MeditationAudioManager.play_ex();
+                //MeditationAudioManager.play();
 
             }
             break;
-            case PlaybackStatus.STOPPED_EX:
+            case PlaybackStatus.STOPPED_END:
             {
-                //UtilAPI.player_stop_count++;
+               // player_track_count = 0;
 
-                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-                userProfile.playtime += (int)(MeditationAudioManager.with(null).getDuration() / 1000);
-                userProfile.sessionnum += 1;
+                // 음악이 완료 정지 된 경우에 들어옴
+                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                NetServiceManager.getinstance().sendValProfile(userProfile);
+                Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 
                 // 플레이 완료가 되어 stop가 되면 play 버튼 상태로 변경
                 // 플레이 -> 정지

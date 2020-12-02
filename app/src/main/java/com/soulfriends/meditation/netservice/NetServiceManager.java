@@ -3,6 +3,7 @@ package com.soulfriends.meditation.netservice;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.soulfriends.meditation.parser.ColorData;
 import com.soulfriends.meditation.parser.EmotionListData;
 import com.soulfriends.meditation.parser.QuestionData;
 import com.soulfriends.meditation.parser.ResultData;
+import com.soulfriends.meditation.view.player.MeditationAudioManager;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -1255,6 +1257,19 @@ public class NetServiceManager {
 
         return arrayList;
     }
+
+
+    // 유저프로필 : 세션 카운트 1증가, 플레이 시간 업데이트
+    public void Update_UserProfile_Play(int playtime)
+    {
+        if(mUserProfile == null) return;
+
+        mUserProfile.playtime += playtime;
+        mUserProfile.sessionnum += 1;
+
+        sendValProfile(mUserProfile);
+    }
+
 
 }
 

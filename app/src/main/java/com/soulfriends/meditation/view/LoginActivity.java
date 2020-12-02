@@ -154,8 +154,31 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
     @Override
     public void onSuccess(Integer id, String message) {
         switch (id) {
+            case 50: {
+
+                // 기존 계정으로 성공해서 로그인 된 경우
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                PreferenceManager.setString(this,"uid", uid);
+
+                String nickname = PreferenceManager.getString(this, "nickname");
+                if (nickname.isEmpty()) {
+                    startActivity(new Intent(this, UserinfoActivity.class));
+
+                    binding.progressBar.setVisibility(View.GONE);
+
+                    finish();
+                } else {
+
+                    this.startActivity(new Intent(this, LoadingActivity.class));
+
+                    binding.progressBar.setVisibility(View.GONE);
+
+                    finish();
+                }
+            }
+            break;
             case 0: {
-                // 로그인 성공한 경우
+                // 계정 성공해서 로그인 된 경우
 
                 // 닉네임이 있는 경우에는 메인메뉴로 이동하도록 한다.
                 String key = PreferenceManager.getString(this,"uid_nickname");
@@ -183,8 +206,11 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
                 }
 
                 startActivity(new Intent(this, UserinfoActivity.class));
-                finish();
+
                 binding.progressBar.setVisibility(View.GONE);
+
+                finish();
+
             }
             break;
             case 100: {

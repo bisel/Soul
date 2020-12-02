@@ -90,7 +90,7 @@ public class AuthManager {
                         if (task.isSuccessful()) {
                             PreferenceManager.setString(activity.getBaseContext(), "email", email);
                             PreferenceManager.setString(activity.getBaseContext(), "certification", "email");
-                            resultListener.onSuccess(0, "success");
+                            resultListener.onSuccess(50, "success");
                         } else {
                             DoAccountCreate(activity, email, password);
                         }

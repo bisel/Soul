@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,9 +67,9 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
     private boolean bOneEntry_Stopped;
 
-    private int player_track_count;
-
     private long mLastClickTime = 0;
+
+    private String strPlaybackStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -302,7 +303,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
         mLastClickTime = 0;
 
-        player_track_count = 0;
+        strPlaybackStatus = PlaybackStatus.IDLE;
 
         //UtilAPI.player_track_count = 0;
 
@@ -358,6 +359,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     @Subscribe
     public void onEvent(String status) {
 
+        if(strPlaybackStatus == status) return;
+
+        strPlaybackStatus = status;
+
         switch (status) {
 
             case PlaybackStatus.IDLE:
@@ -385,45 +390,31 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             case PlaybackStatus.TRACK_CHANGE: {
                // Toast.makeText(getApplicationContext(), "[메인] 리플레이", Toast.LENGTH_SHORT).show();
 
-                if (player_track_count > 0) {
-                    UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-                    userProfile.playtime += (int) (MeditationAudioManager.with(null).getDuration() / 1000);
-                    userProfile.sessionnum += 1;
+               // if (player_track_count > 0) {
+                    NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                    NetServiceManager.getinstance().sendValProfile(userProfile);
-                }
-                player_track_count++;
+                    Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
+                //}
+               // player_track_count++;
             }
             break;
 
 
-            case PlaybackStatus.STOPPED_EX: {
-                // 두번 오는 걸 한번만 들어오게 처리
+            case PlaybackStatus.STOPPED_END: {
 
-                //UtilAPI.player_stop_count++;
-                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-                userProfile.playtime += (int)(MeditationAudioManager.with(null).getDuration() / 1000);
-                userProfile.sessionnum += 1;
+               // player_track_count = 0;
 
-                NetServiceManager.getinstance().sendValProfile(userProfile);
+                // 음악이 완료 정지 된 경우에 들어옴
+                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 
-                meditationAudioManager.stop();
+                MeditationAudioManager.stop();
                 meditationAudioManager.unbind();
 
                 // 플레이 위치 초기화
                 meditationAudioManager.idle_start();
 
-//                // 세션 카운트 증가
-//                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-//                userProfile.sessionnum++;
-//
-//                // 플레이 시간 증가
-//                //userProfile.playtime +
-//                int duration =  (int)(meditationAudioManager.getDuration() / 1000);
-//                userProfile.playtime += duration;
-                
                 // 세션으로 이동
                 Intent intent = new Intent(this, SessioinActivity.class);
                 startActivity(intent);

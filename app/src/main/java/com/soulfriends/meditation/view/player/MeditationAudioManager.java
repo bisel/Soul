@@ -121,10 +121,15 @@ public class MeditationAudioManager {
     }
 
 
+    public static void resume() {
 
-    public static void play_ex() {
         if (service == null) return;
-        service.play_ex();
+        service.resume();
+    }
+
+    public static void play() {
+        if (service == null) return;
+        service.play();
     }
 
     public static void stop() {

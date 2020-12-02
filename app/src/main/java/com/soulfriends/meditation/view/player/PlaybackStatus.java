@@ -14,7 +14,7 @@ public class PlaybackStatus {
 
     public static final String ERROR = "PlaybackStatus_ERROR";
 
-    public static final String STOPPED_EX = "PlaybackStatus_STOPPED_EX";
+    public static final String STOPPED_END = "PlaybackStatus_STOPPED_END";
 
     public static final String REW = "PlaybackStatus_REW";
 
