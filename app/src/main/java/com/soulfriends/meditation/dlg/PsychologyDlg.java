@@ -21,7 +21,7 @@ import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.view.PsychologyListActivity;
 
 public class PsychologyDlg extends Dialog implements View.OnClickListener{
-    private Context mContext;
+    private final Context mContext;
     private ImageView iv_close;
     private ImageView iv_test;
     private TextView tv_feelstate;
@@ -53,6 +53,7 @@ public class PsychologyDlg extends Dialog implements View.OnClickListener{
         int end_nick = nickname.length();
 
         Spannable wordtoSpan = new SpannableString(strQuest);
+
         wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_feelstate.setText(wordtoSpan);

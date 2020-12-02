@@ -13,4 +13,5 @@
     <color name="navibottom_primary">#99ffffff</color>
     <color name="navibottom_text">#99ffffff</color>
     <color name="transparent">#00000000</color>
+    <color name="mindspacetext">#FF0093FF</color>
 </resources>
