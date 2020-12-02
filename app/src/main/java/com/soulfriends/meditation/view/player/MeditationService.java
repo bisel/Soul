@@ -20,12 +20,14 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -199,6 +201,13 @@ public class MeditationService extends Service implements Player.EventListener, 
         DefaultTrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
         exoPlayer = ExoPlayerFactory.newSimpleInstance(getApplicationContext(), trackSelector);
         exoPlayer.addListener(this);
+
+
+//        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+//                .setUsage(C.USAGE_MEDIA)
+//                .setContentType(C.CONTENT_TYPE_MUSIC)
+//                .build();
+//        exoPlayer.setAudioAttributes(audioAttributes, true);
 
         //setAudioFocus();
 

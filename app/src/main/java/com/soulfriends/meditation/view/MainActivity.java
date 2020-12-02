@@ -322,7 +322,21 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             {
               //  if (player_track_count > 0) {
 
-                    NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
+                            int xx = 0;
+                        } else {
+                            int yy = 0;
+                        }
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
 
                     //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
                // }
@@ -357,7 +371,22 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                // player_track_count = 0;
 
                 // 음악이 완료 정지 된 경우에 들어옴
-                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
+                            int xx = 0;
+                        } else {
+                            int yy = 0;
+                        }
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
+
 
                 //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 

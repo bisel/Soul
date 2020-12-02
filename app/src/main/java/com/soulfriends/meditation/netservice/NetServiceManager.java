@@ -1267,7 +1267,21 @@ public class NetServiceManager {
         mUserProfile.playtime += playtime;
         mUserProfile.sessionnum += 1;
 
-        sendValProfile(mUserProfile);
+//        sendValProfile(mUserProfile);
+//        NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+//            @Override
+//            public void onRecvValProfile(boolean validate)
+//            {
+//                if(validate == true){
+//
+//                    int xx = 0;
+//                }else{
+//
+//                    int yy = 0;
+//
+//                }
+//            }
+//        });
     }
 
 

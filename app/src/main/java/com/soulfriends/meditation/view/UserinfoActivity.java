@@ -21,6 +21,7 @@ import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
+import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.viewmodel.UserinfoViewModel;
 import com.soulfriends.meditation.viewmodel.UserinfoViewModelFactory;
 
@@ -99,18 +100,22 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         if(validate) {
 
             // uid 와 닉네임 저장
+
+            //String nickname = NetServiceManager.getinstance().getUserProfile().nickname;
+
+            //PreferenceManager.setString(this,"uid", uid);
+            //PreferenceManager.setString(this,"nickname", nickname);
+
+            //String key = uid + "##" + nickname;
+            //PreferenceManager.setString(this,"uid_nickname", key);
+
+            // 성공한 경우때 uid를 저장해야 한다.
             String uid = NetServiceManager.getinstance().getUserProfile().uid;
-            String nickname = NetServiceManager.getinstance().getUserProfile().nickname;
-
             PreferenceManager.setString(this,"uid", uid);
-            PreferenceManager.setString(this,"nickname", nickname);
 
-            String key = uid + "##" + nickname;
-            PreferenceManager.setString(this,"uid_nickname", key);
-
+            this.startActivity(new Intent(this, MainActivity.class));
 
             finish();
-            this.startActivity(new Intent(this, MainActivity.class));
         }
         else
         {
@@ -124,22 +129,22 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         if(validate)
         {
             // 성공을 하면
-            NetServiceManager.getinstance().recvContentsExt();
+            //NetServiceManager.getinstance().recvContentsExt();
 
-//            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-//            userProfile.uid = PreferenceManager.getString(this,"uid");
-//
-//            NetServiceManager.getinstance().recvUserProfile(userProfile.uid);
-//
-//            NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
-//                @Override
-//                public void onRecvProfile(boolean validate, int errorcode) {
-//
-//                    if(errorcode == 0) {
-//                        NetServiceManager.getinstance().recvContentsExt();
-//                    }
-//                }
-//            });
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            //userProfile.uid = PreferenceManager.getString(this,"uid");
+
+            NetServiceManager.getinstance().recvUserProfile(userProfile.uid);
+
+            NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
+                @Override
+                public void onRecvProfile(boolean validate, int errorcode) {
+
+                    if(errorcode == 0) {
+                        NetServiceManager.getinstance().recvContentsExt();
+                    }
+                }
+            });
 
             //NetServiceManager.getinstance().recvContentsExt();
         }
@@ -147,8 +152,8 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         {
             // 다시 보낸다.
             UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-            userProfile.uid = mAuth.getCurrentUser().getUid();
-            userProfile.nickname = viewModel.getNickname().getValue();
+            //userProfile.uid = mAuth.getCurrentUser().getUid();
+            //userProfile.nickname = viewModel.getNickname().getValue();
             NetServiceManager.getinstance().sendValProfile(userProfile);
         }
     }
@@ -253,18 +258,10 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
                 bSuccess_gender = true;
 
                 // man
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    binding.buttonMan.setBackground(ContextCompat.getDrawable(this, R.drawable.man_selected));
-                } else {
-                    binding.buttonMan.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.man_selected));
-                }
+                UtilAPI.setButtonBackground(this, binding.buttonMan, R.drawable.man_selected);
 
                 // woman
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    binding.buttonWoman.setBackground(ContextCompat.getDrawable(this, R.drawable.man));
-                } else {
-                    binding.buttonWoman.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.man));
-                }
+                UtilAPI.setButtonBackground(this, binding.buttonWoman, R.drawable.man);
 
                 Check_IsButton();
             }
@@ -275,18 +272,10 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
                 bSuccess_gender = true;
 
                 // woman
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    binding.buttonWoman.setBackground(ContextCompat.getDrawable(this, R.drawable.man_selected));
-                } else {
-                    binding.buttonWoman.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.man_selected));
-                }
+                UtilAPI.setButtonBackground(this, binding.buttonWoman, R.drawable.man_selected);
 
                 // man
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    binding.buttonMan.setBackground(ContextCompat.getDrawable(this, R.drawable.man));
-                } else {
-                    binding.buttonMan.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.man));
-                }
+                UtilAPI.setButtonBackground(this, binding.buttonMan, R.drawable.man);
 
                 Check_IsButton();
 

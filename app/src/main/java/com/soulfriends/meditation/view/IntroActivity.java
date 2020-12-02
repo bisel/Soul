@@ -8,6 +8,7 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.AuthManager;
@@ -46,7 +47,6 @@ public class IntroActivity extends AppCompatActivity {
 
         UtilAPI.SetFullScreen(getWindow());
 
-        //mAuth = FirebaseAuth.getInstance();
         //FirebaseAuth.getInstance().signOut();
 
         // 배경음

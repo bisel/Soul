@@ -149,9 +149,9 @@ public class AuthManager {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             PreferenceManager.setString(activity.getBaseContext(), "certification", "google");
-                            resultListener.onSuccess(0, "success");
+                            resultListener.onSuccess(50, "success");
                         } else {
-                            resultListener.onFailure(0, "failed");
+                            resultListener.onFailure(50, "failed");
                         }
                     }
                 });

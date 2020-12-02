@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -150,60 +151,128 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
         authManager.onActivityResult(this, requestCode, resultCode, data);
     }
 
+    public void DoOnRecvProfile(boolean validate, int errorcode)
+    {
+        if(validate) {
+
+            // 성공인 경우
+            // 정상인지 확인용
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            String nickname = userProfile.nickname;
+
+            if(nickname == null || nickname.isEmpty())
+            {
+                // 실패 한 경우
+                startActivity(new Intent(this, UserinfoActivity.class));
+
+                binding.progressBar.setVisibility(View.GONE);
+
+                finish();
+                return;
+            }
+
+
+            //Toast.makeText(this, nickname, Toast.LENGTH_SHORT).show();
+
+            PreferenceManager.setString(this, "uid", userProfile.uid);
+
+            binding.progressBar.setVisibility(View.GONE);
+            finish();
+            startActivity(new Intent(this, LoadingActivity.class));
+
+
+
+
+        }
+        else
+        {
+            // 실패 한 경우
+            startActivity(new Intent(this, UserinfoActivity.class));
+
+            binding.progressBar.setVisibility(View.GONE);
+
+            finish();
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onSuccess(Integer id, String message) {
         switch (id) {
             case 50: {
-
-                // 기존 계정으로 성공해서 로그인 된 경우
+                // 구글 / 이메일 인증
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                PreferenceManager.setString(this,"uid", uid);
 
-                String nickname = PreferenceManager.getString(this, "nickname");
-                if (nickname.isEmpty()) {
-                    startActivity(new Intent(this, UserinfoActivity.class));
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                userProfile.uid = uid;
 
-                    binding.progressBar.setVisibility(View.GONE);
+                NetServiceManager.getinstance().recvUserProfile(uid);
 
-                    finish();
-                } else {
+                NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
+                    @Override
+                    public void onRecvProfile(boolean validate,int errorcode) {
 
-                    this.startActivity(new Intent(this, LoadingActivity.class));
+                        DoOnRecvProfile(validate, errorcode);
+                    }
+                });
 
-                    binding.progressBar.setVisibility(View.GONE);
 
-                    finish();
-                }
+                //PreferenceManager.setString(this,"uid", uid);
+
+
+                // dlsmdla
+
+//                String nickname = PreferenceManager.getString(this, "nickname");
+//                if (nickname.isEmpty()) {
+//                    startActivity(new Intent(this, UserinfoActivity.class));
+//
+//                    binding.progressBar.setVisibility(View.GONE);
+//
+//                    finish();
+//                } else {
+//
+//                    this.startActivity(new Intent(this, LoadingActivity.class));
+//
+//                    binding.progressBar.setVisibility(View.GONE);
+//
+//                    finish();
+//                }
             }
             break;
             case 0: {
                 // 계정 성공해서 로그인 된 경우
 
                 // 닉네임이 있는 경우에는 메인메뉴로 이동하도록 한다.
-                String key = PreferenceManager.getString(this,"uid_nickname");
-                if(key.length() > 0)
-                {
-                    String[] array = key.split("##");
+//                String key = PreferenceManager.getString(this,"uid_nickname");
+//                if(key.length() > 0)
+//                {
+//                    String[] array = key.split("##");
+//
+//                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                    if(array[0].contains(uid))
+//                    {
+//                        String nickname = array[1];
+//
+//                        PreferenceManager.setString(this,"uid", uid);
+//                        PreferenceManager.setString(this,"nickname", nickname);
+//
+//                        UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+//                        userProfile.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                        userProfile.nickname = nickname;
+//
+//                        binding.progressBar.setVisibility(View.GONE);
+//                        finish();
+//                        this.startActivity(new Intent(this, MainActivity.class));
+//                        break;
+//                    }
+//                }
 
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if(array[0].contains(uid))
-                    {
-                        String nickname = array[1];
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                        PreferenceManager.setString(this,"uid", uid);
-                        PreferenceManager.setString(this,"nickname", nickname);
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                userProfile.uid = uid;
 
-                        UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-                        userProfile.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        userProfile.nickname = nickname;
-
-                        binding.progressBar.setVisibility(View.GONE);
-                        finish();
-                        this.startActivity(new Intent(this, MainActivity.class));
-                        break;
-                    }
-                }
+                //PreferenceManager.setString(this,"uid", uid);
 
                 startActivity(new Intent(this, UserinfoActivity.class));
 

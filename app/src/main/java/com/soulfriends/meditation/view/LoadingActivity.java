@@ -36,10 +36,10 @@ public class LoadingActivity extends AppCompatActivity {
         //  자동로그인 일 경우 정보 요청
         // uid 와 닉네임 저장
 
-        UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-        userProfile.uid = PreferenceManager.getString(this,"uid");
 
-        NetServiceManager.getinstance().recvUserProfile(userProfile.uid);
+        String uid = PreferenceManager.getString(this,"uid");
+
+        NetServiceManager.getinstance().recvUserProfile(uid);
 
         NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
             @Override
@@ -67,10 +67,11 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void DoRecvProfile(boolean validate, int errorcode)
     {
-        if(errorcode == 0) {
+        if(validate) {
+
             UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-            userProfile.uid = PreferenceManager.getString(this,"uid");
-            userProfile.nickname = PreferenceManager.getString(this,"nickname");
+            //userProfile.uid = PreferenceManager.getString(this,"uid");
+            //userProfile.nickname = PreferenceManager.getString(this,"nickname");
 
             NetServiceManager.getinstance().recvContentsExt();
 

@@ -51,6 +51,7 @@
                     android:layout_width="140dp"
                     android:layout_height="26dp"
                     android:layout_marginTop="114dp"
+                    android:scaleX="1.2"
                     app:srcCompat="@drawable/main_video_textbg" />
 
 

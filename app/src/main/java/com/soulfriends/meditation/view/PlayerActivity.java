@@ -356,6 +356,23 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         super.onDestroy();
     }
 
+    public void Change_ToSession()
+    {
+        //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
+
+        MeditationAudioManager.stop();
+        meditationAudioManager.unbind();
+
+        // 플레이 위치 초기화
+        meditationAudioManager.idle_start();
+
+        // 세션으로 이동
+        Intent intent = new Intent(this, SessioinActivity.class);
+        startActivity(intent);
+
+        finish();
+    }
+
     @Subscribe
     public void onEvent(String status) {
 
@@ -391,7 +408,21 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                // Toast.makeText(getApplicationContext(), "[메인] 리플레이", Toast.LENGTH_SHORT).show();
 
                // if (player_track_count > 0) {
-                    NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
+
+                        } else {
+                        }
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
 
                     //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
                 //}
@@ -402,25 +433,27 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
             case PlaybackStatus.STOPPED_END: {
 
-               // player_track_count = 0;
-
                 // 음악이 완료 정지 된 경우에 들어옴
                 NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
 
-                MeditationAudioManager.stop();
-                meditationAudioManager.unbind();
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
 
-                // 플레이 위치 초기화
-                meditationAudioManager.idle_start();
+                            Change_ToSession();
 
-                // 세션으로 이동
-                Intent intent = new Intent(this, SessioinActivity.class);
-                startActivity(intent);
+                        } else {
 
-                finish();
+                            int yy = 0;
 
+                        }
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
             }
             break;
         }
