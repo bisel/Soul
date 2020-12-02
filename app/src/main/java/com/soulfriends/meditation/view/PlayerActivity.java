@@ -393,7 +393,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                // if (player_track_count > 0) {
                     NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                    Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
                 //}
                // player_track_count++;
             }
@@ -407,7 +407,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                 // 음악이 완료 정지 된 경우에 들어옴
                 NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 
                 MeditationAudioManager.stop();
                 meditationAudioManager.unbind();

@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
                     NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                    Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
                // }
                 //player_track_count++;
 
@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 // 음악이 완료 정지 된 경우에 들어옴
                 NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
 
-                Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "세션 1 증가", Toast.LENGTH_SHORT).show();
 
                 // 플레이 완료가 되어 stop가 되면 play 버튼 상태로 변경
                 // 플레이 -> 정지
