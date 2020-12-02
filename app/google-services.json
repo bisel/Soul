@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "600574443753-l879sq8jug703u3gsonf7fkfihko72g5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.soulfriends.meditation",
+            "certificate_hash": "bc703cbe081b9b533320b757dd59400d54b07b0d"
+          }
+        },
+        {
           "client_id": "600574443753-n3tq6jr1sb8du3mo8vkuit40h6hn4kqp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -44,7 +52,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "600574443753-9g5hq1b6vtun2q2b8efdn1k3qj0udbp6.apps.googleusercontent.com",
+              "client_id": "600574443753-8r8b718p2fm30soliuv03m91psf6t0f6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

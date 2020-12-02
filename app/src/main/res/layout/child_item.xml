@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 >
 
-
                 <ImageView
                     android:id="@+id/img_child_item"
                     android:layout_width="140dp"

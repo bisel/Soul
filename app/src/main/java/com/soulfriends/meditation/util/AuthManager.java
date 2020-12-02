@@ -136,8 +136,6 @@ public class AuthManager {
                 Log.w(TAG, "Google sign in failed", e);
             }
 
-
-
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }

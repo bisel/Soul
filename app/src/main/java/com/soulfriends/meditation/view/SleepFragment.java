@@ -18,7 +18,6 @@ import com.soulfriends.meditation.model.MeditationShowCategorys;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.ItemClickListener;
-import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.view.nested.ParentItemAdapter;
 import com.soulfriends.meditation.view.nested.ParentItemViewModel;
 import com.soulfriends.meditation.view.nested.ParentTopItemViewModel;
@@ -70,7 +69,7 @@ public class SleepFragment extends Fragment implements ItemClickListener {
 
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-
+        ParentRecyclerViewItem.setNestedScrollingEnabled(false);  // 12.02.괜찮은듯
 
         return view;
     }
