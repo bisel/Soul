@@ -200,7 +200,7 @@ public class MeditationService extends Service implements Player.EventListener, 
         exoPlayer = ExoPlayerFactory.newSimpleInstance(getApplicationContext(), trackSelector);
         exoPlayer.addListener(this);
 
-        setAudioFocus();
+        //setAudioFocus();
 
         registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
 
@@ -456,7 +456,7 @@ public class MeditationService extends Service implements Player.EventListener, 
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(true);
 
-        setAudioFocus();
+        //setAudioFocus();
     }
 
     public SimpleExoPlayer getplayerInstance() {
