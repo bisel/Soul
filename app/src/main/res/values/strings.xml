@@ -93,6 +93,7 @@
 타인과 나 사이에 적당한 선과 균형을 유지하여 건강한 관계를 유지할 수 있는 능력이 안정적인 것으로 나타났습니다.</string>
     <string name="retry">다시하기</string>
     <string name="contents_recommand">콘텐츠 추천받기</string>
+    <string name="retry_test">다시하기</string>
 
     <!-- psychologyList  -->
     <string name="psychology_list">심리상태 검사</string>
@@ -135,7 +136,7 @@
     <string name="emoticon_16">분노</string>
 
     <!-- session  -->
-    <string name="session_title">훌륭해요! 세션을 완료했습니다.</string>
+    <string name="session_title">훌륭해요!<br/>세션을 완료했습니다.</string>
     <string name="session_please">이 세션을 평가해 주세요</string>
     <string name="session_good">좋아요</string>
     <string name="session_bad">별로예요</string>

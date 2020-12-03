@@ -7,6 +7,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -179,6 +180,13 @@ public class ParentItemAdapter extends RecyclerView.Adapter {
             //
             int res_id_1 = context.getResources().getIdentifier(resultData.emotionimg, "drawable", context.getPackageName());
             UtilAPI.setImage(context, bind.imgChildItem, res_id_1);
+
+            if(NetServiceManager.getinstance().getUserProfile().emotiontype == 0){
+                this.bind.retrylayout.setVisibility(View.GONE);
+            }else{
+                this.bind.retrylayout.setVisibility(View.VISIBLE);
+            }
+
         }
 
         public ParentTopItemBinding getParentTopItemBinding() {

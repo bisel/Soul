@@ -3,7 +3,7 @@
 	<colorquestiondata>
 		<id>1</id>
 		<page>1</page>
-		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>1.지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>1</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_01</answer1_file>
@@ -20,7 +20,7 @@
 	<colorquestiondata>
 		<id>2</id>
 		<page>2</page>
-		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>2.지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>5</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_02</answer1_file>
@@ -37,7 +37,7 @@
 	<colorquestiondata>
 		<id>3</id>
 		<page>3</page>
-		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>3.지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>9</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_03</answer1_file>
@@ -54,7 +54,7 @@
 	<colorquestiondata>
 		<id>4</id>
 		<page>4</page>
-		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>4.지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>13</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_04</answer1_file>
@@ -71,7 +71,7 @@
 	<colorquestiondata>
 		<id>5</id>
 		<page>5</page>
-		<question>지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>5.지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>17</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_05</answer1_file>
@@ -88,7 +88,7 @@
 	<colorquestiondata>
 		<id>6</id>
 		<page>6</page>
-		<question>마지막으로 지금 마음에 드는 색의 구슬을 골라보세요</question>
+		<question>6.마지막으로 지금 마음에 드는 색의 구슬을 골라보세요</question>
 		<answer1_id>21</answer1_id>
 		<answer1_text>칼라 구슬</answer1_text>
 		<answer1_file>color_06</answer1_file>

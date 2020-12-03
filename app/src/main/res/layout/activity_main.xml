@@ -28,7 +28,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0" >
+
+        </FrameLayout>
 <!--        android:layout_marginBottom="60dp"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -212,15 +214,12 @@
             android:layout_height="58dp"
             android:layout_gravity="bottom"
             android:background="@drawable/gnb_bg"
-            android:textColorSecondary="#99ffffff"
             android:theme="@style/BottomNavigationTheme"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_menu">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+            app:menu="@menu/bottom_menu" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.soulfriends.meditation.netservice;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +27,6 @@ import com.soulfriends.meditation.parser.ColorData;
 import com.soulfriends.meditation.parser.EmotionListData;
 import com.soulfriends.meditation.parser.QuestionData;
 import com.soulfriends.meditation.parser.ResultData;
-import com.soulfriends.meditation.view.player.MeditationAudioManager;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -449,7 +447,7 @@ public class NetServiceManager {
 
                         for(int idx = 0; idx < healingtagNum; idx++){
                             String curHealingTag = contentshealingtaglist.get(idx);
-                            if(tagString.equals(curHealingTag)){
+                            if(tagString.equals(curHealingTag) && curContents.genre.equals(genre)){   // genre비교 안되어 있었음.
                                 // 해당 HealingTag가 Map에 있는 지 조사
                                 if(!contentsList.containsKey(curContents.uid)){
                                     contentsList.put(curContents.uid,curContents);

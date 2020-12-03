@@ -67,31 +67,128 @@
                 android:id="@+id/img_child_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/main_feeling_bannerimg" />
+                android:background="@drawable/emotion_0" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/retrylayout"
+                android:layout_width="82dp"
+                android:layout_height="34dp"
+                android:layout_gravity="right|top"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/retrybtnimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/main_testagain_bg" />
+
+                <TextView
+                    android:id="@+id/retrytextVal"
+                    android:layout_width="82dp"
+                    android:layout_height="34dp"
+                    android:fontFamily="@font/font_notosanskr_medium"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/retry_test"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                android:id="@+id/resultlayout_test_none"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom|center_horizontal"
-                android:background="@drawable/main_feeling_textbg"
+                android:background="@drawable/main_test_textbg"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <!--Text in the CardView-->
+
                 <TextView
                     android:id="@+id/child_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@{viewModel.feelstate}"
-                    android:includeFontPadding="false"
                     android:fontFamily="@font/font_notosanskr_medium"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.feelstate}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-<!--                @={viewModel.artist}-->
-<!--                android:text="@string/player_title"-->
+                <!--                @={viewModel.artist}-->
+                <!--                android:text="@string/player_title"-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resultlayout_test_gone"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/main_test_textbg"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <TextView
+                        android:id="@+id/child_item_titleext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_notosanskr_medium"
+                        android:text="@{viewModel.feelstate}"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:id="@+id/imageView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:srcCompat="@drawable/main_testagain_bg" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/retry_test"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

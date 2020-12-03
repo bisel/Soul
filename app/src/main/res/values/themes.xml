@@ -24,6 +24,8 @@
     </style>
 
     <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--
         <item name="colorPrimary">@color/navibottom_primary</item>
+        -->
     </style>
 </resources>
