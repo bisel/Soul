@@ -199,6 +199,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="235dp"
             android:fontFamily="@font/font_notosanskr_medium"
+            android:gravity="center"
             android:includeFontPadding="false"
             android:letterSpacing="-0.01"
             android:text="@string/profile_feeling_quest"
