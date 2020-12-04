@@ -72,9 +72,8 @@ public class ContentsinfoActivity extends AppCompatActivity implements ResultLis
                 UtilAPI.setImage(this, binding.ivImage, id_image);
             }
 
-           // binding.ivContents2.setText
-
-            //iv_contents_2
+            // 2020.12.04 회사 소개 글 추가.
+            binding.ivContents2.setText(meditationContents.publisherintro);
         }
 
     }

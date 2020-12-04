@@ -1282,7 +1282,42 @@ public class NetServiceManager {
 //        });
     }
 
+    // local contents list update
+    public void sendFavoriteLocalEvent(String uid, String contentid, int reactionCode) {
+        MeditationContents localContents = this.getMeditationContents(contentid);
+        if(localContents != null){
+            if(localContents.states.containsKey(uid)){
+                // 기존값이 있느데 같을 경우
+                // 기존값이 있는데 다를 경우
+                Integer prev = localContents.states.get(uid);
+                if(prev.intValue() != reactionCode){
+                    if(reactionCode == 1){
+                        // 기존코드가 reactionCode 2
+                        localContents.favoritecnt++;
+                        localContents.hatecnt--;
+                        localContents.states.put(uid,reactionCode);
 
+                    }else if(reactionCode == 2){
+                        // 기존코드가 reactionCode 1
+                        localContents.favoritecnt--;
+                        localContents.hatecnt++;
+                        localContents.states.put(uid,reactionCode);
+                    }
+                }
+            }else{
+                // 기존값이 없을 경우
+                if(reactionCode == 1){
+                    localContents.favoritecnt++;
+                    localContents.states.put(uid,reactionCode);
+                }else if(reactionCode == 2){
+                    // 기존코드가 reactionCode 1
+                    localContents.hatecnt++;
+                    localContents.states.put(uid,reactionCode);
+                }
+
+            }
+        }
+    }
 }
 
 

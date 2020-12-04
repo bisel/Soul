@@ -195,15 +195,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:progress="0"
-                android:indeterminateDrawable="@drawable/miniplay_play"
+                android:progressDrawable="@drawable/progress"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/iv_Minibg"
                 app:layout_constraintStart_toStartOf="parent" />
-<!--            style="@style/CustomProgressBar"-->
-<!--            android:background="@drawable/miniplay_play_line"-->
-<!--            style="?android:attr/progressBarStyleHorizontal"-->
-<!--            android:progressDrawable="@drawable/miniplay_play"-->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

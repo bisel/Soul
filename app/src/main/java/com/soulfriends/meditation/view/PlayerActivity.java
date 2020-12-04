@@ -4,7 +4,6 @@ package com.soulfriends.meditation.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +12,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +19,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +30,6 @@ import com.soulfriends.meditation.databinding.PlayerBinding;
 import com.soulfriends.meditation.model.MeditationContents;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
-import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.RecvEventListener;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
@@ -522,6 +516,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                 UtilAPI.s_bBookmark_update = true;
 
                 if (bBookmark_state) {
+
                     NetServiceManager.getinstance().sendFavoriteContents(meditationContents.uid, false);
                     bBookmark_state = false;
 
@@ -560,6 +555,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
                 String uid = NetServiceManager.getinstance().getUserProfile().uid;
                 //String uid_11 = NetServiceManager.getinstance().getUserProfile().uid;
+
+                // 2020.12.04 로컬 콘텐츠 List 자체에 대한 수정도 같이 이루어져야 한다.
+
+                NetServiceManager.getinstance().sendFavoriteLocalEvent(uid, meditationContents.uid, reactionCode);
                 NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactionCode);
 
             }

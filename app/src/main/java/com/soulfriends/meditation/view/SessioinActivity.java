@@ -2,11 +2,9 @@ package com.soulfriends.meditation.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
@@ -17,7 +15,6 @@ import com.soulfriends.meditation.databinding.SessionBinding;
 import com.soulfriends.meditation.model.MeditationContents;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
-import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.viewmodel.SessionViewModel;
@@ -148,23 +145,21 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
             break;
             case R.id.iv_good_button: {
                 // 좋아요
-
                 reactiionCode = 1;
-
                 Select_Good();
 
                 String uid = NetServiceManager.getinstance().getUserProfile().uid;
+                NetServiceManager.getinstance().sendFavoriteLocalEvent(uid, meditationContents.uid, reactiionCode);
                 NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
             }
             break;
             case R.id.iv_bad_button: {
                 // 별로예요
-
                 reactiionCode = 2;
-
                 Select_Bad();
 
                 String uid = NetServiceManager.getinstance().getUserProfile().uid;
+                NetServiceManager.getinstance().sendFavoriteLocalEvent(uid, meditationContents.uid, reactiionCode);
                 NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
             }
             break;
