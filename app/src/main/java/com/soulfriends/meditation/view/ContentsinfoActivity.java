@@ -71,6 +71,10 @@ public class ContentsinfoActivity extends AppCompatActivity implements ResultLis
             if(id_image != -1) {
                 UtilAPI.setImage(this, binding.ivImage, id_image);
             }
+
+           // binding.ivContents2.setText
+
+            //iv_contents_2
         }
 
     }

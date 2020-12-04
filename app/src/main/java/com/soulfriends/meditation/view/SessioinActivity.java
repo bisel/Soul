@@ -128,12 +128,12 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
 
                 // func 2. 해당 콘텐츠의 좋아요, 싫어요 결정. reactiionCode 0: Default, 1 : 좋아요, 2: 싫어요
 
-                if(reactiionCode_orig != reactiionCode) {
-                    //String uid = PreferenceManager.getString(this, "uid");
-
-                    String uid = NetServiceManager.getinstance().getUserProfile().uid;
-                    NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
-                }
+//                if(reactiionCode_orig != reactiionCode) {
+//                    //String uid = PreferenceManager.getString(this, "uid");
+//
+//                    String uid = NetServiceManager.getinstance().getUserProfile().uid;
+//                    NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
+//                }
 
                 // 나가기 버튼
                 finish();
@@ -152,6 +152,9 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
                 reactiionCode = 1;
 
                 Select_Good();
+
+                String uid = NetServiceManager.getinstance().getUserProfile().uid;
+                NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
             }
             break;
             case R.id.iv_bad_button: {
@@ -160,6 +163,9 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
                 reactiionCode = 2;
 
                 Select_Bad();
+
+                String uid = NetServiceManager.getinstance().getUserProfile().uid;
+                NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
             }
             break;
         }

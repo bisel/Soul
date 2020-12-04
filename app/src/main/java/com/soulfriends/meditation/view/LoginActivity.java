@@ -515,6 +515,8 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
             case 0: {
                 // 이메일 계정 생성 실패일 경우
                 binding.progressBar.setVisibility(View.GONE);
+
+                CallWithDelay_account_error_balloon(2000, this);
             }
             break;
             case 50: {
@@ -612,6 +614,24 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
             public void run() {
                 try {
                     binding.ivEmailErrorBalloon.setVisibility(View.GONE);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw e;
+                }
+            }
+        }, miliseconds);
+    }
+
+    public void CallWithDelay_account_error_balloon(long miliseconds, final Activity activity) {
+
+        binding.ivAccountErrorBalloon.setVisibility(View.VISIBLE);
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    binding.ivAccountErrorBalloon.setVisibility(View.GONE);
 
                 } catch (Exception e) {
                     e.printStackTrace();
