@@ -197,25 +197,25 @@
             android:id="@+id/tv_state_quest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginTop="235dp"
             android:fontFamily="@font/font_notosanskr_medium"
             android:includeFontPadding="false"
             android:letterSpacing="-0.01"
             android:text="@string/profile_feeling_quest"
             android:textColor="#b3b3e8"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/lay_feel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lay_feel"
             android:layout_width="300dp"
             android:layout_height="120dp"
-            android:layout_marginBottom="98dp"
-            app:layout_constraintBottom_toBottomOf="@+id/setting_bg"
+            android:layout_marginTop="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_state_quest">
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -249,7 +249,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
 
             <!--        android:text="@string/profile_feeling_state"-->
-<!--            android:text="@{viewModel.feelstate}"-->
+            <!--            android:text="@{viewModel.feelstate}"-->
 
             <ImageView
                 android:id="@+id/iv_icon"

@@ -1,10 +1,15 @@
 package com.soulfriends.meditation.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +70,8 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
     private String strPlaybackStatus;
 
+    private boolean miniPlaying;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -76,6 +83,8 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         binding.miniLayout.setVisibility(View.GONE);//mini_layout
 
         bShowMiniPlayer = false;
+
+        miniPlaying = false;
 
         if(!UtilAPI.s_one_mini)
         {
@@ -93,6 +102,16 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 //            }
 
                 //Toast.makeText(getApplicationContext(),"메인 - 음악 플레이 중 ",Toast.LENGTH_SHORT).show();
+
+
+
+                miniPlaying = true;
+
+                start_mini_progressbar();
+                //CallWithDelay_mini_progress(500, this, binding.miniProgressBar);
+
+                //binding.miniProgressBar.setProgress(50);
+
 
                 bShowMiniPlayer = true;
 
@@ -121,7 +140,9 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 //  배경음악 플레이
-                AudioPlayer.instance().update();
+                if(AudioPlayer.instance() != null ) {
+                    AudioPlayer.instance().update();
+                }
             }
         }
     }
@@ -243,7 +264,9 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 meditationAudioManager.unbind();
 
                 //  배경음악 플레이
-                AudioPlayer.instance().update();
+                if(AudioPlayer.instance() != null) {
+                    AudioPlayer.instance().update();
+                }
             }
             break;
             case R.id.iv_playcontroler: {
@@ -368,6 +391,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             case PlaybackStatus.STOPPED_END:
             {
                // player_track_count = 0;
+                miniPlaying = false;
 
                 // 음악이 완료 정지 된 경우에 들어옴
                 NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
@@ -405,16 +429,105 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 meditationAudioManager.unbind();
 
                 //  배경음악 플레이
-                AudioPlayer.instance().update();
+                if(AudioPlayer.instance() != null) {
+                    AudioPlayer.instance().update();
+                }
             }
             break;
         }
     }
 
+
+    public void start_mini_progressbar()
+    {
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                if(MeditationAudioManager.isPlaying()) {
+                    int progress = (int) ((MeditationAudioManager.getCurrentPosition() / (float) MeditationAudioManager.getDuration()) * 100.0f);
+
+                    binding.miniProgressBar.setProgress(progress);
+                }
+
+            }
+        } ;
+
+        // 새로운 스레드 실행 코드. 1초 단위로 현재 시각 표시 요청.
+        class NewRunnable implements Runnable {
+            @Override
+            public void run() {
+                while (true) {
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        e.printStackTrace() ;
+                    }
+
+                    // 메인 스레드에 runnable 전달.
+                    runOnUiThread(runnable) ;
+                }
+            }
+        }
+
+        NewRunnable nr = new NewRunnable() ;
+        Thread t = new Thread(nr) ;
+        t.start() ;
+    }
+
+//    Handler handler = new Handler();
+//    public void CallWithDelay_mini_progress(long miliseconds, final Activity activity, ProgressBar progressBar) {
+//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//
+//                    //binding.miniProgressBar.setProgress(50);
+//
+//                    while (miniPlaying)
+//                    {
+//                        Thread.sleep(1000);
+//
+//                        if(MeditationAudioManager.isPlaying()) {
+//                            int progress = (int) ((MeditationAudioManager.getCurrentPosition() / (float) MeditationAudioManager.getDuration()) * 100.0f);
+//
+//                            CallWithDelay_miniProgress_Update(10, progress);
+//                        }
+//
+//
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, miliseconds);
+//    }
+//
+//    public  void CallWithDelay_miniProgress_Update(long miliseconds, int progress) {
+//
+//        binding.miniProgressBar.setProgress(progress);
+//
+////        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+////            @Override
+////            public void run() {
+////                try {
+////
+////
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                    throw e;
+////                }
+////            }
+////        }, miliseconds);
+//    }
+
     @Override
     protected void onStop() {
 
         EventBus.getDefault().unregister(this);
+
+        miniPlaying = false;
 
         super.onStop();
     }
@@ -433,10 +546,14 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         }
         else
         {
+
             UtilAPI.Release_Session();
             meditationAudioManager.unbind();
             //meditationAudioManager.release_service();
-            AudioPlayer.instance().release();
+
+            if(AudioPlayer.instance() != null) {
+                AudioPlayer.instance().release();
+            }
 
             UtilAPI.s_one_mini = false;
         }

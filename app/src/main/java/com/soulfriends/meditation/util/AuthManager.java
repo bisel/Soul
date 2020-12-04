@@ -92,14 +92,15 @@ public class AuthManager {
                             PreferenceManager.setString(activity.getBaseContext(), "certification", "email");
                             resultListener.onSuccess(50, "success");
                         } else {
-                            DoAccountCreate(activity, email, password);
+                            resultListener.onFailure(50, "success");
+                            //DoAccountCreate(activity, email, password);
                         }
                     }
                 });
     }
 
     // 이메일 계정 생성
-    private void DoAccountCreate(Activity activity, String email, String password) {
+    public void DoAccountCreate(Activity activity, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +111,8 @@ public class AuthManager {
                             resultListener.onSuccess(0, "success");
                         } else {
                             resultListener.onFailure(0, "failed");
+
+                            //DoEmail( activity,  email,  password);
                         }
                     }
                 });

@@ -61,7 +61,9 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
         // 이미지
         UtilAPI.load_image(this, meditationContents.thumbnail, binding.ivContentsImage);
 
-        String uid = PreferenceManager.getString(this,"uid");
+        //String uid = PreferenceManager.getString(this,"uid");
+
+        String uid = NetServiceManager.getinstance().getUserProfile().uid;
         reactiionCode = NetServiceManager.getinstance().reqContentsFavoriteEvent(uid, meditationContents.uid);
 
         reactiionCode_orig = reactiionCode;
@@ -82,35 +84,40 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
     private void Select_Good()
     {
         // good 활성화
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            binding.ivGoodButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_like_abled));
-        } else {
-            binding.ivGoodButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_like_abled));
-        }
+        UtilAPI.setImage(this, binding.ivGoodButton, R.drawable.grading_like_abled);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            binding.ivGoodButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_like_abled));
+//        } else {
+//            binding.ivGoodButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_like_abled));
+//        }
 
         // bad 비활성화
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            binding.ivBadButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_dislike_abled));
-        } else {
-            binding.ivBadButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_dislike_abled));
-        }
+        UtilAPI.setImage(this, binding.ivBadButton, R.drawable.grading_dislike_abled);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            binding.ivBadButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_dislike_abled));
+//        } else {
+//            binding.ivBadButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_dislike_abled));
+//        }
     }
 
     private void Select_Bad()
     {
         // bad 활성화
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            binding.ivBadButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_dislike_disabled));
-        } else {
-            binding.ivBadButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_dislike_disabled));
-        }
+        UtilAPI.setImage(this, binding.ivBadButton, R.drawable.grading_dislike_disabled);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            binding.ivBadButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_dislike_disabled));
+//        } else {
+//            binding.ivBadButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_dislike_disabled));
+//        }
 
         // good 비활성화
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            binding.ivGoodButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_like_disabled));
-        } else {
-            binding.ivGoodButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_like_disabled));
-        }
+        UtilAPI.setImage(this, binding.ivGoodButton, R.drawable.grading_like_disabled);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            binding.ivGoodButton.setBackground(ContextCompat.getDrawable(this, R.drawable.grading_like_disabled));
+//        } else {
+//            binding.ivGoodButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.grading_like_disabled));
+//        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -122,7 +129,9 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
                 // func 2. 해당 콘텐츠의 좋아요, 싫어요 결정. reactiionCode 0: Default, 1 : 좋아요, 2: 싫어요
 
                 if(reactiionCode_orig != reactiionCode) {
-                    String uid = PreferenceManager.getString(this, "uid");
+                    //String uid = PreferenceManager.getString(this, "uid");
+
+                    String uid = NetServiceManager.getinstance().getUserProfile().uid;
                     NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
                 }
 

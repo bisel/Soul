@@ -3,12 +3,14 @@ package com.soulfriends.meditation.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,6 +36,10 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
     private FirebaseAuth mAuth;
     private final AuthManager authManager = new AuthManager();
 
+
+    private float switch_scale_x = 1.0f;
+    private float switch_scale_y = 1.0f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +63,20 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
         // switch 초기값 설정
         binding.switchSound.setChecked(!sound_off);
 
+        switch_scale_x = binding.switchSound.getScaleX();
+        switch_scale_y = binding.switchSound.getScaleY();
+
        // binding.switchNoti.setOnCheckedChangeListener(new noti_SwitchListener());
         binding.switchSound.setOnCheckedChangeListener(new sound_SwitchListener());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        binding.switchSound.setScaleX(switch_scale_x * 0.5f);
+        binding.switchSound.setScaleY(switch_scale_y * 0.5f);
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -155,17 +173,29 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
     }
 
     public class sound_SwitchListener implements CompoundButton.OnCheckedChangeListener{
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(isChecked) {
+                
+                // 음악 플레이 상태
+                
                 PreferenceManager.setBoolean(buttonView.getContext(),"sound_off", false);
 
-                AudioPlayer.with(getApplicationContext()).playSound(R.raw.bgm, 1.0f);
+                if(AudioPlayer.instance() != null) {
+                    AudioPlayer.instance().playSound(R.raw.bgm, 1.0f);
+                }
                 //AudioPlayer.instance().play();
             }
             else {
+                
+                // 음악 정지 상태
+                
                 PreferenceManager.setBoolean(buttonView.getContext(),"sound_off", true);
-                AudioPlayer.instance().stop();
+
+                if(AudioPlayer.instance() != null) {
+                    AudioPlayer.instance().stop();
+                }
             }
         }
     }

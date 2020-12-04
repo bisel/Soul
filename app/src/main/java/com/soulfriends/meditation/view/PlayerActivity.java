@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,6 +71,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     private long mLastClickTime = 0;
 
     private String strPlaybackStatus;
+
+    private int reactionCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,15 +155,17 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         }
 
         // 좋아요 표시
-        String uid = PreferenceManager.getString(this,"uid");
-        int reactiionCode = NetServiceManager.getinstance().reqContentsFavoriteEvent(uid, meditationContents.uid);
-        if(reactiionCode == 1)
+        //String uid = PreferenceManager.getString(this,"uid");
+
+        String uid = NetServiceManager.getinstance().getUserProfile().uid;
+        reactionCode = NetServiceManager.getinstance().reqContentsFavoriteEvent(uid, meditationContents.uid);
+        if(reactionCode == 1)
         {
             // 좋아요
             // good 활성화
             UtilAPI.setButtonBackground(this, binding.btLike, R.drawable.like_btn_com);
         }
-        else if(reactiionCode == 2)
+        else if(reactionCode == 2)
         {
             // 별로예요
             UtilAPI.setButtonBackground(this, binding.btLike, R.drawable.dislike_btn_com);
@@ -321,7 +326,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         bOneEntry_Stopped = false;
 
         // 배경음 정지
-        AudioPlayer.instance().pause();
+        if(AudioPlayer.instance() != null)
+        {
+            AudioPlayer.instance().pause();
+        }
     }
 
     @Override
@@ -529,6 +537,33 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                 }
             }
             break;
+            case R.id.bt_like:
+            {
+                if(reactionCode == 1)
+                {
+                    // 좋아요 -> 별로예요
+                    UtilAPI.setButtonBackground(this, binding.btLike, R.drawable.dislike_btn_com);
+
+                    reactionCode = 2;
+
+                    CallWithDelay_balloon_like(2000, this, binding.layoutDislikeBalloon);
+                }
+                else if(reactionCode == 2 || reactionCode == 0)
+                {
+                    // 별로예요 -> 좋아요
+                    UtilAPI.setButtonBackground(this, binding.btLike, R.drawable.like_btn_com);
+
+                    reactionCode = 1;
+
+                    CallWithDelay_balloon_like(2000, this, binding.layoutLikeBalloon);
+                }
+
+                String uid = NetServiceManager.getinstance().getUserProfile().uid;
+                //String uid_11 = NetServiceManager.getinstance().getUserProfile().uid;
+                NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactionCode);
+
+            }
+            break;
         }
     }
 
@@ -546,6 +581,25 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             public void run() {
                 try {
                     binding.layoutFavoriteBalloon.setVisibility(View.GONE);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw e;
+                }
+            }
+        }, miliseconds);
+    }
+
+
+    public void CallWithDelay_balloon_like(long miliseconds, final Activity activity, RelativeLayout layout) {
+
+        layout.setVisibility(View.VISIBLE);
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    layout.setVisibility(View.GONE);
 
                 } catch (Exception e) {
                     e.printStackTrace();

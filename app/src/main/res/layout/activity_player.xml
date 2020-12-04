@@ -40,6 +40,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_img"
             android:scaleType="centerCrop"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -244,6 +245,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginBottom="200dp"
+            android:onClick="@{(v)-> viewModel.OnClick_Select(v)}"
             android:background="@drawable/like_btn"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -314,6 +316,7 @@
 
         </com.google.android.exoplayer2.ui.PlayerControlView>
 
+        <!-- 즐겨찾기 -->
         <RelativeLayout
             android:id="@+id/layout_favorite_balloon"
             android:layout_width="160dp"
@@ -336,6 +339,58 @@
                 android:fontFamily="@font/font_notosanskr_regular"
                 android:layout_marginTop="8dp"
                 android:text="@string/player_balloon_favorites"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <!-- 좋아요 -->
+
+        <!-- 별로예요 -->
+
+        <RelativeLayout
+            android:id="@+id/layout_like_balloon"
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:background="@drawable/player_alert_bg"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bt_like"
+            app:layout_constraintEnd_toEndOf="@+id/bt_like"
+            app:layout_constraintStart_toStartOf="@+id/bt_like">
+
+            <TextView
+                android:id="@+id/tv_like_balloon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/font_notosanskr_regular"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/player_balloon_like"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_dislike_balloon"
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:background="@drawable/player_alert_bg"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bt_like"
+            app:layout_constraintEnd_toEndOf="@+id/bt_like"
+            app:layout_constraintStart_toStartOf="@+id/bt_like">
+
+            <TextView
+                android:id="@+id/tv_dislike_balloon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/font_notosanskr_regular"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/player_balloon_dislike"
                 android:textColor="#000000"
                 android:textSize="10sp" />
         </RelativeLayout>

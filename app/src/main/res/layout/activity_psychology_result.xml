@@ -56,12 +56,15 @@
             android:includeFontPadding="false"
             android:fontFamily="@font/font_notosanskr_regular"
             android:lineSpacingExtra="9sp"
-            android:text="@={viewModel.strTitle}"
+            android:text="@string/psychology_result"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--        android:text="@={viewModel.strTitle}"-->
 
         <TextView
             android:id="@+id/tv_nick"
@@ -101,39 +104,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+
             <ImageView
                 android:id="@+id/image_tile"
                 android:layout_width="300dp"
                 android:layout_height="160dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/test_reult_img" />
 
-            <ImageView
-                android:id="@+id/iv_text_bar"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/test_result_text_bg" />
+                <ImageView
+                    android:id="@+id/iv_text_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
 
-            <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="6sp"
-                android:text="@={viewModel.strTitle}"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:includeFontPadding="false"
-                android:fontFamily="@font/font_notosanskr_medium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_text_bar" />
+                    android:layout_gravity="bottom"
+                    app:srcCompat="@drawable/test_result_text_bg" />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal|center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/font_notosanskr_medium"
+                    android:gravity="center_horizontal"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@={viewModel.strTitle}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </androidx.cardview.widget.CardView>
 <!--            android:text="@string/psychology_state"-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>

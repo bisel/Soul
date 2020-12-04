@@ -120,12 +120,10 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
                     UtilAPI.s_activity = null;
                 }
 
-
-
-                finish();
-
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+
+                finish();
 
             }
             break;

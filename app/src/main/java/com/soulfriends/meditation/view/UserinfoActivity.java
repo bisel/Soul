@@ -59,6 +59,9 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         bSuccess_nickname = false;
         bSuccess_gender = false;
 
+        // 자동로그인 시 uid 초기화 처리
+        PreferenceManager.setString(this,"uid", "");
+
 //        NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
 //            @Override
 //            public void onRecvValProfile(boolean validate) {

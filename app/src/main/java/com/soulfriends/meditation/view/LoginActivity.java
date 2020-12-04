@@ -299,6 +299,70 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
                 binding.password.clearFocus();
             }
             break;
+
+            case R.id.bt_account: {
+                // 회원 가입
+                if (userLogin.isValidEmail()) {
+                    binding.ivEmailCheck.setVisibility(View.VISIBLE);
+                    binding.ivEmailCheck.setImageResource(R.drawable.icon_true);
+                    bEmail_Success = true;
+
+                    if(binding.ivEmailBalloon.getVisibility() == View.VISIBLE) {
+                        binding.ivEmailBalloon.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    bEmail_Success = false;
+                }
+
+                if (userLogin.isValidPassword()) {
+                    binding.ivPasswordCheck.setVisibility(View.VISIBLE);
+                    binding.ivPasswordCheck.setImageResource(R.drawable.icon_true);
+                    bPassword_Success = true;
+
+                    if(binding.ivPasswordBalloon.getVisibility() == View.VISIBLE) {
+                        binding.ivPasswordBalloon.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    bPassword_Success = false;
+                }
+
+                if (!bEmail_Success) {
+                    binding.ivEmailCheck.setVisibility(View.VISIBLE);
+                    binding.ivEmailCheck.setImageResource(R.drawable.icon_false);
+
+                    if(binding.ivEmailBalloon.getVisibility() == View.GONE) {
+                        binding.ivEmailBalloon.setVisibility(View.VISIBLE);
+                        CallWithDelay_email_balloon(2000, this);
+                    }
+                }
+
+                if (!bPassword_Success) {
+                    binding.ivPasswordCheck.setVisibility(View.VISIBLE);
+                    binding.ivPasswordCheck.setImageResource(R.drawable.icon_false);
+
+                    if(binding.ivPasswordBalloon.getVisibility() == View.GONE) {
+                        binding.ivPasswordBalloon.setVisibility(View.VISIBLE);
+                        CallWithDelay_password_balloon(2000, this);
+                    }
+                }
+                if (bEmail_Success && bPassword_Success) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    //authManager.DoAccountCreate(this, userLogin.getEmail(), userLogin.getPassword());
+
+                    authManager.DoAccountCreate(this, userLogin.getEmail(), userLogin.getPassword());
+                }
+
+                if (isKeyboardShowing) {
+                    View view = this.getCurrentFocus();
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                
+            }
+            break;
             case R.id.bt_login: {
                 // 로그인 버튼 클릭한 경우
                 if (userLogin.isValidEmail()) {
@@ -449,8 +513,15 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
     public void onFailure(Integer id, String message) {
         switch (id) {
             case 0: {
+                // 이메일 계정 생성 실패일 경우
+                binding.progressBar.setVisibility(View.GONE);
+            }
+            break;
+            case 50: {
                 // 로그인 실패 한 경우
                 binding.progressBar.setVisibility(View.GONE);
+
+                CallWithDelay_login_error_balloon(2000, this);
             }
             break;
             case 100: {
@@ -475,8 +546,6 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
             case R.id.password: {
                 // 패스워드 부적합 한 경우
                 // 말풍선
-                binding.ivPasswordBalloon.setVisibility(View.VISIBLE);
-
                 binding.ivPasswordCheck.setVisibility(View.VISIBLE);
                 binding.ivPasswordCheck.setImageResource(R.drawable.icon_false);
 
@@ -525,6 +594,24 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
             public void run() {
                 try {
                     binding.ivPasswordFindBalloon.setVisibility(View.GONE);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw e;
+                }
+            }
+        }, miliseconds);
+    }
+
+    public void CallWithDelay_login_error_balloon(long miliseconds, final Activity activity) {
+
+        binding.ivEmailErrorBalloon.setVisibility(View.VISIBLE);
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    binding.ivEmailErrorBalloon.setVisibility(View.GONE);
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -49,11 +49,12 @@ public class AudioPlayer {
         if (bSound_off) {
             // off 상태임.
         } else {
-            if (AudioPlayer.instance().isPlayingAndPause()) {
-                if (AudioPlayer.instance().isPlaying()) {
-
-                } else {
-                    AudioPlayer.instance().play();
+            if(instance != null) {
+                if (isPlayingAndPause()) {
+                    if (isPlaying()) {
+                    } else {
+                        play();
+                    }
                 }
             }
         }
@@ -81,15 +82,17 @@ public class AudioPlayer {
             return;
         }
 
+        stop();
+
         simpleExoPlayer.release();
+
+        simpleExoPlayer = null;
     }
 
     public void play() {
         if (simpleExoPlayer == null) {
             return;
         }
-
-
         simpleExoPlayer.setPlayWhenReady(true);
 
         simpleExoPlayer.getPlaybackState();
@@ -107,10 +110,18 @@ public class AudioPlayer {
 
     public boolean isPlaying() {
 
+        if (simpleExoPlayer == null) {
+            return false;
+        }
         return this.audio_state.equals(PlaybackStatus.PLAYING);
     }
 
     public boolean isPlayingAndPause() {
+
+        if (simpleExoPlayer == null) {
+            return false;
+        }
+
         boolean res = false;
 
         if (this.audio_state.equals(PlaybackStatus.PLAYING)) {
@@ -146,6 +157,7 @@ public class AudioPlayer {
         simpleExoPlayer.prepare(mediaSource);
         simpleExoPlayer.setPlayWhenReady(true);
         simpleExoPlayer.setVolume(volume);
+        simpleExoPlayer.setRepeatMode(Player.REPEAT_MODE_ALL);
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)

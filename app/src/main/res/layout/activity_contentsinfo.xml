@@ -98,7 +98,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/bookmark_btn" />
+                android:background="@drawable/bookmark_btn" />
 
             <TextView
                 android:id="@+id/iv_name"

@@ -176,10 +176,10 @@ public class PsychologyColorTestActivity extends AppCompatActivity implements Re
                 }
                 else
                 {
-                    finish();
-
                     Intent intent = new Intent(this, PsychologyListActivity.class);
                     startActivity(intent);
+
+                    finish();
                 }
 
             }

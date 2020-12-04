@@ -10,7 +10,9 @@
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
     <string name="login_1">로그인&amp;가입</string>
-    <string name="login">로그인 or 회원가입</string>
+    <string name="login_account">회원가입</string>
+    <string name="login">이메일로 로그인</string>
+    <string name="login_error">로그인에 실패 했습니다.</string>
     <string name="login_google">구글계정으로 로그인</string>
     <string name="failed">Authentication failed</string>
     <string name="image">image</string>
@@ -82,12 +84,15 @@
     <string name="total_session_number">999+</string>
     <string name="mind_checktime">마음점검시간</string>
     <string name="mind_checktime_time">999시간 52분</string>
-    <string name="profile_feeling_quest"> 님의 <br />현재 감정은?</string>
+    <string name="profile_feeling_quest"> 님의 <br/>현재 감정은?</string>
     <string name="profile_feeling_state">편안하고 차분한 상태</string>
+
+    <!-- psychologyFeelingTest  -->
+    <string name="psychology_feel_nickname"> 님의 <br/> 현재 감정은?</string>
 
     <!-- psychologyResult  -->
     <string name="psychology_result">심리 검사 결과</string>
-    <string name="psychology_nickname"> 님의 <br />현재 감정은?</string>
+    <string name="psychology_nickname"> 님의 <br/> 현재 감정은?</string>
     <string name="psychology_state">편안하고 차분한 상태</string>
     <string name="psychology_state_contents">타인을 만났을 때 어느 정도 경계해야 하는지, 어느 정도 마음을 열어야 하는지를 자연스럽게 파악하고 조절하는 정도’를 의미합니다.
 타인과 나 사이에 적당한 선과 균형을 유지하여 건강한 관계를 유지할 수 있는 능력이 안정적인 것으로 나타났습니다.</string>
@@ -167,9 +172,11 @@
     <string name="player_author">저자</string>
     <string name="player_author_name">Tamara Levitt</string>
     <string name="player_balloon_favorites">즐겨찾기에 추가했습니다.</string>
+    <string name="player_balloon_like">좋아요를 눌렀습니다.</string>
+    <string name="player_balloon_dislike">별로예요를 눌렀습니다.</string>
 
     <!-- contentsinfo  -->
-    <string name="contents_title">스튜어트섬으로  <br />떠나는 환상적인별자리 여행</string>
+    <string name="contents_title">스튜어트섬으로  <br/>떠나는 환상적인별자리 여행</string>
     <string name="contents_contents">Tamara Levitt이 직접 쓴 일일 세션을 통해 하루하루 새롭게 수행을 이어 나가세요. 수행을 강화하고 영감을 주는 새로운 주제와 교육적인 내용을 매일 만나보실 수 있습니다.</string>
     <string name="contents_publisher">제작사명</string>
     <string name="contents_pb_contens">25년 이상 경력의 명상가 Tamara는 Calm의 마음챙김 리더로, 2014년부터 Calm의 명상 콘텐츠를 제작하고 내레이션을 해 왔습니다.</string>

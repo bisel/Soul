@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.view.View;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.soulfriends.meditation.util.ResultListener;
@@ -15,6 +16,7 @@ public class PsychologyFeelingTestViewModel extends ViewModel {
 
     private ResultListener listener;
     private Context context;
+
 
     public View getView() {
         return view;
