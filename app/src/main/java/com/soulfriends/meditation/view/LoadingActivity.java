@@ -85,15 +85,18 @@ public class LoadingActivity extends AppCompatActivity {
         }
         else
         {
-            if(validate == false && errorcode == 0){
-
-            }
+            //if(validate == false && errorcode == 0){
+            // 2020.12.05 실패하면 로그인쪽으로 가야 한다.
+            this.startActivity(new Intent(this, LoginActivity.class));
+            //}
         }
     }
 
     private void DoRecvContents(boolean validate)
     {
         if(validate) {
+
+            NetServiceManager.getinstance().reqEmotionAllContents(); // 2020.12.05 2st
 
             this.startActivity(new Intent(this, MainActivity.class));
 

@@ -77,7 +77,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="0dp"
             android:text="@string/psychology_nickname"
-            android:textColor="#9fffe5"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

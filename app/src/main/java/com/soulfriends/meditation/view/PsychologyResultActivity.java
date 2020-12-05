@@ -110,8 +110,6 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
                     UtilAPI.s_Main_activity = null;
                 }
 
-
-
                 // 콘텐츠 추천하기
 
                 if(UtilAPI.s_activity != null)
@@ -120,9 +118,11 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
                     UtilAPI.s_activity = null;
                 }
 
+                // 2020.12.05 감정이 여기에 정상적으로 들어오는지 확인 필요
+                NetServiceManager.getinstance().reqEmotionAllContents();
+
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-
                 finish();
 
             }

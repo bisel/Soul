@@ -79,6 +79,11 @@ public class NetServiceManager {
         this.cur_contents = cur_contents;
     }
 
+    // 2020.12.05 start
+    MeditationCategory   mEmotionMeditationCategory = null;
+    MeditationCategory   mEmotionSleepCategory = null;
+    MeditationCategory   mEmotionMusicCategory = null;
+    // 2020.12.05 end
 
     // 심리 검사 데이터
     private ArrayList<ResultData> resultData_list;
@@ -304,7 +309,7 @@ public class NetServiceManager {
                      genre = genre3;
                  }
 
-                 MeditationCategory emotionCategory =  getEmotionTestCategory(genre);
+                 MeditationCategory emotionCategory =  getLocalEmotionTestCategory(genre);  // 2020.12.05
                  if(emotionCategory != null){
                      newShowCategorys.showcategorys.add(emotionCategory);
                  }
@@ -332,7 +337,7 @@ public class NetServiceManager {
         newShowCategorys.showcategorys = new ArrayList<MeditationCategory>();
 
         if(mIsDoneTest){
-            MeditationCategory emotionMeditationCategory =  getEmotionTestCategory(genre1);
+            MeditationCategory emotionMeditationCategory =   getLocalEmotionTestCategory(genre1);  // 2020.12.05
             if(emotionMeditationCategory != null){
                 newShowCategorys.showcategorys.add(emotionMeditationCategory);
             }
@@ -357,7 +362,7 @@ public class NetServiceManager {
         newShowCategorys.showcategorys = new ArrayList<MeditationCategory>();
 
         if(mIsDoneTest){
-            MeditationCategory emotionSleepCategory =  getEmotionTestCategory(genre2);
+            MeditationCategory emotionSleepCategory =   getLocalEmotionTestCategory(genre2);  // 2020.12.05;
             if(emotionSleepCategory != null){
                 newShowCategorys.showcategorys.add(emotionSleepCategory);
             }
@@ -381,7 +386,7 @@ public class NetServiceManager {
         newShowCategorys.showcategorys = new ArrayList<MeditationCategory>();
 
         if(mIsDoneTest){
-            MeditationCategory emotionMusicCategory =  getEmotionTestCategory(genre3);
+            MeditationCategory emotionMusicCategory =   getLocalEmotionTestCategory(genre3);  // 2020.12.05;
             if(emotionMusicCategory != null){
                 newShowCategorys.showcategorys.add(emotionMusicCategory);
             }
@@ -481,8 +486,17 @@ public class NetServiceManager {
             }
         }
 
+
+        // 2020.12.05
+        if(mCurCategory != null &&  mCurCategory.contests.size() > 0){
+            Collections.shuffle(mCurCategory.contests);
+        }
+
         return mCurCategory;
     }
+
+
+
 
     // selectType 0 : all 1: 명상, 2: 수면 3 : 음악
     // 종류별로 즐겨찾기한 콘텐츠들을 알려준다.
@@ -579,6 +593,28 @@ public class NetServiceManager {
         }
         return null;
     }
+
+    // 2020.12.05 start
+    // 새로운 정보를 얻을때에 사용한다.
+    public void reqEmotionAllContents(){
+        mEmotionMeditationCategory = getEmotionTestCategory(genre1);
+        mEmotionSleepCategory = getEmotionTestCategory(genre2);
+        mEmotionMusicCategory = getEmotionTestCategory(genre3);
+    }
+
+    private MeditationCategory getLocalEmotionTestCategory(String genre)
+    {
+        if(genre.equals(genre1)){
+            return mEmotionMeditationCategory;
+        }else if(genre.equals(genre2)){
+            return mEmotionSleepCategory;
+        }else if(genre.equals(genre3)){
+            return mEmotionMusicCategory;
+        }
+
+        return null;
+    }
+    // 2020.12.05 end
 
     // 주어진 타입에 따라서 관련 MeditationShowCategorys을 알려준다.
     // 1: home  2: 명상  3: 수면, 4: 음악 5: 테스트용

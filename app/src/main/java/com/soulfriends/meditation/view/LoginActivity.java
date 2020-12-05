@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -171,6 +170,9 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
                 return;
             }
 
+            // 2020.12.05 start 로그인이 성공했으므로 콘텐츠들을 새롭게 갱신해야 한다.
+            //NetServiceManager.getinstance().reqEmotionAllContents();
+            // 2020.12.05 end
 
             //Toast.makeText(this, nickname, Toast.LENGTH_SHORT).show();
 
