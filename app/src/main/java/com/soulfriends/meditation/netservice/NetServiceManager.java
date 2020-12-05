@@ -320,7 +320,7 @@ public class NetServiceManager {
          // 3. 인기리스트(12월 버전에서는 제외)
 
          // 4. 고정리스트 콘텐츠들
-         List<String> inputContentsCategorysIds = asList("51","52","53","54","55","56","57","58","59","60","61","62","63","64","65");
+         List<String> inputContentsCategorysIds = asList("51","52","53","54","63","67","55","56","57","58","59","64","65");
          procContentsCategorys(inputContentsCategorysIds,newShowCategorys);
 
          return newShowCategorys;
@@ -344,7 +344,7 @@ public class NetServiceManager {
             newShowCategorys.showcategorys.add(favoriteCategory);
         }
 
-        List<String> inputContentsCategorysIds = asList("51","52","55","56","57","58","60");
+        List<String> inputContentsCategorysIds = asList("51","52","55","56","57","58");
         procContentsCategorys(inputContentsCategorysIds,newShowCategorys);
 
         return newShowCategorys;
@@ -370,7 +370,7 @@ public class NetServiceManager {
             newShowCategorys.showcategorys.add(favoriteCategory);
         }
 
-        List<String> inputContentsCategorysIds = asList("54","63","62","64");
+        List<String> inputContentsCategorysIds = asList("54","63","67","64");
         procContentsCategorys(inputContentsCategorysIds,newShowCategorys);
         return newShowCategorys;
     }
@@ -394,7 +394,7 @@ public class NetServiceManager {
             newShowCategorys.showcategorys.add(favoriteCategory);
         }
 
-        List<String> inputContentsCategorysIds = asList("59","61","65");
+        List<String> inputContentsCategorysIds = asList("59","59","65");
         procContentsCategorys(inputContentsCategorysIds,newShowCategorys);
         return newShowCategorys;
     }

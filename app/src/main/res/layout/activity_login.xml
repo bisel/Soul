@@ -389,21 +389,21 @@
                             android:id="@+id/bt_account"
                             android:layout_width="300dp"
                             android:layout_height="40dp"
-                            android:layout_marginTop="20dp"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:background="@drawable/login_btn"
-                            android:onClick="@{(v)-> viewModel.OnClick_Login(v)}"
-                            >
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/register_btn"
+                            android:onClick="@{(v)-> viewModel.OnClick_Login(v)}">
+
                             <TextView
                                 android:id="@+id/tv_account"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:text="@string/login_account"
-                                android:includeFontPadding="false"
                                 android:fontFamily="@font/font_notosanskr_regular"
+                                android:includeFontPadding="false"
+                                android:text="@string/login_account"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
 
                         </RelativeLayout>

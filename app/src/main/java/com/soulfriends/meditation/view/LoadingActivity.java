@@ -85,7 +85,9 @@ public class LoadingActivity extends AppCompatActivity {
         }
         else
         {
+            if(validate == false && errorcode == 0){
 
+            }
         }
     }
 

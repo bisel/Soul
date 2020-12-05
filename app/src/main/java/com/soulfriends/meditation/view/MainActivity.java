@@ -1,15 +1,10 @@
 package com.soulfriends.meditation.view;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 bShowMiniPlayer = true;
 
                 // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container, 60);
+                //UtilAPI.setMarginBottom(this, binding.container, 60);
 
                 meditationContents = NetServiceManager.getinstance().getCur_contents();
 
@@ -137,7 +132,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 }
             } else {
                 // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container, 0);
+                //-UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 //  배경음악 플레이
                 if(AudioPlayer.instance() != null ) {

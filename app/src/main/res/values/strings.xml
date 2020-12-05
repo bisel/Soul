@@ -90,7 +90,7 @@
     <string name="profile_feeling_state">편안하고 차분한 상태</string>
 
     <!-- psychologyFeelingTest  -->
-    <string name="psychology_feel_nickname"> 님의 <br/> 현재 감정은?</string>
+    <string name="psychology_feel_nickname"> 님의 \n현재 감정은?</string>
 
     <!-- psychologyResult  -->
     <string name="psychology_result">심리 검사 결과</string>

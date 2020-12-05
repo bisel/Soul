@@ -160,10 +160,11 @@
                     android:layout_height="wrap_content"
                     android:text="분"
                     android:textSize="14sp"
-                    android:textColor="@color/white"
+		    android:textColor="@color/white"
+   
                     android:includeFontPadding="false"
-                    android:fontFamily="@font/font_notosanskr_regular"
-                     />
+		    android:fontFamily="@font/font_notosanskr_regular"
+		    />
             </LinearLayout>
 
 
