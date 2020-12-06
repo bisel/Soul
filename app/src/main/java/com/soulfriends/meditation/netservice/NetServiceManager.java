@@ -69,6 +69,11 @@ public class NetServiceManager {
     private boolean testFileDBMode = false;
     private Resources mAppRes = null;
 
+    private final int mNewContentsDelayDay = 1;
+    public int GetNewContentsDelayDay(){
+        return mNewContentsDelayDay;
+    }
+
     // 현재 선택된 MeditationContents
     private MeditationContents cur_contents;
     public MeditationContents getCur_contents() {

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soulfriends.meditation.databinding.ChildItemBinding;
 import com.soulfriends.meditation.model.MediationShowContents;
+import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.ItemClickListener;
 import com.soulfriends.meditation.util.UtilAPI;
 
@@ -86,7 +87,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter {
 
         long day = UtilAPI.GetDay_Date(releasedate);
 
-        if(day > 7)
+        if(day > NetServiceManager.getinstance().GetNewContentsDelayDay())
         {
             childViewHolder.getChildItemBinding().ivBadge.setVisibility(View.GONE);
         }

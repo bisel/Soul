@@ -87,31 +87,14 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         }
         else {
             if (meditationAudioManager.isPlayingAndPause()) {
-//            if(meditationAudioManager.getService() != null)
-//            {
-//                Toast.makeText(getApplicationContext(),"메인 ## 음악 플레이 중  ",Toast.LENGTH_SHORT).show();
-//            }
-
-//            if (meditationAudioManager.getServiceBound()) {
-//                Toast.makeText(getApplicationContext(),"메인 %% 음악 플레이 중  ",Toast.LENGTH_SHORT).show();
-//            }
-
-                //Toast.makeText(getApplicationContext(),"메인 - 음악 플레이 중 ",Toast.LENGTH_SHORT).show();
-
-
-
                 miniPlaying = true;
 
                 start_mini_progressbar();
-                //CallWithDelay_mini_progress(500, this, binding.miniProgressBar);
-
-                //binding.miniProgressBar.setProgress(50);
-
 
                 bShowMiniPlayer = true;
 
                 // 프레임 레이어 조절
-                //UtilAPI.setMarginBottom(this, binding.container, 60);
+                UtilAPI.setMarginBottom(this, binding.container, 54);
 
                 meditationContents = NetServiceManager.getinstance().getCur_contents();
 
@@ -132,7 +115,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 }
             } else {
                 // 프레임 레이어 조절
-                //-UtilAPI.setMarginBottom(this, binding.container, 0);
+                UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 //  배경음악 플레이
                 if(AudioPlayer.instance() != null ) {
@@ -238,6 +221,19 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         fragmentTransaction.setPrimaryNavigationFragment(fragmentTemp);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNowAllowingStateLoss();
+
+        if(tagFragmentName.equals("HomeFragment")){
+            binding.imageView12.setImageResource(R.drawable.home_bg);
+        }else if(tagFragmentName.equals("MeditationFragment")){
+            binding.imageView12.setImageResource(R.drawable.meditation_bg);
+        }else if(tagFragmentName.equals("SleepFragment")){
+            binding.imageView12.setImageResource(R.drawable.sleep_bg);
+        }else if(tagFragmentName.equals("MusicFragment")){
+            binding.imageView12.setImageResource(R.drawable.music_bg);
+        }else if(tagFragmentName.equals("ProfileFragment")){
+            binding.imageView12.setImageResource(R.drawable.my_bg);
+        }
+
     }
 
     @SuppressLint("NonConstantResourceId")

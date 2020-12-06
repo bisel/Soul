@@ -51,6 +51,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:onClick="@{(v)-> viewModel.OnClick_Close(v)}"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close" />

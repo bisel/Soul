@@ -89,28 +89,6 @@
 <!--        app:srcCompat="@drawable/close_btn" />-->
 
 
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="176dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/popup_test_suggest_text" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="42dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:srcCompat="@drawable/emoti_04" />
-
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
