@@ -415,7 +415,7 @@ public class NetServiceManager {
         // 명상
         String curemotionid = Integer.toString(mUserProfile.emotiontype);
 
-        int dataNum = mEmotionListMeditationDataList.size();
+        int dataNum = 0; // mEmotionListMeditationDataList.size();
         Map<String,MeditationContents> contentsList = new HashMap<>();
 
         // 카테고리 정보를 얻어야 한다.
@@ -436,61 +436,74 @@ public class NetServiceManager {
             return null;
         }
 
+        dataNum = curEmotionListDataList.size();
         MeditationCategory mCurCategory = null;
 
-        // 감정 아이디와 같은 콘텐츠를 찾는다.
-        for(int i = 0; i < dataNum; i++){
+        // 1. 감정 태그를 먼저 찾는다.
+        List<String> healingtaglist = null;
+        for(int i = 0; i < dataNum; i++) {
             EmotionListData mData = curEmotionListDataList.get(i);
-            if(curemotionid.equals(mData.emotionid)){
-                List<String> healingtaglist = asList(mData.healingtag.split(","));
-                int subDataNum = healingtaglist.size();
-                for(int j = 0; j < subDataNum; j++) {
-
-                    // 감정에 해당하는 healingtag와 contents에 있는 healingtag를 비교해서 같은것이 있는 콘텐츠를 찾는다.
-                    String tagString = healingtaglist.get(j);
-                    int contentsNum = mContentsList.size();
-                    for(int k = 0; k < contentsNum; k++){
-                        MeditationContents curContents = mContentsList.get(k);
-
-                        List<String> contentshealingtaglist = asList(curContents.healingtag.split(","));
-                        int healingtagNum = contentshealingtaglist.size();
-
-                        for(int idx = 0; idx < healingtagNum; idx++){
-                            String curHealingTag = contentshealingtaglist.get(idx);
-                            if(tagString.equals(curHealingTag) && curContents.genre.equals(genre)){   // genre비교 안되어 있었음.
-                                // 해당 HealingTag가 Map에 있는 지 조사
-                                if(!contentsList.containsKey(curContents.uid)){
-                                    contentsList.put(curContents.uid,curContents);
-                                }
-                            }
-                        }
-
-                        //contentshealingtaglist.clear(); // clear하면 error가남.
-                    }
-                }
-                // 완료된후에 Map에 들어가 있는 원소들을 모두 돌면서 contentsid를 얻고
-                if(contentsList.size()> 0){
-                    mCurCategory = new MeditationCategory();
-                    mCurCategory.name = curCategoryData.name;
-                    mCurCategory.contests = new ArrayList<MediationShowContents>();
-                }
-
-                //======================================================================
-                // Map을 랜덤하게 일정수를 넣도록 하는것이 좋다. 우선은 Max치만 넣게 한다.
-                //======================================================================
-                int curNum = 0;
-                for (Map.Entry<String, MeditationContents> entry : contentsList.entrySet()) {
-                    if(curNum < curCategoryData.maxnum) {
-                        String curkey = entry.getKey();  // contents id
-                        MediationShowContents newEntity = new MediationShowContents();
-                        newEntity.entity = entry.getValue();
-                        mCurCategory.contests.add(newEntity);
-                        curNum++;
-                    }
-                }
+            if (curemotionid.equals(mData.emotionid)) {
+                healingtaglist = asList(mData.healingtag.split(","));
+                break;
             }
         }
 
+        // 2. 찾은 감정태그를 이용해서 콘텐츠의 태그들과 비교한다.
+        if(healingtaglist == null)
+            return null;
+
+        int contentsNum = mContentsList.size();
+        int subDataNum = healingtaglist.size();
+
+        for(int k = 0; k < contentsNum; k++){
+            MeditationContents curContents = mContentsList.get(k);
+            List<String> contentshealingtaglist = asList(curContents.healingtag.split(","));
+            int healingtagNum = contentshealingtaglist.size();
+
+            boolean bFindContents = false;
+
+            // healingtag 하나라도 같으면 넣으면 된다.
+            for(int j = 0; j < subDataNum; j++) {
+                String tagString = healingtaglist.get(j);
+
+                for (int idx = 0; idx < healingtagNum; idx++) {
+                    String curHealingTag = contentshealingtaglist.get(idx);
+                    if (tagString.equals(curHealingTag) && curContents.genre.equals(genre)) {   // genre비교 안되어 있었음.
+                        // 해당 HealingTag가 Map에 있는 지 조사
+                        if (!contentsList.containsKey(curContents.uid)) {
+                            contentsList.put(curContents.uid, curContents);
+                            bFindContents = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(bFindContents == true)
+                    break;
+            }
+        }
+
+        // 완료된후에 Map에 들어가 있는 원소들을 모두 돌면서 contentsid를 얻고
+        if(contentsList.size()> 0){
+            mCurCategory = new MeditationCategory();
+            mCurCategory.name = curCategoryData.name;
+            mCurCategory.contests = new ArrayList<MediationShowContents>();
+        }
+
+        //======================================================================
+        // Map을 랜덤하게 일정수를 넣도록 하는것이 좋다. 우선은 Max치만 넣게 한다.
+        //======================================================================
+        int curNum = 0;
+        for (Map.Entry<String, MeditationContents> entry : contentsList.entrySet()) {
+            if(curNum < curCategoryData.maxnum) {
+                String curkey = entry.getKey();  // contents id
+                MediationShowContents newEntity = new MediationShowContents();
+                newEntity.entity = entry.getValue();
+                mCurCategory.contests.add(newEntity);
+                curNum++;
+            }
+        }
 
         // 2020.12.05
         if(mCurCategory != null &&  mCurCategory.contests.size() > 0){

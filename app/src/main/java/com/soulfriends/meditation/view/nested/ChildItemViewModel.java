@@ -22,9 +22,10 @@ public class ChildItemViewModel extends ViewModel {
         title.setValue(entity_data.title);
 
         // 초
-        int play_time_second = Integer.parseInt(entity_data.playtime);
-
-        int minute = play_time_second / 60;
+        float play_time_second = Float.valueOf(entity_data.playtime);
+        float calc_minute = play_time_second / 60.0f;
+        float final_minute = Math.round(calc_minute);
+        int minute = (int)final_minute;
 
         String str_play_time = "";
         if(minute == 0)
