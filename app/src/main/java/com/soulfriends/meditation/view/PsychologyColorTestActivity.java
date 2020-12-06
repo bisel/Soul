@@ -188,6 +188,9 @@ public class PsychologyColorTestActivity extends AppCompatActivity implements Re
                 // 다음 버튼
                 if (bCheckResult) {
 
+                    if(questionData_list.size() == curPageIndex)
+                        return;
+
                     // 현재 저장
                     list_page_selectid.set(curPageIndex, select_item_id);
 
@@ -327,11 +330,7 @@ public class PsychologyColorTestActivity extends AppCompatActivity implements Re
 
     private void setImage(ImageView view, int res_id)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setBackground(ContextCompat.getDrawable(this, res_id));
-        } else {
-            view.setBackgroundDrawable(ContextCompat.getDrawable(this, res_id));
-        }
+        view.setImageResource(res_id);
     }
 
     private boolean prev_page()
