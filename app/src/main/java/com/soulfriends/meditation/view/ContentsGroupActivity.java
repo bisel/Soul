@@ -46,9 +46,9 @@ public class ContentsGroupActivity extends AppCompatActivity {
 
 
         // 팝업 테스트
-        AlertDialog alertDialog = new AlertDialog(this, getString(R.string.error_login));
-        alertDialog.setCancelable(true);
-        alertDialog.show();
+        //AlertDialog alertDialog = new AlertDialog(this, getString(R.string.error_login));
+        //alertDialog.setCancelable(true);
+        //alertDialog.show();
     }
 
     private void initRecyclerView()

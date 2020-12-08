@@ -186,4 +186,10 @@
     <string name="publisher_deep">깊은 산속 옹달샘</string>
     <string name="publisher_carensia">케렌시아</string>
 
+    <!-- alert dialog  -->
+    <string name="alert_title">No connection</string>
+    <string name="alert_contents">No network connection, please check \nyour network connection!</string>
+    <string name="alert_cancel">CANCEL</string>
+    <string name="alert_open_setting">OPEN SETTING</string>
+
 </resources>

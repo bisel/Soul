@@ -105,6 +105,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
         meditationAudioManager.setReceivedEvent(this);
 
+
+
         playerView = findViewById(R.id.player_view);
 
 
@@ -137,16 +139,16 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         });
 
         binding.playerView.setVisibility(View.GONE);
-
-        if (meditationAudioManager.isPlayingAndPause()) {
-            onReceivedEvent();
-
-            //Toast.makeText(getApplicationContext(),"playing",Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            StopState();
-        }
+//
+//        if (meditationAudioManager.isPlayingAndPause()) {
+//            onReceivedEvent();
+//
+//            //Toast.makeText(getApplicationContext(),"playing",Toast.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//            StopState();
+//        }
 
         // 좋아요 표시
         //String uid = PreferenceManager.getString(this,"uid");
@@ -185,8 +187,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 //            }
 //        }
 
-        playerView.setRepeatToggleModes(1);
-        playerView.setVisibility(View.VISIBLE);
+//        playerView.setRepeatToggleModes(1);
+//        playerView.setVisibility(View.VISIBLE);
 
         //playerView.setUseController(true);
         //playerView.showController();
@@ -333,6 +335,20 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             return;
         }
 
+
+        if (meditationAudioManager.isPlayingAndPause()) {
+            onReceivedEvent();
+
+            //Toast.makeText(getApplicationContext(),"playing",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            StopState();
+        }
+
+        playerView.setRepeatToggleModes(1);
+        playerView.setVisibility(View.VISIBLE);
+
         UtilAPI.s_bEvent_service_player = true;
 
         mLastClickTime = 0;
@@ -430,6 +446,10 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
             case PlaybackStatus.STOPPED: {
 
+                // 플레이 위치 초기화
+                meditationAudioManager.idle_start();
+
+                finish();
                 int xx = 0;
                 //Toast.makeText(this, R.string.no_stream, Toast.LENGTH_SHORT).show();
             }

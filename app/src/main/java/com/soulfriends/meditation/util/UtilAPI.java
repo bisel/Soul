@@ -2,16 +2,22 @@ package com.soulfriends.meditation.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -22,6 +28,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.model.MeditationContents;
 
 import java.text.ParseException;
@@ -156,6 +163,21 @@ public class UtilAPI {
                 (ViewGroup.MarginLayoutParams)v.getLayoutParams();
         params.setMargins(params.leftMargin, params.topMargin,
                 params.rightMargin, dp_bottom);
+    }
+
+    public static Activity scanForActivity(Context context) {
+        if (context == null)
+            return null;
+        else if (context instanceof Activity)
+            return (Activity) context;
+        else if (context instanceof ContextWrapper)
+            return scanForActivity(((ContextWrapper) context).getBaseContext());
+        return null;
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
     public static void Release()

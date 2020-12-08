@@ -1,6 +1,7 @@
 package com.soulfriends.meditation.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,16 +40,22 @@ public class LoadingActivity extends AppCompatActivity {
 
         String uid = PreferenceManager.getString(this,"uid");
 
-        NetServiceManager.getinstance().recvUserProfile(uid);
+        //if(UtilAPI.isNetworkAvailable(this)) {
 
-        NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
-            @Override
-            public void onRecvProfile(boolean validate, int errorcode) {
+            NetServiceManager.getinstance().setOnRecvProfileListener(new NetServiceManager.OnRecvProfileListener() {
+                @Override
+                public void onRecvProfile(boolean validate, int errorcode) {
 
-                DoRecvProfile(validate, errorcode);
-            }
-        });
+                    DoRecvProfile(validate, errorcode);
+                }
+            });
 
+            NetServiceManager.getinstance().recvUserProfile(uid);
+        //}
+//        else
+//        {
+//             int xxxx = 0;
+//        }
 
 //
 
