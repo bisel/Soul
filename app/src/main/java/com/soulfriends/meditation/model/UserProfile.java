@@ -18,6 +18,7 @@ public class UserProfile {
 
     public int myemotiontype = 0;
     public int donefirstpopup = 0;    // 처음 팝업여부
+    public String finaltestdate;
     public boolean mIsDoneTest = false;
 
 
