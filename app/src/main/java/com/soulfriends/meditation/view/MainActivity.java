@@ -71,6 +71,49 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
     protected void onStart() {
         super.onStart();
 
+        // service onevent PlaybackStatus.STOPPED_END 체크
+        if(UtilAPI.s_bEvent_service)
+        {
+            UtilAPI.s_bEvent_service = false;
+
+            //PlaybackStatus.STOPPED_END 체크되어 session으로 이동 처리
+
+            // 플레이 위치 초기화
+            MeditationAudioManager.idle_start();
+
+            // 프레임 레이어 조절
+            UtilAPI.setMarginBottom(this, binding.container,0);
+
+            binding.miniLayout.setVisibility(View.GONE);
+
+
+            // 세션 카운트와 플레이 시간
+
+            long duration = MeditationAudioManager.getDuration() / 1000;
+
+            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                @Override
+                public void onRecvValProfile(boolean validate) {
+                    if (validate == true) {
+                        int xx = 0;
+                    } else {
+                        int yy = 0;
+                    }
+                }
+            });
+
+            NetServiceManager.getinstance().sendValProfile(userProfile);
+
+            // 세션으로 이동
+            startActivity(new Intent(this, SessioinActivity.class));
+            return;
+        }
+
+        UtilAPI.s_bEvent_service_main = true;
+
         strPlaybackStatus = PlaybackStatus.IDLE;
 
         EventBus.getDefault().register(this);
@@ -158,12 +201,30 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
        // mAuth = FirebaseAuth.getInstance();
         //mAuth.signOut();
 
-        boolean login_first_check = PreferenceManager.getBoolean(this,"login_first_check");
-        if(login_first_check == false) {
+        //boolean login_first_check = PreferenceManager.getBoolean(this,"login_first_check");
+
+        UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+        if(userProfile.donefirstpopup == 0) {
             // 첫 로그인 일 경우
             PsychologyDlg psychologyDlg = new PsychologyDlg(MainActivity.this);
             psychologyDlg.show();
-            PreferenceManager.setBoolean(this,"login_first_check", true);
+
+            userProfile.donefirstpopup = 1;
+
+            NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                @Override
+                public void onRecvValProfile(boolean validate) {
+                    if (validate == true) {
+                        int xx = 0;
+                    } else {
+                        int yy = 0;
+                    }
+                }
+            });
+
+            NetServiceManager.getinstance().sendValProfile(userProfile);
+
+            //PreferenceManager.setBoolean(this,"login_first_check", true);
         }
 
         UtilAPI.s_Main_activity = this;
@@ -408,6 +469,26 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 // 플레이 -> 정지
                 //Toast.makeText(getApplicationContext(),"[메인] 플레이 -> 정지", Toast.LENGTH_SHORT).show();
                 UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_play_btn);
+
+
+                //------------------------------------------------------------------
+                // 미니 플레이어 플레이 완료 시 결과 화면 표시되게 수정
+                //------------------------------------------------------------------
+                // 플레이 위치 초기화
+                MeditationAudioManager.idle_start();
+
+                // 프레임 레이어 조절
+                UtilAPI.setMarginBottom(this, binding.container,0);
+
+                MeditationAudioManager.stop();
+                binding.miniLayout.setVisibility(View.GONE);
+                meditationAudioManager.unbind();
+
+                //  배경음악 플레이
+                //AudioPlayer.instance().update();
+
+                // 세션으로 이동
+                startActivity(new Intent(this, SessioinActivity.class));
             }
             break;
             case PlaybackStatus.STOP_NOTI: {
@@ -520,6 +601,9 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
         miniPlaying = false;
 
+
+        UtilAPI.s_bEvent_service_main = false;
+
         super.onStop();
     }
 
@@ -538,7 +622,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         else
         {
 
-            UtilAPI.Release_Session();
+            UtilAPI.Release();
             meditationAudioManager.unbind();
             //meditationAudioManager.release_service();
 

@@ -51,8 +51,8 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
         binding.setViewModel(viewModel);
 
         // 단위 테스트
-        NetServiceManager.getinstance().init(getResources());
-        NetServiceManager.getinstance().xmlParser(R.xml.resultdata_result, this.getResources());
+        //NetServiceManager.getinstance().init(getResources());
+        //NetServiceManager.getinstance().xmlParser(R.xml.resultdata_result, this.getResources());
 
         // 이모티콘 타입에 따라 결과 보이도록 한다.
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
@@ -80,7 +80,24 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
         SimpleDateFormat format_date = new SimpleDateFormat ( "yyyy-MM-dd" );
         Date date_now = new Date(System.currentTimeMillis());
         String curdate = format_date.format(date_now);
-        PreferenceManager.setString(this, "psy_result_time", curdate);
+        //PreferenceManager.setString(this, "psy_result_time", curdate);
+
+        userProfile.finaltestdate = curdate;
+
+        // user profile send to sever
+        NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+            @Override
+            public void onRecvValProfile(boolean validate) {
+                if (validate == true) {
+                    int xx = 0;
+                } else {
+                    int yy = 0;
+                }
+            }
+        });
+
+        NetServiceManager.getinstance().sendValProfile(userProfile);
+
     }
 
     @Override

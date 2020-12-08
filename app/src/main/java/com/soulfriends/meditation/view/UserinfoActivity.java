@@ -202,7 +202,9 @@ public class UserinfoActivity extends AppCompatActivity implements ResultListene
         if(imm.isAcceptingText())
         {
             View view = this.getCurrentFocus();
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if(view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 

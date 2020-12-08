@@ -23,4 +23,30 @@ public class UserProfile {
 
 
     public Map<String, Boolean> favoriteslist = new HashMap<>(); // 2020.11.25 처리
+
+    public void allClear()
+    {
+        uid = "";
+        nickname = "";
+        profileimg = "";
+
+        longintype = 1;
+        gender = 1;
+        age = 1;
+        emotiontype = 0;
+        sessionnum = 0;
+        playtime = 0;
+
+        psychologytime = 0;
+
+        myemotiontype = 0;
+        donefirstpopup = 0;
+
+        finaltestdate ="";
+
+        mIsDoneTest = false;
+
+        favoriteslist.clear();
+
+    }
 }

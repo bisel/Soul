@@ -161,15 +161,31 @@ public class ParentItemAdapter extends RecyclerView.Adapter {
             // - 00시를 기준으로 함
             // - 하루 1회 심리검사 권유 문구 표기
 
-            String psy_reult_time = PreferenceManager.getString(context, "psy_result_time");
-            if(psy_reult_time.length() > 0)
-            {
-                // 1일 차이 여부
-                long day = UtilAPI.GetDay_Date(psy_reult_time);
-                if(day > 0)
-                {
-                    // 심리 검사 유도하도록 문구 나오도록 한다.
-                    userProfile.emotiontype = 0; // 초기화 한다.
+            //String psy_reult_time = PreferenceManager.getString(context, "psy_result_time");
+
+            String psy_reult_time = userProfile.finaltestdate;
+
+            if(psy_reult_time != null) {
+                if (psy_reult_time.length() > 0) {
+                    // 1일 차이 여부
+                    long day = UtilAPI.GetDay_Date(psy_reult_time);
+                    if (day > 0) {
+                        // 심리 검사 유도하도록 문구 나오도록 한다.
+                        userProfile.emotiontype = 0; // 초기화 한다.
+
+                        NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                            @Override
+                            public void onRecvValProfile(boolean validate) {
+                                if (validate == true) {
+                                    int xx = 0;
+                                } else {
+                                    int yy = 0;
+                                }
+                            }
+                        });
+
+                        NetServiceManager.getinstance().sendValProfile(userProfile);
+                    }
                 }
             }
 

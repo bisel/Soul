@@ -36,6 +36,10 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
 
 
         UtilAPI.s_activity = this;
+
+        // service onevent PlaybackStatus.STOPPED_END 체크
+        UtilAPI.s_bEvent_service_main = false;
+        UtilAPI.s_bEvent_service_player = false;
     }
 
     @Override

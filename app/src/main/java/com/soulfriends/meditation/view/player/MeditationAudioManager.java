@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.RecvEventListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,6 +37,11 @@ public class MeditationAudioManager {
     private MeditationAudioManager(Context context) {
         this.context = context;
         serviceBound = false;
+    }
+
+    public static MeditationAudioManager getinstance(){
+        // 반드시 값이 할당되어있다는 가정에서 사용해야 함.
+        return instance;
     }
 
     public static MeditationAudioManager with(Context context) {

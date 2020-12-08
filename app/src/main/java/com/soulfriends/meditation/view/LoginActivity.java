@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,7 @@ import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.viewmodel.LoginViewModel;
 import com.soulfriends.meditation.viewmodel.LoginViewModelFactory;
+import com.soulfriends.meditation.viewmodel.UserinfoViewModel;
 
 public class LoginActivity extends AppCompatActivity implements ResultListener {
 
@@ -181,10 +183,6 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
             binding.progressBar.setVisibility(View.GONE);
             finish();
             startActivity(new Intent(this, LoadingActivity.class));
-
-
-
-
         }
         else
         {
@@ -201,6 +199,20 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
     @Override
     public void onSuccess(Integer id, String message) {
         switch (id) {
+            case 10:{
+                // onTextChanged_Email
+                // 이메일 텍스트 입력마다 들어옴
+                checkIsValidEmail();
+                
+            }
+            break;
+            case 11:{
+                // onTextChanged_Password
+                // 패스워드 텍스트 입력마다 들어옴
+                checkIsValidPassword();
+            }
+            break;
+
             case 50: {
                 // 구글 / 이메일 인증
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -295,7 +307,9 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
                 // x 버튼 선택할 경우
                 binding.footerLayout.setVisibility(View.VISIBLE);
                 View view = this.getCurrentFocus();
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                if(view != null) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
 
                 binding.email.clearFocus();
                 binding.password.clearFocus();
@@ -360,7 +374,9 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
 
                 if (isKeyboardShowing) {
                     View view = this.getCurrentFocus();
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    if(view != null) {
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                 }
                 
             }
@@ -421,7 +437,9 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
 
                 if (isKeyboardShowing) {
                     View view = this.getCurrentFocus();
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    if(view != null) {
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                 }
             }
             break;
@@ -559,6 +577,36 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
 
             }
             break;
+        }
+    }
+
+    public void checkIsValidEmail()
+    {
+        if (userLogin.isValidEmail()) {
+            binding.ivEmailCheck.setVisibility(View.VISIBLE);
+            binding.ivEmailCheck.setImageResource(R.drawable.icon_true);
+            bEmail_Success = true;
+        }
+        else
+        {
+            binding.ivEmailCheck.setVisibility(View.VISIBLE);
+            binding.ivEmailCheck.setImageResource(R.drawable.icon_false);
+            bEmail_Success = false;
+        }
+    }
+
+    public void checkIsValidPassword()
+    {
+        if (userLogin.isValidPassword()) {
+            binding.ivPasswordCheck.setVisibility(View.VISIBLE);
+            binding.ivPasswordCheck.setImageResource(R.drawable.icon_true);
+            bPassword_Success = true;
+        }
+        else
+        {
+            binding.ivPasswordCheck.setVisibility(View.VISIBLE);
+            binding.ivPasswordCheck.setImageResource(R.drawable.icon_false);
+            bPassword_Success = false;
         }
     }
 

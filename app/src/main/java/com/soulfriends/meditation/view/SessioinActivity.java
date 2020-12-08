@@ -17,6 +17,7 @@ import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
+import com.soulfriends.meditation.view.player.AudioPlayer;
 import com.soulfriends.meditation.viewmodel.SessionViewModel;
 import com.soulfriends.meditation.viewmodel.SessionViewModelFactory;
 
@@ -64,6 +65,11 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
         reactiionCode = NetServiceManager.getinstance().reqContentsFavoriteEvent(uid, meditationContents.uid);
 
         reactiionCode_orig = reactiionCode;
+
+        //  배경음악 플레이
+        if(AudioPlayer.instance() != null ) {
+            AudioPlayer.instance().update();
+        }
 
         if(reactiionCode == 1)
         {

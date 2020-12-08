@@ -19,10 +19,13 @@ import androidx.lifecycle.ViewModelStore;
 import com.google.firebase.auth.FirebaseAuth;
 import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.databinding.SettingBinding;
+import com.soulfriends.meditation.model.UserProfile;
+import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.AuthManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.view.player.AudioPlayer;
+import com.soulfriends.meditation.view.player.MeditationAudioManager;
 import com.soulfriends.meditation.viewmodel.SettingViewModel;
 import com.soulfriends.meditation.viewmodel.SettingViewModelFactory;
 
@@ -127,13 +130,26 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
 
-                // 로그인 화면으로 전환
-                finish();
-
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.putExtra("activity_name","setting_activity"); /*송신*/
 
+                //로그아웃을 하면 기존의 음악 서비스 모든 것을 종료 해야 함(서비스 및 미니플레이어), 배경음만 나와야 한다.
+
+                MeditationAudioManager.stop();
+                MeditationAudioManager.getinstance().unbind();
+
+                //  배경음악 플레이
+                if(AudioPlayer.instance() != null ) {
+                    AudioPlayer.instance().update();
+                }
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                userProfile.allClear();
+
                 startActivity(intent);
+
+                // 로그인 화면으로 전환
+                finish();
 
             }
             break;

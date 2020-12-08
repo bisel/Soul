@@ -24,6 +24,8 @@ public class UserinfoViewModel extends ViewModel {
     public UserinfoViewModel(Context mContext, ResultListener listener) {
         this.context = mContext;
         this.listener = listener;
+
+        nickname.setValue("");
     }
 
 //    public void OnNicknameDoubleClicked(View view)

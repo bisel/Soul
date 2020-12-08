@@ -300,6 +300,41 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     protected void onStart() {
         super.onStart();
 
+        // service onevent PlaybackStatus.STOPPED_END 체크
+        if(UtilAPI.s_bEvent_service)
+        {
+            UtilAPI.s_bEvent_service = false;
+
+            // 플레이 위치 초기화
+            meditationAudioManager.idle_start();
+
+            // 세션 카운트와 플레이 시간
+            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+
+            UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+            NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                @Override
+                public void onRecvValProfile(boolean validate) {
+                    if (validate == true) {
+                        int xx = 0;
+                    } else {
+                        int yy = 0;
+                    }
+                }
+            });
+
+            NetServiceManager.getinstance().sendValProfile(userProfile);
+
+            // 세션으로 이동
+            Intent intent = new Intent(this, SessioinActivity.class);
+            startActivity(intent);
+
+            finish();
+            return;
+        }
+
+        UtilAPI.s_bEvent_service_player = true;
+
         mLastClickTime = 0;
 
         strPlaybackStatus = PlaybackStatus.IDLE;
@@ -330,6 +365,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     protected void onStop() {
 
         EventBus.getDefault().unregister(this);
+
+        UtilAPI.s_bEvent_service_player = false;
 
         super.onStop();
     }

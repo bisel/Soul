@@ -38,6 +38,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.soulfriends.meditation.R;
+import com.soulfriends.meditation.util.UtilAPI;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -385,6 +386,16 @@ public class MeditationService extends Service implements Player.EventListener, 
         if(playWhenReady == true && playbackState == Player.STATE_ENDED)
         {
             status = PlaybackStatus.STOPPED_END;
+            
+            // main activity / player activity / 감정 activity  등 고려 해야함.
+            // EventBus.getDefault().post(status); 를 보낼수 없을 경우에 해당 된다.
+            if(UtilAPI.s_bEvent_service_main == false && UtilAPI.s_bEvent_service_player == false)
+            {
+                UtilAPI.s_bEvent_service = true;
+
+                MeditationAudioManager.stop();
+                MeditationAudioManager.getinstance().unbind();
+            }
         }
 
         EventBus.getDefault().post(status);

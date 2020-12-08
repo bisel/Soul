@@ -42,6 +42,10 @@ public class UtilAPI {
 
     public static int player_track_count = 0;
 
+    public static boolean s_bEvent_service = false;
+    public static boolean s_bEvent_service_main = false;
+    public static boolean s_bEvent_service_player = false;
+
 
     public static void SetFullScreen(android.view.Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -154,8 +158,12 @@ public class UtilAPI {
                 params.rightMargin, dp_bottom);
     }
 
-    public static void Release_Session()
+    public static void Release()
     {
         s_bBookmark_update = false;
+
+        s_bEvent_service = false;
+        s_bEvent_service_main = false;
+        s_bEvent_service_player = false;
     }
 }

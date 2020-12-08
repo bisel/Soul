@@ -102,4 +102,16 @@ public class LoginViewModel extends ViewModel {
             listener.onSuccess(view.getId(), "onFocus_yes");
         }
     }
+
+    public void onTextChanged_Email(CharSequence s, int start, int before, int count) {
+
+        userLogin.setEmail(email.getValue());
+        listener.onSuccess(10, "onTextChanged_Email");
+    }
+
+    public void onTextChanged_Password(CharSequence s, int start, int before, int count) {
+
+        userLogin.setPassword(password.getValue());
+        listener.onSuccess(11, "onTextChanged_Password");
+    }
 }
