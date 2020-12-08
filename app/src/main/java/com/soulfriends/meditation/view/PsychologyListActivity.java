@@ -60,6 +60,7 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
 
                 Intent intent = new Intent(this, PsychologyFeelingTestActivity.class);
                 startActivity(intent);
+                finish();  // 2020.12.08
             }
             break;
             case R.id.iv_color_button: {
@@ -67,6 +68,7 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
 
                 Intent intent = new Intent(this, PsychologyColorTestActivity.class);
                 startActivity(intent);
+                finish(); // 2020.12.08
             }
             break;
         }

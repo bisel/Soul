@@ -1,11 +1,11 @@
 package com.soulfriends.meditation.view.player;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.soulfriends.meditation.util.PreferenceManager;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -14,7 +14,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
-import com.soulfriends.meditation.util.PreferenceManager;
+
 
 public class AudioPlayer {
 
@@ -93,6 +93,8 @@ public class AudioPlayer {
         if (simpleExoPlayer == null) {
             return;
         }
+
+
         simpleExoPlayer.setPlayWhenReady(true);
 
         simpleExoPlayer.getPlaybackState();
