@@ -16,8 +16,10 @@ public class UserProfile {
 
     public int psychologytime = 0; // 심리검사 시간 (초)
 
-    public int     myemotiontype = 0;
+    public int myemotiontype = 0;
+    public int donefirstpopup = 0;    // 처음 팝업여부
     public boolean mIsDoneTest = false;
+
 
     public Map<String, Boolean> favoriteslist = new HashMap<>(); // 2020.11.25 처리
 }
