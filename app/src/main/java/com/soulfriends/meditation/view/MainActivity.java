@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
     protected void onStart() {
         super.onStart();
 
+        UtilAPI.s_bEvent_service_player_stop = false;
+
         // service onevent PlaybackStatus.STOPPED_END 체크
         if(UtilAPI.s_bEvent_service)
         {

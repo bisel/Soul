@@ -279,6 +279,11 @@ public class MeditationService extends Service implements Player.EventListener, 
 
         } else if (action.equalsIgnoreCase(ACTION_STOP)) {
             transportControls.stop();
+
+            if(UtilAPI.s_bEvent_service_main == false && UtilAPI.s_bEvent_service_player == false) {
+                UtilAPI.s_bEvent_service_player_stop = true;
+            }
+
         } else if (action.equalsIgnoreCase(ACTION_FFWD)) {
             transportControls.fastForward();
         } else if (action.equalsIgnoreCase(ACTION_REW)) {
@@ -366,8 +371,11 @@ public class MeditationService extends Service implements Player.EventListener, 
             case Player.STATE_BUFFERING:
                 status = PlaybackStatus.LOADING;
                 break;
-            case Player.STATE_ENDED:
+            case Player.STATE_ENDED: {
                 status = PlaybackStatus.STOPPED;
+
+
+                }
                 break;
             case Player.STATE_IDLE:
                 status = PlaybackStatus.IDLE;

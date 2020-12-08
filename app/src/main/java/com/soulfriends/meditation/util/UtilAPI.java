@@ -53,6 +53,8 @@ public class UtilAPI {
     public static boolean s_bEvent_service_main = false;
     public static boolean s_bEvent_service_player = false;
 
+    public static boolean s_bEvent_service_player_stop = false;
+
 
     public static void SetFullScreen(android.view.Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -187,5 +189,7 @@ public class UtilAPI {
         s_bEvent_service = false;
         s_bEvent_service_main = false;
         s_bEvent_service_player = false;
+
+        s_bEvent_service_player_stop = false;
     }
 }

@@ -68,6 +68,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
     private int reactionCode = 0;
 
+    private boolean bEvent_service_interior = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -303,9 +305,27 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         super.onStart();
 
         // service onevent PlaybackStatus.STOPPED_END 체크
+
+        if(UtilAPI.s_bEvent_service_player_stop)
+        {
+            UtilAPI.s_bEvent_service_player_stop = false;
+
+            // 플레이 위치 초기화
+            meditationAudioManager.idle_start();
+
+            finish();
+
+            return;
+        }
+
         if(UtilAPI.s_bEvent_service)
         {
             UtilAPI.s_bEvent_service = false;
+
+            bEvent_service_interior = true;
+
+            MeditationAudioManager.stop();
+            MeditationAudioManager.getinstance().unbind();
 
             // 플레이 위치 초기화
             meditationAudioManager.idle_start();
@@ -397,7 +417,13 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     protected void onResume() {
         super.onResume();
 
-        meditationAudioManager.bind();
+        if(bEvent_service_interior) {
+
+            bEvent_service_interior = false;
+        }
+        else {
+            meditationAudioManager.bind();
+        }
     }
 
     @Override
