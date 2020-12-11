@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soulfriends.meditation"
-    android:versionCode="10"
-    android:versionName="1.0.9">
+    android:versionCode="11"
+    android:versionName="1.0.10">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -18,57 +18,57 @@
 
 <!--        android:roundIcon="@mipmap/ic_launcher_round"-->
 
-        <activity android:name=".view.ContentsinfoActivity">
+        <activity android:name=".view.ContentsinfoActivity" android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.AuthorProfileActivity" >
+        <activity android:name=".view.AuthorProfileActivity"  android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.SettingActivity" >
+        <activity android:name=".view.SettingActivity" android:screenOrientation="portrait" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.PasswordChangeActivity" />
-        <activity android:name=".view.SessioinActivity" >
+        <activity android:name=".view.PasswordChangeActivity" android:screenOrientation="portrait" />
+        <activity android:name=".view.SessioinActivity"  android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.PsychologyColorTestActivity">
+        <activity android:name=".view.PsychologyColorTestActivity" android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.PsychologyFeelingTestActivity">
+        <activity android:name=".view.PsychologyFeelingTestActivity" android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.PsychologyListActivity" >
+        <activity android:name=".view.PsychologyListActivity" android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.PsychologyResultActivity" >
+        <activity android:name=".view.PsychologyResultActivity" android:screenOrientation="portrait" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.TimerResultActivity" />
-        <activity android:name=".view.TimerActivity">
+        <activity android:name=".view.TimerResultActivity" android:screenOrientation="portrait" />
+        <activity android:name=".view.TimerActivity" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -77,14 +77,14 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".view.PlayerActivity">
+        <activity android:name=".view.PlayerActivity" android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".view.ContentsGroupActivity">
+        <activity android:name=".view.ContentsGroupActivity" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -93,22 +93,22 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".view.IntroActivity">
+        <activity android:name=".view.IntroActivity" android:screenOrientation="portrait">
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>
-        <activity android:name=".view.LoadingActivity" />
-        <activity android:name=".view.UserinfoActivity">
+        <activity android:name=".view.LoadingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".view.UserinfoActivity" android:screenOrientation="portrait">
 
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->
 <!--             </intent-filter>-->
         </activity>
-        <activity android:name=".view.LoginActivity">
+        <activity android:name=".view.LoginActivity" android:screenOrientation="portrait">
 
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
@@ -117,7 +117,7 @@
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->
 <!--             </intent-filter>-->
         </activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity" android:screenOrientation="portrait">
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->

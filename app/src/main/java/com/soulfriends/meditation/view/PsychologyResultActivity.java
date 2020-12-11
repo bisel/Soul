@@ -17,7 +17,6 @@ import com.soulfriends.meditation.databinding.PsychologyResultBinding;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.parser.ResultData;
-import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.viewmodel.PsychologyResultViewModel;
@@ -111,9 +110,8 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
                 // 다시하기
 
                 finish();
-
-               // Intent intent = new Intent(this, PsychologyListActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(this, PsychologyListActivity.class);
+                startActivity(intent);
             }
             break;
 

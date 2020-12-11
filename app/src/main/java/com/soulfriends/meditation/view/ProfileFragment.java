@@ -75,7 +75,8 @@ public class ProfileFragment extends Fragment implements ResultListener {
             binding.tvStateQuest.setVisibility(View.VISIBLE);
 
             // 닉네임 질의
-            String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_nickname);
+            //String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_nickname);
+            String strQuest = userProfile.nickname + getResources().getString(R.string.feel_state_quest); // 2020.12.11
 
             int end_nick = userProfile.nickname.length();
 

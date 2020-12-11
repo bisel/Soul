@@ -86,7 +86,7 @@
     <string name="total_session_number">999+</string>
     <string name="mind_checktime">마음점검시간</string>
     <string name="mind_checktime_time">999시간 52분</string>
-    <string name="profile_feeling_quest"> 님의 \n현재 감정은?</string>
+    <string name="profile_feeling_quest"> 님의 현재 감정은?</string>
     <string name="profile_feeling_state">편안하고 차분한 상태</string>
 
     <!-- psychologyFeelingTest  -->

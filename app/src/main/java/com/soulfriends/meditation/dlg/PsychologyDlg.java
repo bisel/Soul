@@ -48,9 +48,13 @@ public class PsychologyDlg extends Dialog implements View.OnClickListener{
 
         // nickname feeling state
         String nickname = userProfile.nickname;
-        String strQuest = nickname + " " + mContext.getResources().getString(R.string.feel_state_quest);
+        String strQuest = "";
+        int end_nick = 0;
 
-        int end_nick = nickname.length();
+        if(nickname != null){
+            strQuest = nickname + " " + mContext.getResources().getString(R.string.feel_state_quest);
+            end_nick = nickname.length();
+        }
 
         Spannable wordtoSpan = new SpannableString(strQuest);
 

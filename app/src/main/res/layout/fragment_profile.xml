@@ -198,7 +198,7 @@
             android:id="@+id/tv_state_quest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="235dp"
+            android:layout_marginTop="166dp"
             android:fontFamily="@font/font_notosanskr_medium"
             android:gravity="center"
             android:includeFontPadding="false"
