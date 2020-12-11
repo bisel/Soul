@@ -718,54 +718,7 @@ public class NetServiceManager {
                             return Transaction.success(currentData);
                         }
 
-                        /// sync local contents list
-                        int itemsize= mContentsList.size();
-                        MeditationContents findContents = null;
-                        for(int i = 0; i < itemsize;i++) {
-                            MeditationContents contents = mContentsList.get(i);
-                            if(contents.uid.equals(contentid)){
-                                findContents =  contents;
-                            }
-                        }
-                        if(findContents != null){
-                            Integer curstate = findContents.states.get(uid);
-                            if(findContents.states.containsKey(uid)){
-                                // 기존의 값을 입력값을 기준으로 해서 상태 업데이트
-                                int prevReaction = curstate.intValue();
-
-                                // remove는 될수가 없다. Add만 있다. 따라서 비교해서 수정만 하면 된다.
-                                // 우선 이전것을 - 한다. 그리고  현재 것을 +한다.
-                                if(prevReaction == 1){
-                                    findContents.favoritecnt -= 1;
-                                }else if(prevReaction == 2){
-                                    findContents.hatecnt -= 1;
-                                }
-
-                                if(reactionCode == 1){
-                                    findContents.favoritecnt += 1;
-                                }else if(reactionCode == 2){
-                                    findContents.hatecnt += 1;
-                                }
-
-                                if(findContents.favoritecnt < 0 ) findContents.favoritecnt = 0;
-                                if(findContents.hatecnt < 0 ) findContents.hatecnt = 0;
-
-
-                            }else {
-                                if(reactionCode == 1){
-                                    findContents.favoritecnt += 1;
-                                    findContents.states.put(uid,reactionCode);
-                                }else if(reactionCode == 2){
-                                    findContents.hatecnt += 1;
-                                    findContents.states.put(uid,reactionCode);
-                                }else{
-                                    // error
-                                    return null;
-                                }
-                            }
-                        }
-
-
+                        // 2020.12.11
                         Integer curstate = infoData.states.get(uid);
 
                         if(infoData.states.containsKey(uid)){
@@ -789,7 +742,7 @@ public class NetServiceManager {
                             if(infoData.favoritecnt < 0 ) infoData.favoritecnt = 0;
                             if(infoData.hatecnt < 0 ) infoData.hatecnt = 0;
 
-
+                            infoData.states.put(uid,reactionCode);
                         }else {
                             if(reactionCode == 1){
                                 infoData.favoritecnt += 1;
