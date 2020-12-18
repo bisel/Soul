@@ -145,15 +145,19 @@ public class ParentItemAdapter extends RecyclerView.Adapter {
             UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
 
             // nickname feeling state
-            String nickname = userProfile.nickname;
-            String strQuest = nickname + " " + context.getResources().getString(R.string.feel_state_quest);
+            if(userProfile.nickname != null) {
 
-            int end_nick = nickname.length();
+                String strQuest = userProfile.nickname + " " + context.getResources().getString(R.string.feel_state_quest);
 
-            Spannable wordtoSpan = new SpannableString(strQuest);
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            bind.tvNicknameState.setText(wordtoSpan);
+                int end_nick = userProfile.nickname.length();
+
+                if(end_nick > 0) {
+                    Spannable wordtoSpan = new SpannableString(strQuest);
+                    wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    bind.tvNicknameState.setText(wordtoSpan);
+                }
+            }
 
 
             // 심리검사
@@ -195,7 +199,8 @@ public class ParentItemAdapter extends RecyclerView.Adapter {
 
             //
             int res_id_1 = context.getResources().getIdentifier(resultData.emotionimg, "drawable", context.getPackageName());
-            UtilAPI.setImage(context, bind.imgChildItem, res_id_1);
+            //UtilAPI.setImage(context, bind.imgChildItem, res_id_1);
+            UtilAPI.setImageResource(bind.imgChildItem, res_id_1);
 
             if(NetServiceManager.getinstance().getUserProfile().emotiontype == 0){
                 this.bind.retrylayout.setVisibility(View.GONE);

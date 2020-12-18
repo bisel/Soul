@@ -39,21 +39,21 @@ public class UtilAPI {
 
     public static long button_delay_time = 400;
 
-    public static Activity s_Main_activity;
-    public static Activity s_activity;
-    public static boolean s_bDestroyPass = false;
-
-    public static boolean s_one_mini = false;
-
-    public static boolean s_bBookmark_update = false;
-
-    public static int player_track_count = 0;
-
     public static boolean s_bEvent_service = false;
     public static boolean s_bEvent_service_main = false;
     public static boolean s_bEvent_service_player = false;
 
     public static boolean s_bEvent_service_player_stop = false;
+    public static boolean s_bEvent_service_player_timer_stop = false;
+    public static int s_player_timer_count = 0;
+
+    public static final String FRAGMENT_HOME = "HomeFragment";
+    public static final String FRAGMENT_SLEEP = "SleepFragment";
+    public static final String FRAGMENT_MEDITATION = "MeditationFragment";
+    public static final String FRAGMENT_MUSIC = "MusicFragment";
+    public static final String FRAGMENT_PROFILE = "ProfileFragment";
+
+    public static String s_StrMainFragment = FRAGMENT_HOME;
 
 
     public static void SetFullScreen(android.view.Window window) {
@@ -127,6 +127,11 @@ public class UtilAPI {
         }
     }
 
+    public static void setImageResource(ImageView view, int res_id)
+    {
+        view.setImageResource(res_id);
+    }
+
     public static void setButtonBackground(Context context, Button button, int res_id)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -182,14 +187,17 @@ public class UtilAPI {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public static void Release()
+    public static void Init()
     {
-        s_bBookmark_update = false;
-
         s_bEvent_service = false;
         s_bEvent_service_main = false;
         s_bEvent_service_player = false;
 
         s_bEvent_service_player_stop = false;
+        s_bEvent_service_player_timer_stop = false;
+
+        s_player_timer_count = 0;
+
+        s_StrMainFragment = FRAGMENT_HOME;
     }
 }

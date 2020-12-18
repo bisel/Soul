@@ -1,10 +1,14 @@
 package com.soulfriends.meditation.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity  implements ResultListener {
+public class MainActivity extends AppCompatActivity implements ResultListener {
 
     private MainBinding binding;
     private MainViewModel viewModel;
@@ -66,15 +70,52 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
     private boolean miniPlaying;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onStart() {
         super.onStart();
 
+
+        if (UtilAPI.s_bEvent_service_player_timer_stop) {
+            UtilAPI.s_bEvent_service_player_timer_stop = false;
+
+            // 플레이 위치 초기화
+            MeditationAudioManager.idle_start();
+
+            // 프레임 레이어 조절
+            UtilAPI.setMarginBottom(this, binding.container, 0);
+
+            binding.miniLayout.setVisibility(View.GONE);
+
+            // 세션 카운트와 플레이 시간
+
+            if (UtilAPI.s_player_timer_count > 0) {
+                long duration = MeditationAudioManager.getDuration() / 1000;
+
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), UtilAPI.s_player_timer_count);
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
+                            int xx = 0;
+                        } else {
+                            int yy = 0;
+                        }
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
+            }
+        }
+
+
         UtilAPI.s_bEvent_service_player_stop = false;
 
         // service onevent PlaybackStatus.STOPPED_END 체크
-        if(UtilAPI.s_bEvent_service)
-        {
+        if (UtilAPI.s_bEvent_service) {
             UtilAPI.s_bEvent_service = false;
 
             //PlaybackStatus.STOPPED_END 체크되어 session으로 이동 처리
@@ -83,7 +124,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             MeditationAudioManager.idle_start();
 
             // 프레임 레이어 조절
-            UtilAPI.setMarginBottom(this, binding.container,0);
+            UtilAPI.setMarginBottom(this, binding.container, 0);
 
             binding.miniLayout.setVisibility(View.GONE);
 
@@ -92,7 +133,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
             long duration = MeditationAudioManager.getDuration() / 1000;
 
-            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), 1);
 
             UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
             NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
@@ -125,53 +166,49 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
         miniPlaying = false;
 
-        if(!UtilAPI.s_one_mini)
-        {
-            UtilAPI.s_one_mini = true;
-        }
-        else {
-            if (meditationAudioManager.isPlayingAndPause()) {
-                miniPlaying = true;
 
-                start_mini_progressbar();
+        if (meditationAudioManager.isPlayingAndPause()) {
+            miniPlaying = true;
 
-                bShowMiniPlayer = true;
+            start_mini_progressbar();
 
-                // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container, 54);
+            bShowMiniPlayer = true;
 
-                meditationContents = NetServiceManager.getinstance().getCur_contents();
+            // 프레임 레이어 조절
+            UtilAPI.setMarginBottom(this, binding.container, 54);
 
-                String title = "";
-                if (meditationContents != null) {
-                    title = meditationContents.title;
-                }
+            meditationContents = NetServiceManager.getinstance().getCur_contents();
 
-                viewModel.setTitleTo(title);
-                binding.miniLayout.setVisibility(View.VISIBLE);//mini_layout
+            String title = "";
+            if (meditationContents != null) {
+                title = meditationContents.title;
+            }
 
-                UtilAPI.load_image(this, meditationContents.thumbnail, binding.ivMiniTitleIcon);
+            viewModel.setTitleTo(title);
+            binding.miniLayout.setVisibility(View.VISIBLE);//mini_layout
 
-                if (meditationAudioManager.isPlaying()) {
-                    UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
-                } else {
-                    UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_play_btn);
-                }
+            UtilAPI.load_image(this, meditationContents.thumbnail, binding.ivMiniTitleIcon);
+
+            if (meditationAudioManager.isPlaying()) {
+                UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
             } else {
-                // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container, 0);
+                UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_play_btn);
+            }
+        } else {
+            // 프레임 레이어 조절
+            UtilAPI.setMarginBottom(this, binding.container, 0);
 
-                //  배경음악 플레이
-                if(AudioPlayer.instance() != null ) {
-                    AudioPlayer.instance().update();
-                }
+            //  배경음악 플레이
+            if (AudioPlayer.instance() != null) {
+                AudioPlayer.instance().update();
             }
         }
+
     }
 
     @Override
     protected void onResume() {
-        int xx =0;
+        int xx = 0;
         super.onResume();
     }
 
@@ -193,17 +230,18 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
         setUpNavigation();
 
-        changeFragment(homeFragment, "HomeFragment");
+        changeFragment(UtilAPI.s_StrMainFragment);
+        //changeFragment(homeFragment, "HomeFragment");
 
 
         resultData_list = NetServiceManager.getinstance().xmlParser(R.xml.resultdata_result, this.getResources());
-       // mAuth = FirebaseAuth.getInstance();
+        // mAuth = FirebaseAuth.getInstance();
         //mAuth.signOut();
 
         //boolean login_first_check = PreferenceManager.getBoolean(this,"login_first_check");
 
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-        if(userProfile.donefirstpopup == 0) {
+        if (userProfile.donefirstpopup == 0) {
             // 첫 로그인 일 경우
             PsychologyDlg psychologyDlg = new PsychologyDlg(MainActivity.this);
             psychologyDlg.show();
@@ -225,12 +263,10 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
             //PreferenceManager.setBoolean(this,"login_first_check", true);
         }
-
-        UtilAPI.s_Main_activity = this;
     }
 
-    public void setUpNavigation(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+    public void setUpNavigation() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         //NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         //NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
 
@@ -260,7 +296,45 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         });
     }
 
+
+    public void changeFragment(String strfragment) {
+        switch (strfragment) {
+            case UtilAPI.FRAGMENT_HOME: {
+                changeFragment(homeFragment, "HomeFragment");
+
+                bottomNavigationView.setSelectedItemId(R.id.home_fragment);
+            }
+            break;
+            case UtilAPI.FRAGMENT_SLEEP: {
+                changeFragment(sleepFragment, "SleepFragment");
+
+                bottomNavigationView.setSelectedItemId(R.id.sleep_fragment);
+            }
+            break;
+            case UtilAPI.FRAGMENT_MEDITATION: {
+                changeFragment(meditationFragment, "MeditationFragment");
+
+                bottomNavigationView.setSelectedItemId(R.id.meditation_fragment);
+            }
+            break;
+            case UtilAPI.FRAGMENT_MUSIC: {
+                changeFragment(musicFragment, "MusicFragment");
+
+                bottomNavigationView.setSelectedItemId(R.id.music_fragment);
+            }
+            break;
+            case UtilAPI.FRAGMENT_PROFILE: {
+                changeFragment(profileFragment, "ProfileFragment");
+
+                bottomNavigationView.setSelectedItemId(R.id.profile_fragment);
+            }
+            break;
+        }
+    }
+
     public void changeFragment(Fragment fragment, String tagFragmentName) {
+
+        UtilAPI.s_StrMainFragment = tagFragmentName;
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -282,40 +356,34 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNowAllowingStateLoss();
 
-        if(tagFragmentName.equals("HomeFragment")){
+        if (tagFragmentName.equals("HomeFragment")) {
             binding.imageView12.setImageResource(R.drawable.home_bg);
-        }else if(tagFragmentName.equals("MeditationFragment")){
+        } else if (tagFragmentName.equals("MeditationFragment")) {
             binding.imageView12.setImageResource(R.drawable.meditation_bg);
-        }else if(tagFragmentName.equals("SleepFragment")){
+        } else if (tagFragmentName.equals("SleepFragment")) {
             binding.imageView12.setImageResource(R.drawable.sleep_bg);
-        }else if(tagFragmentName.equals("MusicFragment")){
+        } else if (tagFragmentName.equals("MusicFragment")) {
             binding.imageView12.setImageResource(R.drawable.music_bg);
-        }else if(tagFragmentName.equals("ProfileFragment")){
+        } else if (tagFragmentName.equals("ProfileFragment")) {
             binding.imageView12.setImageResource(R.drawable.my_bg);
         }
-
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onSuccess(Integer id, String message) {
         switch (id) {
             case R.id.iv_close: {
                 // 미니 플레이 닫기
 
-//                UtilAPI.player_play_duration = (int)(meditationAudioManager.getDuration() / 1000);
-//                UtilAPI.player_play_time = (int)(meditationAudioManager.getContentPosition() / 1000);
-//                UtilAPI.Calc_PlayerCheck();
-
                 // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container,0);
+                UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 MeditationAudioManager.stop();
                 binding.miniLayout.setVisibility(View.GONE);//mini_layout
                 meditationAudioManager.unbind();
 
                 //  배경음악 플레이
-                if(AudioPlayer.instance() != null) {
+                if (AudioPlayer.instance() != null) {
                     AudioPlayer.instance().update();
                 }
             }
@@ -323,40 +391,35 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             case R.id.iv_playcontroler: {
 
                 // 플레이 버튼
-                if(MeditationAudioManager.isPlaying()) {
+                if (MeditationAudioManager.isPlaying()) {
                     // 플레이 -> 정지
                     //Toast.makeText(getApplicationContext(),"플레이 -> 정지",Toast.LENGTH_SHORT).show();
 
                     UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_play_btn);
 
                     MeditationAudioManager.pause();
-                }
-                else
-                {
+                } else {
                     // 정지 -> 플레이
                     //Toast.makeText(getApplicationContext(),"정지 -> 플레이",Toast.LENGTH_SHORT).show();
                     UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
 
-                    if(strPlaybackStatus == PlaybackStatus.STOPPED_END) {
+                    if (strPlaybackStatus == PlaybackStatus.STOPPED_END) {
                         MeditationAudioManager.resume();
-                    }
-                    else
-                    {
+                    } else {
                         MeditationAudioManager.play();
                     }
                 }
             }
             break;
-            case R.id.iv_Minibg:
-            {
+            case R.id.iv_Minibg: {
                 // 미니 bg 선택시
-                if(strPlaybackStatus == PlaybackStatus.STOPPED_END) {
+                if (strPlaybackStatus == PlaybackStatus.STOPPED_END) {
 
                     // 플레이 위치 초기화
                     MeditationAudioManager.idle_start();
 
                     // 프레임 레이어 조절
-                    UtilAPI.setMarginBottom(this, binding.container,0);
+                    UtilAPI.setMarginBottom(this, binding.container, 0);
 
                     MeditationAudioManager.stop();
                     binding.miniLayout.setVisibility(View.GONE);
@@ -367,16 +430,25 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
                     // 세션으로 이동
                     startActivity(new Intent(this, SessioinActivity.class));
-                }
-                else
-                {
+
+                    this.overridePendingTransition(0, 0);
+
+                    finish();
+                } else {
                     this.startActivity(new Intent(this, PlayerActivity.class));
+
+                    this.overridePendingTransition(0, 0);
+
+                    finish();
                 }
             }
             break;
-            case R.id.meun_btn:
-            {
+            case R.id.meun_btn: {
                 this.startActivity(new Intent(this, SettingActivity.class));
+
+                this.overridePendingTransition(0, 0);
+
+                finish();
             }
             break;
         }
@@ -385,17 +457,16 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
     @Subscribe
     public void onEvent(String status) {
 
-        if(strPlaybackStatus == status) return;
+        if (strPlaybackStatus == status) return;
 
         strPlaybackStatus = status;
 
         switch (status) {
 
-            case PlaybackStatus.TRACK_CHANGE:
-            {
-              //  if (player_track_count > 0) {
+            case PlaybackStatus.TRACK_CHANGE: {
+                //  if (player_track_count > 0) {
 
-                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), 1);
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
                 NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
@@ -411,8 +482,8 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
                 NetServiceManager.getinstance().sendValProfile(userProfile);
 
-                    //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
-               // }
+                //Toast.makeText(this, "세션 반복 1 증가", Toast.LENGTH_SHORT).show();
+                // }
                 //player_track_count++;
 
 
@@ -432,20 +503,19 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
             case PlaybackStatus.PLAYING_NOTI: {
                 // 정지 -> 플레이
-               // Toast.makeText(getApplicationContext(),"[메인]정지 -> 플레이", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(),"[메인]정지 -> 플레이", Toast.LENGTH_SHORT).show();
                 UtilAPI.setImage(this, binding.ivPlay, R.drawable.miniplay_pause_btn);
 
                 //MeditationAudioManager.play();
 
             }
             break;
-            case PlaybackStatus.STOPPED_END:
-            {
-               // player_track_count = 0;
+            case PlaybackStatus.STOPPED_END: {
+                // player_track_count = 0;
                 miniPlaying = false;
 
                 // 음악이 완료 정지 된 경우에 들어옴
-                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), 1);
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
                 NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
@@ -477,7 +547,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                 MeditationAudioManager.idle_start();
 
                 // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container,0);
+                UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 MeditationAudioManager.stop();
                 binding.miniLayout.setVisibility(View.GONE);
@@ -493,14 +563,32 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
             case PlaybackStatus.STOP_NOTI: {
 
                 // 프레임 레이어 조절
-                UtilAPI.setMarginBottom(this, binding.container,0);
+                UtilAPI.setMarginBottom(this, binding.container, 0);
 
                 MeditationAudioManager.stop();
                 binding.miniLayout.setVisibility(View.GONE);//mini_layout
                 meditationAudioManager.unbind();
 
                 //  배경음악 플레이
-                if(AudioPlayer.instance() != null) {
+                CallWithDelay_FormStopNoti(400, this);
+//                if (AudioPlayer.instance() != null) {
+//
+//                    AudioPlayer.instance().update();
+//                }
+            }
+            break;
+            case PlaybackStatus.STOP_TIMER: {
+                // 플레이어 총 시간을 계산을 해줘야 한다.
+
+                // 프레임 레이어 조절
+                UtilAPI.setMarginBottom(this, binding.container, 0);
+
+                MeditationAudioManager.stop();
+                binding.miniLayout.setVisibility(View.GONE);//mini_layout
+                meditationAudioManager.unbind();
+
+                //  배경음악 플레이
+                if (AudioPlayer.instance() != null) {
                     AudioPlayer.instance().update();
                 }
             }
@@ -508,21 +596,40 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         }
     }
 
+    public static void CallWithDelay_FormStopNoti(long miliseconds, final Activity activity) {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
-    public void start_mini_progressbar()
-    {
+                    //  배경음악 플레이
+                    if (AudioPlayer.instance() != null) {
+
+                        AudioPlayer.instance().update();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw e;
+                }
+            }
+        }, miliseconds);
+    }
+
+
+    public void start_mini_progressbar() {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                if(MeditationAudioManager.isPlaying()) {
+                if (MeditationAudioManager.isPlaying()) {
                     int progress = (int) ((MeditationAudioManager.getCurrentPosition() / (float) MeditationAudioManager.getDuration()) * 100.0f);
 
                     binding.miniProgressBar.setProgress(progress);
                 }
 
             }
-        } ;
+        };
 
         // 새로운 스레드 실행 코드. 1초 단위로 현재 시각 표시 요청.
         class NewRunnable implements Runnable {
@@ -533,65 +640,19 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
                     try {
                         Thread.sleep(1000);
                     } catch (Exception e) {
-                        e.printStackTrace() ;
+                        e.printStackTrace();
                     }
 
                     // 메인 스레드에 runnable 전달.
-                    runOnUiThread(runnable) ;
+                    runOnUiThread(runnable);
                 }
             }
         }
 
-        NewRunnable nr = new NewRunnable() ;
-        Thread t = new Thread(nr) ;
-        t.start() ;
+        NewRunnable nr = new NewRunnable();
+        Thread t = new Thread(nr);
+        t.start();
     }
-
-//    Handler handler = new Handler();
-//    public void CallWithDelay_mini_progress(long miliseconds, final Activity activity, ProgressBar progressBar) {
-//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//
-//                    //binding.miniProgressBar.setProgress(50);
-//
-//                    while (miniPlaying)
-//                    {
-//                        Thread.sleep(1000);
-//
-//                        if(MeditationAudioManager.isPlaying()) {
-//                            int progress = (int) ((MeditationAudioManager.getCurrentPosition() / (float) MeditationAudioManager.getDuration()) * 100.0f);
-//
-//                            CallWithDelay_miniProgress_Update(10, progress);
-//                        }
-//
-//
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, miliseconds);
-//    }
-//
-//    public  void CallWithDelay_miniProgress_Update(long miliseconds, int progress) {
-//
-//        binding.miniProgressBar.setProgress(progress);
-//
-////        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-////            @Override
-////            public void run() {
-////                try {
-////
-////
-////                } catch (Exception e) {
-////                    e.printStackTrace();
-////                    throw e;
-////                }
-////            }
-////        }, miliseconds);
-//    }
 
     @Override
     protected void onStop() {
@@ -599,7 +660,6 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
         EventBus.getDefault().unregister(this);
 
         miniPlaying = false;
-
 
         UtilAPI.s_bEvent_service_main = false;
 
@@ -614,24 +674,8 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
     @Override
     protected void onDestroy() {
 
-        if(UtilAPI.s_bDestroyPass) {
-
-            UtilAPI.s_bDestroyPass = false;
-        }
-        else
-        {
-
-            UtilAPI.Release();
-            meditationAudioManager.unbind();
-            //meditationAudioManager.release_service();
-
-            if(AudioPlayer.instance() != null) {
-                AudioPlayer.instance().release();
-            }
-
-            UtilAPI.s_one_mini = false;
-        }
-
         super.onDestroy();
     }
+
+
 }

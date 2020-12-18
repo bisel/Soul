@@ -17,6 +17,7 @@ import com.soulfriends.meditation.util.AuthManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.view.player.AudioPlayer;
+import com.soulfriends.meditation.view.player.MeditationAudioManager;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -49,6 +50,8 @@ public class IntroActivity extends AppCompatActivity {
 
         NetServiceManager.getinstance().init(getResources());
 
+        UtilAPI.Init();
+
         UtilAPI.SetFullScreen(getWindow());
 
         //FirebaseAuth.getInstance().signOut();
@@ -78,7 +81,7 @@ public class IntroActivity extends AppCompatActivity {
             {
                 this.startActivity(new Intent(this, LoginActivity.class));
 
-                this.finish();
+                //this.finish();
             }
             else {
 
@@ -86,14 +89,14 @@ public class IntroActivity extends AppCompatActivity {
 
                 this.overridePendingTransition(0, 0);
 
-                this.finish();
+                //this.finish();
             }
 
         } else {
 
             this.startActivity(new Intent(this, LoginActivity.class));
 
-            this.finish();
+            //this.finish();
         }
     }
 
@@ -122,6 +125,11 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
 
+        MeditationAudioManager.getinstance().unbind();
+
+        if (AudioPlayer.instance() != null) {
+            AudioPlayer.instance().release();
+        }
 
         super.onDestroy();
     }

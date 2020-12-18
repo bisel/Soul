@@ -77,9 +77,6 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_player);
         binding.setLifecycleOwner(this);
 
-        UtilAPI.s_bBookmark_update = false;
-
-
         meditationContents = NetServiceManager.getinstance().getCur_contents();
 
         if (playerViewModelFactory == null) {
@@ -128,13 +125,13 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             meditationAudioManager.stop();
             meditationAudioManager.unbind();
 
-            finish();
-            if(UtilAPI.s_bBookmark_update)
-            {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }
 
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            this.overridePendingTransition(0, 0);
+
+            finish();
 
             //Toast myToast = Toast.makeText(this,"hhhhhhh stop success", Toast.LENGTH_SHORT);
             //myToast.show();
@@ -239,6 +236,11 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
                         meditationAudioManager.playOrPause(url);
 
+                        // 타이머 테스트
+
+
+                       // meditationAudioManager.StartTimer(90);
+
 
                     }
                     else
@@ -304,6 +306,48 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
     protected void onStart() {
         super.onStart();
 
+        if(UtilAPI.s_bEvent_service_player_timer_stop)
+        {
+            UtilAPI.s_bEvent_service_player_timer_stop = false;
+
+            // 플레이 위치 초기화
+            meditationAudioManager.idle_start();
+
+
+            // 세션 카운트와 플레이 시간
+
+            if(UtilAPI.s_player_timer_count > 0) {
+
+                long duration = MeditationAudioManager.getDuration() / 1000;
+
+                NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), UtilAPI.s_player_timer_count);
+
+                UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
+                NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
+                    @Override
+                    public void onRecvValProfile(boolean validate) {
+                        if (validate == true) {
+                            int xx = 0;
+                        } else {
+                            int yy = 0;
+                        }
+                        //finish();
+
+                    }
+                });
+
+                NetServiceManager.getinstance().sendValProfile(userProfile);
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            this.overridePendingTransition(0, 0);
+
+            finish();
+            return;
+        }
+
         // service onevent PlaybackStatus.STOPPED_END 체크
 
         if(UtilAPI.s_bEvent_service_player_stop)
@@ -312,6 +356,11 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
             // 플레이 위치 초기화
             meditationAudioManager.idle_start();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            this.overridePendingTransition(0, 0);
 
             finish();
 
@@ -331,7 +380,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             meditationAudioManager.idle_start();
 
             // 세션 카운트와 플레이 시간
-            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000));
+            NetServiceManager.getinstance().Update_UserProfile_Play((int) (MeditationAudioManager.getDuration() / 1000), 1);
 
             UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
             NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {
@@ -350,6 +399,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             // 세션으로 이동
             Intent intent = new Intent(this, SessioinActivity.class);
             startActivity(intent);
+
+            this.overridePendingTransition(0, 0);
 
             finish();
             return;
@@ -451,6 +502,8 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         Intent intent = new Intent(this, SessioinActivity.class);
         startActivity(intent);
 
+        this.overridePendingTransition(0, 0);
+
         finish();
     }
 
@@ -475,6 +528,11 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                 // 플레이 위치 초기화
                 meditationAudioManager.idle_start();
 
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
                 finish();
                 int xx = 0;
                 //Toast.makeText(this, R.string.no_stream, Toast.LENGTH_SHORT).show();
@@ -484,6 +542,12 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
 
                 meditationAudioManager.stop();
                 meditationAudioManager.unbind();
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
                 finish();
                 //Toast.makeText(this, R.string.no_stream, Toast.LENGTH_SHORT).show();
             }
@@ -493,7 +557,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                // Toast.makeText(getApplicationContext(), "[메인] 리플레이", Toast.LENGTH_SHORT).show();
 
                // if (player_track_count > 0) {
-                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000), 1);
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
 
@@ -519,7 +583,7 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             case PlaybackStatus.STOPPED_END: {
 
                 // 음악이 완료 정지 된 경우에 들어옴
-                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000));
+                NetServiceManager.getinstance().Update_UserProfile_Play((int)(MeditationAudioManager.getDuration() / 1000), 1);
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
 
@@ -541,6 +605,22 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
                 NetServiceManager.getinstance().sendValProfile(userProfile);
             }
             break;
+
+            case PlaybackStatus.STOP_TIMER:
+            {
+                // 플레이어 총 시간을 계산을 해줘야 한다.
+
+                meditationAudioManager.stop();
+                meditationAudioManager.unbind();
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
+                finish();
+            }
+            break;
         }
     }
 
@@ -550,15 +630,12 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
         switch (id) {
             case R.id.bt_close: {
 
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
                 // 나가기 버튼
                 finish();
-
-                if(UtilAPI.s_bBookmark_update)
-                {
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                }
-
 
                 //Toast.makeText(getApplicationContext(),"나가기 선택",Toast.LENGTH_SHORT).show();
 
@@ -595,8 +672,6 @@ public class PlayerActivity extends AppCompatActivity implements RecvEventListen
             break;
             case R.id.bt_bookmark: {
                 // 북마크
-
-                UtilAPI.s_bBookmark_update = true;
 
                 if (bBookmark_state) {
 

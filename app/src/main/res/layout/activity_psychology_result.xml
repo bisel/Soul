@@ -70,7 +70,7 @@
             android:id="@+id/tv_nick"
             android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/font_notosanskr_medium"
             android:gravity="center_horizontal"
             android:includeFontPadding="false"
@@ -99,10 +99,14 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="194dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="94dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/title_bg">
 
 
             <androidx.cardview.widget.CardView
@@ -111,30 +115,33 @@
                 app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
 
-            <ImageView
-                android:id="@+id/image_tile"
-                android:layout_width="300dp"
-                android:layout_height="160dp"
-                android:background="@drawable/test_reult_img" />
+                <ImageView
+                    android:id="@+id/image_tile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_marginBottom="40dp"
+                    android:src="@drawable/emotion_4"
+                    />
 
                 <ImageView
                     android:id="@+id/iv_text_bar"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-
+                    android:layout_width="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    app:srcCompat="@drawable/test_result_text_bg" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/main_feeling_textbg" />
 
                 <TextView
                     android:id="@+id/tv_state"
-                    android:layout_width="300dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal|center_vertical"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="14dp"
                     android:fontFamily="@font/font_notosanskr_medium"
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
@@ -144,26 +151,11 @@
                     android:textSize="14sp" />
 
             </androidx.cardview.widget.CardView>
-<!--            android:text="@string/psychology_state"-->
+            <!--            android:text="@string/psychology_state"-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="6sp"
-            android:includeFontPadding="false"
-            android:fontFamily="@font/font_notosanskr_regular"
-            android:text="@={viewModel.strResult}"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-<!--        android:text="@string/psychology_state_contents"-->
+        <!--        android:text="@string/psychology_state_contents"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -216,6 +208,26 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5"
             app:layout_constraintWidth_percent="0.5" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/font_notosanskr_regular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:text="@={viewModel.strResult}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
         <!--        android:text="@={viewModel.strgender}"-->

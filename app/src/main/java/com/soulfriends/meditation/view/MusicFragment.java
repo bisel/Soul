@@ -18,6 +18,7 @@ import com.soulfriends.meditation.model.MeditationShowCategorys;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.ItemClickListener;
+import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.view.nested.ParentItemAdapter;
 import com.soulfriends.meditation.view.nested.ParentItemViewModel;
 import com.soulfriends.meditation.view.nested.ParentTopItemViewModel;
@@ -105,6 +106,9 @@ public class MusicFragment extends Fragment implements ItemClickListener {
             Intent intent = new Intent();
             intent.setClass(getActivity(), PsychologyListActivity.class);
             getActivity().startActivity(intent);
+
+            UtilAPI.s_StrMainFragment = UtilAPI.FRAGMENT_MUSIC;
+            getActivity().finish();
         }
         else {
 
@@ -132,6 +136,8 @@ public class MusicFragment extends Fragment implements ItemClickListener {
             Intent intent = new Intent();
             intent.setClass(getActivity(), PlayerActivity.class);
             getActivity().startActivity(intent);
+
+            getActivity().finish();
         }
     }
 }

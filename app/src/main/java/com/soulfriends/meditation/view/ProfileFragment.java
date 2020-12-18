@@ -76,14 +76,19 @@ public class ProfileFragment extends Fragment implements ResultListener {
 
             // 닉네임 질의
             //String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_nickname);
-            String strQuest = userProfile.nickname + getResources().getString(R.string.feel_state_quest); // 2020.12.11
 
-            int end_nick = userProfile.nickname.length();
+            if( userProfile.nickname != null ) {
+                String strQuest = userProfile.nickname + getResources().getString(R.string.feel_state_quest); // 2020.12.11
 
-            Spannable wordtoSpan = new SpannableString(strQuest);
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            binding.tvStateQuest.setText(wordtoSpan);
+                int end_nick = userProfile.nickname.length();
+
+                if(end_nick > 0) {
+                    Spannable wordtoSpan = new SpannableString(strQuest);
+                    wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    binding.tvStateQuest.setText(wordtoSpan);
+                }
+            }
 
             // 이모티콘
             ResultData resultData = NetServiceManager.getinstance().getResultData(userProfile.emotiontype);

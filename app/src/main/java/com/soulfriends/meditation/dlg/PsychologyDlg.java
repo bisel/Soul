@@ -47,20 +47,18 @@ public class PsychologyDlg extends Dialog implements View.OnClickListener{
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
 
         // nickname feeling state
-        String nickname = userProfile.nickname;
-        String strQuest = "";
-        int end_nick = 0;
+        if(userProfile.nickname != null) {
+            String strQuest = userProfile.nickname + " " + mContext.getResources().getString(R.string.feel_state_quest);
 
-        if(nickname != null){
-            strQuest = nickname + " " + mContext.getResources().getString(R.string.feel_state_quest);
-            end_nick = nickname.length();
+            int end_nick = userProfile.nickname.length();
+            if(end_nick > 0) {
+                Spannable wordtoSpan = new SpannableString(strQuest);
+
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_feelstate.setText(wordtoSpan);
+            }
         }
-
-        Spannable wordtoSpan = new SpannableString(strQuest);
-
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tv_feelstate.setText(wordtoSpan);
 
     }
 

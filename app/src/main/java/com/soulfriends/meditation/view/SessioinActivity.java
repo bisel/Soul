@@ -138,14 +138,13 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
 //                    NetServiceManager.getinstance().sendFavoriteEvent(uid, meditationContents.uid, reactiionCode);
 //                }
 
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
                 // 나가기 버튼
                 finish();
-
-                if(UtilAPI.s_bBookmark_update)
-                {
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                }
                 
             }
             break;

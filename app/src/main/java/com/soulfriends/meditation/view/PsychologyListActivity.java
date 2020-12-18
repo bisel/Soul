@@ -34,9 +34,6 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
         viewModel = new ViewModelProvider(this.getViewModelStore(), psychologyListViewModelFactory).get(PsychologyListViewModel.class);
         binding.setViewModel(viewModel);
 
-
-        UtilAPI.s_activity = this;
-
         // service onevent PlaybackStatus.STOPPED_END 체크
         UtilAPI.s_bEvent_service_main = false;
         UtilAPI.s_bEvent_service_player = false;
@@ -48,10 +45,12 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
             case R.id.ic_close: {
                 // 닫기 버튼
 
-                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
 
-                //Intent intent = new Intent(this, MainActivity.class);
-                //startActivity(intent);
+                this.overridePendingTransition(0, 0);
+
+                finish();
 
             }
             break;

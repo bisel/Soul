@@ -113,11 +113,12 @@
             <TextView
                 android:id="@+id/tv_contents_title"
                 android:layout_width="145dp"
-                android:layout_height="16dp"
+                android:layout_height="28dp"
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:ems="7"
                 android:fontFamily="@font/font_notosanskr_regular"
+                android:gravity="center_horizontal|center_vertical"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="6sp"
                 android:maxEms="7"
@@ -137,14 +138,17 @@
             android:id="@+id/tv_evaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="205dp"
-            android:textSize="14sp"
+            android:layout_marginTop="33dp"
+            android:fontFamily="@font/font_notosanskr_medium"
+            android:includeFontPadding="false"
             android:text="@string/session_please"
+
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -156,19 +160,19 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="112dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline">
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_evaluation">
 
             <ImageView
                 android:id="@+id/iv_good_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:onClick="@{(v)-> viewModel.OnClick_Select(v)}"
-                android:background="@drawable/grading_like_disabled" />
+                android:background="@drawable/grading_like_disabled"
+                android:onClick="@{(v)-> viewModel.OnClick_Select(v)}" />
 
             <TextView
                 android:id="@+id/tv_good"
@@ -176,9 +180,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="6dp"
-                android:text="@string/session_good"
-                android:includeFontPadding="false"
                 android:fontFamily="@font/font_notosanskr_regular"
+                android:includeFontPadding="false"
+                android:text="@string/session_good"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -188,17 +192,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="112dp"
+            android:layout_marginTop="24dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline">
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_evaluation">
 
             <ImageView
                 android:id="@+id/iv_bad_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:onClick="@{(v)-> viewModel.OnClick_Select(v)}"
                 android:background="@drawable/grading_dislike_abled"
+                android:onClick="@{(v)-> viewModel.OnClick_Select(v)}"
                 tools:layout_editor_absoluteX="242dp"
                 tools:layout_editor_absoluteY="397dp" />
 
@@ -208,11 +212,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="6dp"
-                android:text="@string/session_bad"
-                android:textSize="10sp"
-                android:includeFontPadding="false"
                 android:fontFamily="@font/font_notosanskr_regular"
+                android:includeFontPadding="false"
+                android:text="@string/session_bad"
                 android:textColor="@color/white"
+                android:textSize="10sp"
                 tools:layout_editor_absoluteX="242dp"
                 tools:layout_editor_absoluteY="433dp" />
         </LinearLayout>

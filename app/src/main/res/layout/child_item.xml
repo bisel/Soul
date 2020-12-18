@@ -46,14 +46,15 @@
                     android:layout_marginTop="8dp"
                     app:srcCompat="@drawable/main_newbadge" />
 
+
                 <ImageView
                     android:id="@+id/iv_text_bar"
                     android:layout_width="140dp"
                     android:layout_height="26dp"
-                    android:layout_marginTop="114dp"
-                    android:scaleX="1.2"
+                    android:layout_alignBottom="@id/img_child_item"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/main_video_textbg" />
-
+                <!--                android:text="@string/color_contents_2"-->
 
                     <!--Text in the CardView-->
                 <TextView
@@ -71,7 +72,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-<!--                android:text="@string/color_contents_2"-->
+
 
                 <RelativeLayout
                     android:layout_width="40dp"

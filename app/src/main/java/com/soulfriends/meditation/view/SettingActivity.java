@@ -99,6 +99,9 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
             break;
             case R.id.ic_close: {
 
+                this.startActivity(new Intent(this, MainActivity.class));
+
+                this.overridePendingTransition(0, 0);
                 // 나가기 버튼
                 finish();
 
@@ -147,6 +150,8 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
                 userProfile.allClear();
 
                 startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
 
                 // 로그인 화면으로 전환
                 finish();

@@ -257,30 +257,6 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
                 // 계정 성공해서 로그인 된 경우
 
                 // 닉네임이 있는 경우에는 메인메뉴로 이동하도록 한다.
-//                String key = PreferenceManager.getString(this,"uid_nickname");
-//                if(key.length() > 0)
-//                {
-//                    String[] array = key.split("##");
-//
-//                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                    if(array[0].contains(uid))
-//                    {
-//                        String nickname = array[1];
-//
-//                        PreferenceManager.setString(this,"uid", uid);
-//                        PreferenceManager.setString(this,"nickname", nickname);
-//
-//                        UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-//                        userProfile.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                        userProfile.nickname = nickname;
-//
-//                        binding.progressBar.setVisibility(View.GONE);
-//                        finish();
-//                        this.startActivity(new Intent(this, MainActivity.class));
-//                        break;
-//                    }
-//                }
-
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();

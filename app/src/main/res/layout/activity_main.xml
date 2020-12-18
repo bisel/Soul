@@ -74,16 +74,23 @@
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/miniplay_bg" />
 
-            <ImageView
-                android:id="@+id/iv_mini_title_icon"
+            <androidx.cardview.widget.CardView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/miniplay_music_profile" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_mini_title_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/miniplay_music_profile" />
+
+            </androidx.cardview.widget.CardView>
 
             <FrameLayout
                 android:id="@+id/iv_close"

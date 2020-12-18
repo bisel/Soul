@@ -94,12 +94,10 @@ public class AudioPlayer {
             return;
         }
 
-
         simpleExoPlayer.setPlayWhenReady(true);
 
         simpleExoPlayer.getPlaybackState();
 
-        //setAudioFocus();
     }
 
     public void stop() {

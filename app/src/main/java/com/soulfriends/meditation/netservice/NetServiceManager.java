@@ -1265,12 +1265,12 @@ public class NetServiceManager {
 
 
     // 유저프로필 : 세션 카운트 1증가, 플레이 시간 업데이트
-    public void Update_UserProfile_Play(int playtime)
+    public void Update_UserProfile_Play(int playtime, int count)
     {
         if(mUserProfile == null) return;
 
-        mUserProfile.playtime += playtime;
-        mUserProfile.sessionnum += 1;
+        mUserProfile.playtime += (playtime * count);
+        mUserProfile.sessionnum += count;
 
 //        sendValProfile(mUserProfile);
 //        NetServiceManager.getinstance().setOnRecvValProfileListener(new NetServiceManager.OnRecvValProfileListener() {

@@ -105,6 +105,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             NetServiceManager.getinstance().reqEmotionAllContents(); // 2020.12.05 2st
 
+
             this.startActivity(new Intent(this, MainActivity.class));
 
             progressBar.setVisibility(View.GONE);

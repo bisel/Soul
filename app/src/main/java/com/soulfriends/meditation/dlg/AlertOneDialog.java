@@ -18,12 +18,12 @@ import com.soulfriends.meditation.view.MainActivity;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-public class AlertDialog extends Dialog {
+public class AlertOneDialog extends Dialog {
 
     private Activity activity;
     private Context context;
 
-    public AlertDialog(@NonNull Context context, Activity activity) {
+    public AlertOneDialog(@NonNull Context context, Activity activity) {
         super(context);
         this.context = context;
         this.activity = activity;
@@ -34,36 +34,24 @@ public class AlertDialog extends Dialog {
 
         // 태스크를 백그라운드로 이동
         // moveTaskToBack(true);
+
         ActivityCompat.finishAffinity(UtilAPI.scanForActivity(context));
         //Activity.finishAffinity();
         System.exit(0);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_alert);
+        setContentView(R.layout.dialog_alertone);
 
-        // cancel
-        TextView tv_cancel = findViewById(R.id.tv_cancel);
-        tv_cancel.setOnClickListener(v->{
-
+        // ok
+        TextView tv_ok = findViewById(R.id.tv_ok);
+        tv_ok.setOnClickListener(v -> {
             this.dismiss();
             activity.finish();
-
         });
 
-        // open setting
-        TextView tv_open_setting = findViewById(R.id.tv_open_setting);
-        tv_open_setting.setOnClickListener(v->{
-
-            context.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-            this.dismiss();
-
-            activity.finish();
-
-        });
     }
 }

@@ -187,4 +187,14 @@ public class MeditationAudioManager {
         }
     };
 
+    public static void StartTimer(long second_time) {
+        if (service == null) return;
+        service.StartTimer(second_time);
+    }
+
+    public static void StopTimer() {
+        if (service == null) return;
+        service.StopTimer();
+    }
+
 }

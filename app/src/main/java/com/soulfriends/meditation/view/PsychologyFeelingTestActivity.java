@@ -51,14 +51,19 @@ public class PsychologyFeelingTestActivity extends AppCompatActivity implements 
 
         //
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
-        String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_feel_nickname);
 
-        int end_nick = userProfile.nickname.length();
+        if(userProfile.nickname != null ) {
+            String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_feel_nickname);
 
-        Spannable wordtoSpan = new SpannableString(strQuest);
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.tvNick.setText(wordtoSpan);
+            int end_nick = userProfile.nickname.length();
+
+            if(end_nick > 0) {
+                Spannable wordtoSpan = new SpannableString(strQuest);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                binding.tvNick.setText(wordtoSpan);
+            }
+        }
 
     }
 

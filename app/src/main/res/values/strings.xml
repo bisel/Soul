@@ -191,5 +191,6 @@
     <string name="alert_contents">No network connection, please check \nyour network connection!</string>
     <string name="alert_cancel">CANCEL</string>
     <string name="alert_open_setting">OPEN SETTING</string>
+    <string name="alert_ok">OK</string>
 
 </resources>

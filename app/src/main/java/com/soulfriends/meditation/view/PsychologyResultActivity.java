@@ -56,24 +56,30 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
         // 이모티콘 타입에 따라 결과 보이도록 한다.
         UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
         //int emotiontype = 1;//NetServiceManager.getinstance().getUserProfile().emotiontype;
-        int emotiontype = NetServiceManager.getinstance().getUserProfile().emotiontype;
+        int emotiontype = userProfile.emotiontype;
         ResultData resultData = NetServiceManager.getinstance().getResultData(emotiontype);
 
-        //userProfile.nickname = "abc";
-        String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_nickname);
+        if(userProfile.nickname != null) {
 
-        int end_nick = userProfile.nickname.length();
+            String strQuest = userProfile.nickname + getResources().getString(R.string.psychology_nickname);
 
-        Spannable wordtoSpan = new SpannableString(strQuest);
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.tvNick.setText(wordtoSpan);
+            int end_nick = userProfile.nickname.length();
+
+            if (end_nick > 0) {
+                Spannable wordtoSpan = new SpannableString(strQuest);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.rgb(179, 179, 227)), 0, end_nick, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), end_nick + 1, strQuest.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                binding.tvNick.setText(wordtoSpan);
+            }
+        }
 
         viewModel.setStrTitle(resultData.state);
         viewModel.setStrResult(resultData.desc);
 
         int res_id_1 = this.getResources().getIdentifier(resultData.emotionimg, "drawable", this.getPackageName());
-        UtilAPI.setImage(this, binding.imageTile, res_id_1);
+
+        UtilAPI.setImageResource(binding.imageTile, res_id_1);
+        //UtilAPI.setImage(this, binding.imageTile, res_id_1);
 
         // 심리 결과 시간을 저장을 한다.
         SimpleDateFormat format_date = new SimpleDateFormat ( "yyyy-MM-dd" );
@@ -108,35 +114,27 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
             break;
             case R.id.button_retry: {
                 // 다시하기 -> 기존 성격을 돌려놓아야한다. 0이면 0으로 기존것을 알고 있어야 한다.
-                finish();
+
                 Intent intent = new Intent(this, PsychologyListActivity.class);
                 startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
+                finish();
             }
             break;
 
             case R.id.button_recommand: {
 
-                UtilAPI.s_bDestroyPass = true;
-
-                if(UtilAPI.s_Main_activity != null)
-                {
-                    UtilAPI.s_Main_activity.finish();
-                    UtilAPI.s_Main_activity = null;
-                }
-
                 // 콘텐츠 추천하기
-
-                if(UtilAPI.s_activity != null)
-                {
-                    UtilAPI.s_activity.finish();
-                    UtilAPI.s_activity = null;
-                }
-
                 // 2020.12.05 감정이 여기에 정상적으로 들어오는지 확인 필요
                 NetServiceManager.getinstance().reqEmotionAllContents();
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+
+                this.overridePendingTransition(0, 0);
+
                 finish();
 
             }

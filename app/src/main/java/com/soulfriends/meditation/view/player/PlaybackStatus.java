@@ -26,6 +26,8 @@ public class PlaybackStatus {
 
     public static final String STOP_NOTI = "PlaybackStatus_STOP_NOTI";
 
+    public static final String STOP_TIMER = "PlaybackStatus_STOP_TIMER";
+
     public static final String TRACK_CHANGE = "PlaybackStatus_TRACK_CHANGE";
 
 }

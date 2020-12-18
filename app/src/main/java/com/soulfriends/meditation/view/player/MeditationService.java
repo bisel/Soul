@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -284,6 +285,8 @@ public class MeditationService extends Service implements Player.EventListener, 
                 UtilAPI.s_bEvent_service_player_stop = true;
             }
 
+            StopTimer();
+
         } else if (action.equalsIgnoreCase(ACTION_FFWD)) {
             transportControls.fastForward();
         } else if (action.equalsIgnoreCase(ACTION_REW)) {
@@ -326,8 +329,6 @@ public class MeditationService extends Service implements Player.EventListener, 
         unregisterReceiver(becomingNoisyReceiver);
 
         super.onDestroy();
-
-
     }
 
     @Override
@@ -420,6 +421,10 @@ public class MeditationService extends Service implements Player.EventListener, 
         // 반복
         if(exoPlayer.getCurrentPosition() > 10) {
             EventBus.getDefault().post(PlaybackStatus.TRACK_CHANGE);
+
+            if(UtilAPI.s_bEvent_service_main == false && UtilAPI.s_bEvent_service_player == false) {
+                UtilAPI.s_player_timer_count++;
+            }
         }
 
     }
@@ -518,6 +523,8 @@ public class MeditationService extends Service implements Player.EventListener, 
 
         audioManager.abandonAudioFocus(this);
         wifiLockRelease();
+
+        StopTimer();
     }
 
     public void idle_start() {
@@ -626,4 +633,63 @@ public class MeditationService extends Service implements Player.EventListener, 
 
         return Util.getUserAgent(this, getClass().getSimpleName());
     }
+
+    private Handler handlerUpdateLocation;
+    private long second_time = 0;
+    private boolean bOneEntryTimer = false;
+
+    public void StartTimer(long second_time)
+    {
+        this.second_time = second_time * 1000;
+
+        //https://jae-young.tistory.com/25
+        if (handlerUpdateLocation == null) {
+            handlerUpdateLocation = new Handler(Looper.getMainLooper());
+            handlerUpdateLocation.post(runnableUpdateLocation);
+            bOneEntryTimer = false;
+
+            UtilAPI.s_player_timer_count = 0;
+        }
+    }
+
+    public void StopTimer()
+    {
+        if (handlerUpdateLocation != null) {
+            //https://pjsproject.tistory.com/191
+            handlerUpdateLocation.removeMessages(0);
+            handlerUpdateLocation = null;
+
+            UtilAPI.s_player_timer_count = 0;
+        }
+    }
+
+    private Runnable runnableUpdateLocation = new Runnable() {
+        @Override
+        public void run() {
+            // TODO: You can send location here
+
+            if(bOneEntryTimer) {
+
+                bOneEntryTimer = false;
+
+                if(UtilAPI.s_bEvent_service_main == false && UtilAPI.s_bEvent_service_player == false) {
+                    UtilAPI.s_bEvent_service_player_timer_stop = true;
+                }
+                else
+                {
+                    status = PlaybackStatus.STOP_TIMER;
+                    EventBus.getDefault().post(status);
+                }
+
+                MeditationAudioManager.stop();
+                MeditationAudioManager.getinstance().unbind();
+
+                StopTimer();
+            }
+            else {
+                bOneEntryTimer = true;
+                handlerUpdateLocation.postDelayed(this, second_time);
+            }
+        }
+    };
 }
