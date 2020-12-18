@@ -235,7 +235,8 @@ public class MainActivity extends AppCompatActivity implements ResultListener {
 
 
         resultData_list = NetServiceManager.getinstance().xmlParser(R.xml.resultdata_result, this.getResources());
-        // mAuth = FirebaseAuth.getInstance();
+
+        //mAuth = FirebaseAuth.getInstance();
         //mAuth.signOut();
 
         //boolean login_first_check = PreferenceManager.getBoolean(this,"login_first_check");

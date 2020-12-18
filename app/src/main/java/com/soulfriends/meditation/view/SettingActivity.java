@@ -24,6 +24,7 @@ import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.AuthManager;
 import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
+import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.view.player.AudioPlayer;
 import com.soulfriends.meditation.view.player.MeditationAudioManager;
 import com.soulfriends.meditation.viewmodel.SettingViewModel;
@@ -145,6 +146,8 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
                 if(AudioPlayer.instance() != null ) {
                     AudioPlayer.instance().update();
                 }
+
+                UtilAPI.s_StrMainFragment = UtilAPI.FRAGMENT_HOME;
 
                 UserProfile userProfile = NetServiceManager.getinstance().getUserProfile();
                 userProfile.allClear();
