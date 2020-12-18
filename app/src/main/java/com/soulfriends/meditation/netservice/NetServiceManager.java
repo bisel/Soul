@@ -404,7 +404,7 @@ public class NetServiceManager {
             newShowCategorys.showcategorys.add(favoriteCategory);
         }
 
-        List<String> inputContentsCategorysIds = asList("59","65");
+        List<String> inputContentsCategorysIds = asList("53","59","65");  // 2020.12.17
         procContentsCategorys(inputContentsCategorysIds,newShowCategorys);
         return newShowCategorys;
     }

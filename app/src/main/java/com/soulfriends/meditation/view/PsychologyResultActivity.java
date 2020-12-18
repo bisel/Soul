@@ -107,8 +107,7 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
             }
             break;
             case R.id.button_retry: {
-                // 다시하기
-
+                // 다시하기 -> 기존 성격을 돌려놓아야한다. 0이면 0으로 기존것을 알고 있어야 한다.
                 finish();
                 Intent intent = new Intent(this, PsychologyListActivity.class);
                 startActivity(intent);

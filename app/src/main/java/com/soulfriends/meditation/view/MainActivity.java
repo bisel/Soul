@@ -24,7 +24,6 @@ import com.soulfriends.meditation.model.MeditationContents;
 import com.soulfriends.meditation.model.UserProfile;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.parser.ResultData;
-import com.soulfriends.meditation.util.PreferenceManager;
 import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.view.player.AudioPlayer;
@@ -172,9 +171,7 @@ public class MainActivity extends AppCompatActivity  implements ResultListener {
 
     @Override
     protected void onResume() {
-
         int xx =0;
-
         super.onResume();
     }
 

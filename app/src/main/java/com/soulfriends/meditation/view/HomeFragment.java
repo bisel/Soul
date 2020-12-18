@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         return view;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
