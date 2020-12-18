@@ -115,6 +115,9 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
             case R.id.button_retry: {
                 // 다시하기 -> 기존 성격을 돌려놓아야한다. 0이면 0으로 기존것을 알고 있어야 한다.
 
+                // 2020.12.05 감정이 여기에 정상적으로 들어오는지 확인 필요
+                NetServiceManager.getinstance().reqEmotionAllContents();
+
                 Intent intent = new Intent(this, PsychologyListActivity.class);
                 startActivity(intent);
 
