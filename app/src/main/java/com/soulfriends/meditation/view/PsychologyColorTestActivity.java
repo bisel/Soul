@@ -402,4 +402,17 @@ public class PsychologyColorTestActivity extends AppCompatActivity implements Re
     public void onFailure(Integer id, String message) {
 
     }
+
+
+    @Override // 2020.12.20 , Close 버튼과 동일
+    public void onBackPressed() {
+        if(prev_page()){
+
+        }
+        else{
+            Intent intent = new Intent(this, PsychologyListActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

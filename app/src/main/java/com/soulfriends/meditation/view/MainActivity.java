@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +42,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements ResultListener {
-
     private MainBinding binding;
     private MainViewModel viewModel;
     private ViewModelStore viewModelStore = new ViewModelStore();
@@ -204,6 +202,24 @@ public class MainActivity extends AppCompatActivity implements ResultListener {
             }
         }
 
+    }
+
+    @Override // 2020.12.20
+    public void onBackPressed() {
+          switch (UtilAPI.s_StrMainFragment) {
+                case UtilAPI.FRAGMENT_HOME: {
+                    moveTaskToBack(true);
+                }
+                    break;
+                case UtilAPI.FRAGMENT_SLEEP:
+                case UtilAPI.FRAGMENT_MEDITATION:
+                case UtilAPI.FRAGMENT_MUSIC:
+                case UtilAPI.FRAGMENT_PROFILE: {
+                    changeFragment(homeFragment, "HomeFragment");
+                    bottomNavigationView.setSelectedItemId(R.id.home_fragment);
+                }
+                    break;
+          }
     }
 
     @Override

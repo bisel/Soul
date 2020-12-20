@@ -223,4 +223,11 @@ public class SettingActivity extends AppCompatActivity implements ResultListener
             }
         }
     }
+
+    @Override // 2020.12.20 , Close 막기
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, MainActivity.class));
+        this.overridePendingTransition(0, 0);
+        finish();
+    }
 }

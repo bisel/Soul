@@ -77,4 +77,12 @@ public class PsychologyListActivity extends AppCompatActivity implements ResultL
     public void onFailure(Integer id, String message) {
 
     }
+
+    @Override // 2020.12.20 , Close 버튼과 동일
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        this.overridePendingTransition(0, 0);
+        finish();
+    }
 }

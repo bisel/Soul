@@ -10,7 +10,6 @@ import android.os.Looper;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.soulfriends.meditation.R;
 import com.soulfriends.meditation.netservice.NetServiceManager;
 import com.soulfriends.meditation.util.AuthManager;
@@ -126,6 +125,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onDestroy() {
 
         MeditationAudioManager.getinstance().unbind();
+        MeditationAudioManager.getinstance().release_service(); // 2020.12.20
 
         if (AudioPlayer.instance() != null) {
             AudioPlayer.instance().release();

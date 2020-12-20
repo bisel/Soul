@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +28,6 @@ import com.soulfriends.meditation.util.ResultListener;
 import com.soulfriends.meditation.util.UtilAPI;
 import com.soulfriends.meditation.viewmodel.LoginViewModel;
 import com.soulfriends.meditation.viewmodel.LoginViewModelFactory;
-import com.soulfriends.meditation.viewmodel.UserinfoViewModel;
 
 public class LoginActivity extends AppCompatActivity implements ResultListener {
 
@@ -58,9 +56,10 @@ public class LoginActivity extends AppCompatActivity implements ResultListener {
 
     @Override
     public void onBackPressed() {
-        if(bBackEventUse) {
-            super.onBackPressed();
-        }
+        // 2020.12.20
+        //if(bBackEventUse) {
+        //    super.onBackPressed();
+        //}
     }
 
     @Override

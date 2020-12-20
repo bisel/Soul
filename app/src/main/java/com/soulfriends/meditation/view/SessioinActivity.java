@@ -175,4 +175,13 @@ public class SessioinActivity extends AppCompatActivity implements ResultListene
     public void onFailure(Integer id, String message) {
 
     }
+
+    @Override // 2020.12.20 , Close 막기
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        this.overridePendingTransition(0, 0);
+        finish();
+    }
+
 }

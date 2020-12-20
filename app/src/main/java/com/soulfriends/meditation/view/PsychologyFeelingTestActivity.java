@@ -195,4 +195,11 @@ public class PsychologyFeelingTestActivity extends AppCompatActivity implements 
 
         bCheckResult = true;
     }
+
+    @Override // 2020.12.20 , Close 버튼과 동일
+    public void onBackPressed() {
+        Intent intent = new Intent(this, PsychologyListActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

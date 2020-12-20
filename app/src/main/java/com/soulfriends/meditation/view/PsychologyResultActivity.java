@@ -150,4 +150,12 @@ public class PsychologyResultActivity extends AppCompatActivity implements Resul
 
     }
 
+    @Override // 2020.12.20
+    public void onBackPressed() {
+        NetServiceManager.getinstance().reqEmotionAllContents();
+        Intent intent = new Intent(this, PsychologyListActivity.class);
+        startActivity(intent);
+        this.overridePendingTransition(0, 0);
+        finish();
+    }
 }
